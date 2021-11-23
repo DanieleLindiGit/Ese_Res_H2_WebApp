@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Inputs.fs" />
+    <Compile Include="Outputs.fs" />
+    <Compile Include="LinearRegression.fs" />
+    <Compile Include="CsvParser.fs" />
+    <Compile Include="Functions.fs" />
+    <Compile Include="DomHelpers.fs" />
+    <Compile Include="HtmlFormatters.fs" />
+    <Compile Include="App.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Fable.Browser.Dom" Version="2.2.0" />
+    <PackageReference Include="Fable.Core" Version="3.2.3" />
+  </ItemGroup>
+</Project>

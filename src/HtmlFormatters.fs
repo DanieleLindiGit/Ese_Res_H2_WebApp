@@ -71,15 +71,23 @@ let formatEnergyDegradationOverYears (ed: EnergyDegradationOverYears) =
    sb.AppendLine (sprintf "<h3>%s with Degradation</h3><hr>" ed.SerieName) |> ignore
    sb.AppendLine (getTableDownloadButton tableId) |> ignore
    sb.AppendLine 
-      ("""<table """ 
+      ("<table id=\"" 
       + tableId 
-      + """ class="table table-striped">
+      + """" class="table table-striped">
            <thead><tr>
               <th>Year</th>
               <th>Total</th>
               <th>Minimum</th>
               <th>Maximum</th>
               <th>Average</th>
+              </tr>
+              <tr>
+                <th>#</th>
+                <th>kW</th>
+                <th>kW</th>
+                <th>kW</th>
+                <th>kW</th>
+              </tr>
             </thead>
             <tbody>""") |> ignore
    for (year, total, min, max, avg) in ed.Rows do
@@ -109,7 +117,9 @@ let createElectrolyzers (output: ElectrolyzersOutput) =
      .AppendLine("<h3>Energy Consumption</h3>")
      .AppendLine(getTableDownloadButton "EnergyConsuptionData")
      .AppendLine("""<table id="EnergyConsuptionData" class="table table-striped"><thead><tr><th>Load</th><th>Energy consumption DC</th><th>Energy consumption AC</th>""")
-     .AppendLine("<th>Energy consumption total</th><th>H2 Production</th></tr></thead><tbody>") |> ignore
+     .AppendLine("<th>Energy consumption total</th><th>H2 Production</th></tr>")
+     .AppendLine("""<tr><th>#</th><th>kWh/kgH2</th><th>kWh/kgH2</th>""")
+     .AppendLine("<th>kWh/kgH2</th><th>kgH2/h</th></tr></thead><tbody>") |> ignore
    for ec in output.EnergyConsumptionOutput do
      sb.AppendLine("<tr>")
        .AppendLine(sprintloc "<td>%.2f%%</td>" ec.Load)
@@ -122,15 +132,20 @@ let createElectrolyzers (output: ElectrolyzersOutput) =
      .AppendLine("<h3>Consumption with degradation at partial load</h3>")
      .AppendLine(getTableDownloadButton "ConsumptionWithDegradationData")
      .AppendLine("""<table id="ConsumptionWithDegradationData" class="table table-responsive table-sm table-bordered"><thead><tr><th>Year</th>""")
-     .AppendLine("""<th colspan="4" class="table-primary">DC consumption</th>""")
-     .AppendLine("""<th colspan="4" class="table-secondary">TOT consumption</th>""")
-     .AppendLine("""<th colspan="4" class="table-success">Specific consumption</th>""")
+     .AppendLine("""<th colspan="4" class="table-primary">DC consumption (kW)</th>""")
+     .AppendLine("""<th colspan="4" class="table-secondary">TOT consumption (kW)</th>""")
+     .AppendLine("""<th colspan="4" class="table-success">Specific consumption (kWh/kg)</th>""")
      .AppendLine("<th>Slope</th><th>Intercept</th><th>Min Load</th></tr>")
-     .AppendLine("<tr><th></th>") |> ignore
+     .AppendLine("<tr><th>#</th>") |> ignore
    for idx in [1..3] do
      for load in output.ConsumptionOverYears.Head.Loads do
-       sb.AppendLine(sprintloc "<th>%.2f%%</th>" load) |> ignore
-   sb.AppendLine("<th></th><th></th><th></th></tr></thead><tbody>") |> ignore
+       let cssClass = 
+          match idx with
+          | 1 -> """ class="table-primary" """
+          | 2 -> """ class="table-secondary" """
+          | _ -> """ class="table-success" """
+       sb.AppendLine(sprintloc2 "<th %s>%.2f%%</th>" cssClass load) |> ignore
+   sb.AppendLine("<th>#</th> <th>kWh/kg</th> <th>MW</th> </tr></thead><tbody>") |> ignore
    for item in output.ConsumptionOverYears do
      sb.AppendLine(sprintf "<tr><td>%i</td>" item.Year) |> ignore
      for dc in item.DcConsum1LineWithDegradationAtPartialLoad do
@@ -164,6 +179,23 @@ let createCalculationYearOutput (co: CalculationYearOutput) =
      """<abbr title="Hour without H2 production">HNOH2</abbr>"""
      """<abbr title="Energy to grid / RES curtailment">EEToGrid</abbr>"""
      """<abbr title="O2 Production">O2</abbr>"""
+   ] |> List.iter (fun item -> sb.AppendLine(sprintf """<th>%s</th>""" item) |> ignore)
+   sb.AppendLine("</tr><tr>") |> ignore
+   [
+     "#"
+     "kWh"
+     "kWh"
+     "kWh"
+     "kWh"
+     "kWh"
+     "kWh"
+     "#"
+     "kWh"
+     "kWh/kg"
+     "kg<sub>H2</sub>"
+     "hr"
+     "kWh"
+     "kg<sub>O2</sub>"
    ] |> List.iter (fun item -> sb.AppendLine(sprintf """<th>%s</th>""" item) |> ignore)
    sb.AppendLine("</tr></thead><tbody>") |> ignore
    for cyr in co.Rows do

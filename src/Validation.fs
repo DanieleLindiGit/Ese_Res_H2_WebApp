@@ -12,6 +12,10 @@ open DomHelpers
 // float option
 // no-validation
 
+let PARSE_ERROR = "You should check in on some of those fields with errors below."
+let DATE_ERROR = """The field <strong>First Year of Operation BP</strong> must be less or equals 
+than both <i>Battery<i> and <i>Electrolyzers</i> <strong>Year of Construction</strong>."""
+
 type ValidationElement = {
   DomElement: Browser.Types.Element
   Value: string
@@ -26,13 +30,13 @@ type ValidationCase =
    | FloatOption = 4 // float option
    | NoValidation = 10 // no-validation
 
-let ShowErrorMessage () =
+let ShowErrorMessage message =
    document.getElementById("alertDiv").innerHTML <- 
-      """
+      sprintf """
       <div class="alert alert-danger" role="alert">
-         <strong>Some inputs are not valid!</strong> You should check in on some of those fields with errors below.
+         <strong>Some inputs are not valid!</strong> %s
       </div> 
-      """
+      """ message
    document.getElementById("InputsDiv").scrollIntoView()
 
 let ValidateSingleInput (element:Browser.Types.Element) 
@@ -56,7 +60,11 @@ let ValidateSingleInput (element:Browser.Types.Element)
   if not isValid then element.classList.add("is-invalid")
 
   {ValidationElement.DomElement = element; Value = value; IsValid = isValid}
-  
+
+let ValidateYearsOfConstruction () =
+   let allInputs = getSystemInput ()
+   allInputs.FirstYearOfOperationBP <= allInputs.FirstYearOfOperationBP &&
+   allInputs.FirstYearOfOperationBP <= allInputs.Electrolyzers.YearOfConstruction  
 
 let ValidateAllInputs () =
   document.getElementById("alertDiv").innerHTML <- ""
@@ -83,4 +91,13 @@ let ValidateAllInputs () =
 
       ValidateSingleInput l value vc)
 
-  validationsElements |> List.forall (fun e -> e.IsValid)
+  match (validationsElements |> List.forall (fun e -> e.IsValid)) with
+    | true ->
+      match (ValidateYearsOfConstruction ()) with
+        | true -> true
+        | false ->
+          ShowErrorMessage DATE_ERROR
+          false
+    | false -> 
+      ShowErrorMessage PARSE_ERROR
+      false

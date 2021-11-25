@@ -22,11 +22,22 @@ let BatteryWithDegradation (battery: Battery) =
             / 100.0 })
 
 // PV and Wind Section
-let PvAndWindWithDegradation (baseData: PvWindNominalPower list) (pv: PV) (wind: Wind) (year: int) =
-    let idx = year - 1
-    let selectedYear = pv.YearOfConstruction + idx
-    let pvDegFactor = pv.Degradation.[idx] / 100.0
-    let windDegFactor = wind.Degradation.[idx] / 100.0
+let findDegradationFactorByYear 
+   (firstYearOfOperationBP: int) 
+   (yearOfConstruction: int) 
+   (degradationByYear: float list) =
+   let index = firstYearOfOperationBP - yearOfConstruction;
+   match index with
+     | i when i < 0 -> 0.0
+     | i when i > degradationByYear.Length -> (degradationByYear |> List.last) / 100.0
+     | _ -> degradationByYear.[index] / 100.0
+
+let PvAndWindWithDegradation (baseData: PvWindNominalPower list) 
+    (pv: PV) (wind: Wind) 
+    (yearOfOp: int) (firstYearOfOperationBP: int) =
+    let selectedYear = firstYearOfOperationBP + yearOfOp - 1
+    let pvDegFactor   = findDegradationFactorByYear selectedYear pv.YearOfConstruction pv.Degradation
+    let windDegFactor = findDegradationFactorByYear selectedYear wind.YearOfConstruction wind.Degradation
 
     baseData
     |> List.map (fun data ->
@@ -35,7 +46,7 @@ let PvAndWindWithDegradation (baseData: PvWindNominalPower list) (pv: PV) (wind:
           WindOut = data.WindOut1MWh * windDegFactor * wind.Size })
 
 // Questa funzione e quella successiva sono utili solo in fase di visualizzazione
-let PvWithDegradation (baseData: PvWindNominalPower list) (pv: PV) =
+let PvWithDegradationStats (baseData: PvWindNominalPower list) (pv: PV) =
     let allPV =
         baseData |> List.map (fun d -> d.PvOut1MWh)
 
@@ -56,7 +67,7 @@ let PvWithDegradation (baseData: PvWindNominalPower list) (pv: PV) =
     { EnergyDegradationOverYears.SerieName = "PV"
       Rows = rows }
 
-let WindWithDegradation (baseData: PvWindNominalPower list) (wind: Wind) =
+let WindWithDegradationStats (baseData: PvWindNominalPower list) (wind: Wind) =
     let allWind =
         baseData |> List.map (fun d -> d.WindOut1MWh)
 
@@ -478,7 +489,11 @@ let CalculateYearRow
 
 let CalculationYear (inputs: SystemInputs) (yearOfOp: int) =
     let initData =
-        PvAndWindWithDegradation inputs.PvWindHourlyData inputs.PV inputs.Wind yearOfOp
+        PvAndWindWithDegradation 
+          inputs.PvWindHourlyData inputs.PV 
+          inputs.Wind 
+          yearOfOp 
+          inputs.FirstYearOfOperationBP
         |> List.map (fun d ->
             { defaultCalculationYearRow with
                 Day = d.Day

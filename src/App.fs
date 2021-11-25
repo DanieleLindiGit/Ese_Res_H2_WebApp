@@ -12,9 +12,9 @@ let GlobalCalculation () =
   createBattery (BatteryWithDegradation allInputs.Battery)
   createBiomass (BiomassCalculator allInputs.BiomassGasifier)
   formatEnergyDegradationOverYears 
-     (PvWithDegradation allInputs.PvWindHourlyData allInputs.PV)
+     (PvWithDegradationStats allInputs.PvWindHourlyData allInputs.PV)
   formatEnergyDegradationOverYears 
-     (WindWithDegradation allInputs.PvWindHourlyData allInputs.Wind)
+     (WindWithDegradationStats allInputs.PvWindHourlyData allInputs.Wind)
   createElectrolyzers (ElectrolyzersWithDegradation allInputs.Electrolyzers)
   createCalculationYearOutput (CalculationYear allInputs 1)
   updateIcons ()
@@ -26,7 +26,7 @@ let GlobalCalculation () =
 
 let StartProcess () =
   let isValid = ValidateAllInputs ()
-  if isValid then GlobalCalculation () else ShowErrorMessage ()
+  if isValid then GlobalCalculation ()
 
 let YearlyCalculation () =
   let allInputs = getSystemInput ()

@@ -61,7 +61,7 @@ let createBiomass (biomass: BiomassGasifierOutput) =
       <dt class="col-sm-3">Thermal Power</dt><dd class="col-sm-9">%.0f MWth</dd>
       <dt class="col-sm-3">Max Biomass consumption 1h</dt><dd class="col-sm-9">%.1f t/h</dd>
       <dt class="col-sm-3">Biomass Consumption</dt><dd class="col-sm-9">%.1f kgBiomass/kWh</dd>
-      <dt class="col-sm-3">Minimum Load</dt><dd class="col-sm-9">%.1f Mwel</dd>
+      <dt class="col-sm-3">Minimum Load</dt><dd class="col-sm-9">%.1f MW<sub>el</sub></dd>
       </dl>""" biomass.ThermalPower biomass.MaxBiomassConsumptionOneHour biomass.BiomassConsumption biomass.MinimumLoad
 
 let formatEnergyDegradationOverYears (ed: EnergyDegradationOverYears) =
@@ -129,7 +129,7 @@ let createElectrolyzers (output: ElectrolyzersOutput) =
        .AppendLine(sprintf "<td>%.0f</td>" ec.NominalH2Production)
        .AppendLine("</tr>") |> ignore
    sb.AppendLine("</tbody></table>")
-     .AppendLine("<h3>Consumption with degradation at partial load</h3>")
+     .AppendLine("<h3>Consumption with degradation at partial load: one line</h3>")
      .AppendLine(getTableDownloadButton "ConsumptionWithDegradationData")
      .AppendLine("""<table id="ConsumptionWithDegradationData" class="table table-responsive table-sm table-bordered"><thead><tr><th>Year</th>""")
      .AppendLine("""<th colspan="4" class="table-primary">DC consumption (kW)</th>""")

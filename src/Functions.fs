@@ -377,7 +377,7 @@ let CalculateYearRow
         let elec100 =
             (el_output.ConsumptionOverYears
              |> List.find (fun e -> e.Year = year))
-                .DcConsum1LineWithDegradationAtPartialLoad
+                .TotConsum1LineWithDegradationAtPartialLoad
                 .Head
 
         match EEToElectrolyser with

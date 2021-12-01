@@ -5,9 +5,8 @@ let NPV (discountRate: float) (cashFlow: float list) =
       value / ( (1.0 + discountRate / 100.0) ** ( float idx + 1.0) )
    cashFlow |> List.mapi getFactor |> List.sum
 
-//TODO: Find exact list if candidates
 let IRR (cashFlow: float list) =
-   let candidates = [0.0 .. 1.0 .. 100.0] 
+   let candidates = [-100.0 .. 1.0 .. 100.0] 
    let indexCloseToZero =
       candidates
       |> List.map (fun e -> NPV e cashFlow)
@@ -26,18 +25,18 @@ let IRR2 (cashFlow: float list) =
       let candidates = [lowerLimit .. step .. upperLimit] 
       let indexCloseToZero =
          candidates
-         |> List.map (fun e -> NPV e cashFlow)
-         |> List.map abs
-         |> List.indexed //trasforma in una tupla indice * valore
+         |> List.map (fun e -> (e, abs(NPV e cashFlow) ))
          |> List.sortBy snd
-         |> List.map fst
-   
-      let low = List.item (indexCloseToZero.[1]) candidates
-      let up = List.item (indexCloseToZero.[0]) candidates
-      let diff = abs (up-low)
+         |> List.take 2
+
+      let value1 = snd indexCloseToZero.[0]
+      let value2 = snd indexCloseToZero.[1]
+      let limit1 = fst indexCloseToZero.[0]
+      let limit2 = fst indexCloseToZero.[1] 
  
-      match diff with
-      |  v when v < 0.01 -> up
-      | _ -> IrrIterator (low, up)
+      match (value1, value2) with
+      | (a, _) when a < 0.01 -> limit1
+      | (_, b) when b < 0.01 -> limit2
+      | _ -> IrrIterator (limit1, limit2)
 
    IrrIterator (0.0, 100.0)

@@ -21,6 +21,16 @@ let BatteryWithDegradation (battery: Battery) =
             * degradation
             / 100.0 })
 
+let BatteryOutputByYear (inputs: SystemInputs) (yearOfOp: int) =
+   let year = inputs.FirstYearOfOperationBP + yearOfOp - 1
+   let bo = BatteryWithDegradation inputs.Battery
+   let firstYear = bo.[0].YearOfOperation
+   let lastYear = (bo |> List.last).YearOfOperation
+   match year with
+   | y when y < firstYear -> {BatteryOutput.YearOfOperation = y; MW = 0.0; MWh = 0.0 }
+   | y when y > lastYear -> bo |> List.last
+   | _ -> bo |> List.find (fun e -> e.YearOfOperation = year)
+
 // PV and Wind Section
 let findDegradationFactorByYear 
    (firstYearOfOperationBP: int) 
@@ -230,20 +240,30 @@ let ElectrolyzersWithDegradationStep2 (el_input: Electrolyzers) (el_output: Elec
     { el_output with EnergyConsumptionOutput = ec}
 
 
-let ElectrolyzersWithDegradationStep3 (el_input: Electrolyzers) (el_output: ElectrolyzersOutput) =
+let ElectrolyzersWithDegradationStep3 (el_input: Electrolyzers) (howManyYears: int) (el_output: ElectrolyzersOutput)  =
     let tableOut =
-        [ 1 .. 20 ]
+        [ 1 .. howManyYears ]
         |> List.map (fun year -> CalcElectrolizersTablesOutput el_input el_output year)
 
     { el_output with ConsumptionOverYears = tableOut }
 
 
-let ElectrolyzersWithDegradation (electrolyzers: Electrolyzers) =
+let ElectrolyzersWithDegradation (electrolyzers: Electrolyzers) (howManyYears: int) =
     ElectrolyzersWithDegradationStep1 electrolyzers
     |> ElectrolyzersWithDegradationStep2 electrolyzers
-    |> ElectrolyzersWithDegradationStep3 electrolyzers
+    |> ElectrolyzersWithDegradationStep3 electrolyzers howManyYears
 
 // Sezione Calculation Year
+
+//Restituisce un valore nullo se prima dell'anno di costruzione
+//oppure l'ultimo valore se dopo la curva di degradazione
+let ElectrolyzersDataByYear (inputs: SystemInputs) (yearOfOp: int) =
+   let year = inputs.FirstYearOfOperationBP + yearOfOp - 1
+   let delta = year - inputs.Electrolyzers.YearOfConstruction + 1
+   match delta with
+   | d when d > 0 -> ElectrolyzersWithDegradation inputs.Electrolyzers delta
+   | _ -> ElectrolyzersWithDegradation (emptyElectrolyzers year) 1
+
 let CalculateYearRow
     (prevValue: CalculationYearRow)
     (currentValue: CalculationYearRow)
@@ -253,7 +273,7 @@ let CalculateYearRow
     (strawMotorSize: float)
     (biomass: BiomassGasifierOutput)
     (batteryEfficency: float)
-    (batteryOutput: BatteryOutput list)
+    (batteryOutput: BatteryOutput)
     (minimumH2Production: float)
     =
     let year = currentValue.Day.Year
@@ -318,17 +338,8 @@ let CalculateYearRow
         PotentiallyToStorage * batteryEfficency / 100.0
 
     let BatterySoC =
-        let battMWh =
-            (batteryOutput
-             |> List.find (fun e -> e.YearOfOperation = year))
-                .MWh
-            * 1000.0
-
-        let battMW =
-            (batteryOutput
-             |> List.find (fun e -> e.YearOfOperation = year))
-                .MW
-            * 1000.0
+        let battMWh = batteryOutput.MWh * 1000.0
+        let battMW = batteryOutput.MW * 1000.0
 
         let tempExp =
             if NeededFromStorage > 0.0
@@ -500,15 +511,14 @@ let CalculationYear (inputs: SystemInputs) (yearOfOp: int) =
                 PvOut = d.PvOut
                 WindOut = d.WindOut })
 
-    let el_output =
-        ElectrolyzersWithDegradation inputs.Electrolyzers
+    let el_output = ElectrolyzersDataByYear inputs yearOfOp
 
     let lines = inputs.Electrolyzers.Lines
     let manteinanceMonth = inputs.ManteinanceMonth
     let strawMotorSize = inputs.BiomassGasifier.StrawMotorSize
     let biomass = BiomassCalculator inputs.BiomassGasifier
     let batteryEfficency = inputs.Battery.Efficiency
-    let batteryOutput = BatteryWithDegradation inputs.Battery
+    let batteryOutput = BatteryOutputByYear inputs yearOfOp
     let minimumH2Production = inputs.Load.MinimumH2Production
 
     let scanFunc (prevValue: CalculationYearRow) (currentValue: CalculationYearRow) =

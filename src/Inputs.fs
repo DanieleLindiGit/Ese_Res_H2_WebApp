@@ -142,9 +142,36 @@ let defaultElectrolyzers = {
     H2CompressorSpecificConsumption = None
 }
 
+let emptyElectrolyzers yearOfConstruction = {
+    Electrolyzers.YearOfConstruction = yearOfConstruction
+    Lines = 1
+    PowerDcConsumption = 0.0
+    NominalH2Production = 0.0
+    PressureProductionH2 = 0.0
+    PressureNeedH2 = 0.0
+    Degradation = 0.0
+    WaterConsumption = 0.0
+    WaterDischarge = 0.0
+    MinimumLoadOf1Line = 0.0
+    EnergyConsumption = [
+        { Load = 100.0; Consumption = 0.0 }
+        { Load = 80.0;  Consumption = 0.0 }
+        { Load = 60.0;  Consumption = 0.0 }
+        { Load = 40.0;  Consumption = 0.0 }
+    ]
+    PriceElectrolyzer = 0.0
+    PriceBOP = 0.0
+    PriceOther = 0.0
+    CoolingSystemConsumption = 0.0
+    GasManagementConsumption = 0.0
+    OverhaulElectrolyzer = 0.0
+    H2CompressorSpecificConsumption = None
+}
+
 type Load = {
     MinimumH2Production: float // kg/h
 }
+
 
 type Oxigen = {
     Price: float // €/Kg

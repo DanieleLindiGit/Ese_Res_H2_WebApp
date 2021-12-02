@@ -15,7 +15,7 @@ let GlobalCalculation () =
      (PvWithDegradationStats allInputs.PvWindHourlyData allInputs.PV)
   formatEnergyDegradationOverYears 
      (WindWithDegradationStats allInputs.PvWindHourlyData allInputs.Wind)
-  createElectrolyzers (ElectrolyzersWithDegradation allInputs.Electrolyzers)
+  createElectrolyzers (ElectrolyzersWithDegradation allInputs.Electrolyzers 20)
   createCalculationYearOutput (CalculationYear allInputs 1)
   updateIcons ()
   ShowSideBar ()

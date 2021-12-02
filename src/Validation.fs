@@ -13,8 +13,15 @@ open DomHelpers
 // no-validation
 
 let PARSE_ERROR = "You should check in on some of those fields with errors below."
-let DATE_ERROR = """The field <strong>First Year of Operation BP</strong> must be less or equals 
-than both <i>Battery<i> and <i>Electrolyzers</i> <strong>Year of Construction</strong>."""
+let DATE_ERROR = """The field <strong>First Year of Operation BP</strong> must be greater or equals 
+than the <strong>Year of Construction</strong> of
+<ul>
+<li>Photovoltaic</li>
+<li>Wind</li>
+<li>Battery</li>
+<li>Electrolyzers</li>
+<ul>
+"""
 
 type ValidationElement = {
   DomElement: Browser.Types.Element
@@ -62,9 +69,15 @@ let ValidateSingleInput (element:Browser.Types.Element)
   {ValidationElement.DomElement = element; Value = value; IsValid = isValid}
 
 let ValidateYearsOfConstruction () =
-   let allInputs = getSystemInput ()
-   allInputs.FirstYearOfOperationBP <= allInputs.FirstYearOfOperationBP &&
-   allInputs.FirstYearOfOperationBP <= allInputs.Electrolyzers.YearOfConstruction  
+   let i = getSystemInput ()
+   let maxYearOfConstruction =
+      [
+        i.Battery.YearOfConstruction
+        i.Electrolyzers.YearOfConstruction
+        i.PV.YearOfConstruction
+        i.Wind.YearOfConstruction
+      ] |> List.max
+   i.FirstYearOfOperationBP >= maxYearOfConstruction
 
 let ValidateAllInputs () =
   document.getElementById("alertDiv").innerHTML <- ""
@@ -92,12 +105,7 @@ let ValidateAllInputs () =
       ValidateSingleInput l value vc)
 
   match (validationsElements |> List.forall (fun e -> e.IsValid)) with
-    | true ->
-      match (ValidateYearsOfConstruction ()) with
-        | true -> true
-        | false ->
-          ShowErrorMessage DATE_ERROR
-          false
+    | true -> true
     | false -> 
       ShowErrorMessage PARSE_ERROR
       false

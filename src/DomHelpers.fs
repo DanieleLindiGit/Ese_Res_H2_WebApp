@@ -7,9 +7,6 @@ open Inputs
 open Fable.Core
 
 
-[<Emit("feather.replace({ 'aria-hidden': 'true' })")>]
-let updateIcons (): unit = jsNative
-
 let parseFloat (v:string) = float (v.Replace(".", String.Empty).Replace(",","."))
 
 let parseFloatById elementId =

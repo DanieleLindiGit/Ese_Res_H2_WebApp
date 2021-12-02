@@ -17,7 +17,6 @@ let GlobalCalculation () =
      (WindWithDegradationStats allInputs.PvWindHourlyData allInputs.Wind)
   createElectrolyzers (ElectrolyzersWithDegradation allInputs.Electrolyzers 20)
   createCalculationYearOutput (CalculationYear allInputs 1)
-  updateIcons ()
   ShowSideBar ()
 
   navOnClick (document.getElementById "BatteryBtn")

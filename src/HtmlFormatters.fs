@@ -41,7 +41,7 @@ let getTableDownloadButton tableId =
      <div class="text-end">
             <a class="btn btn-secondary" href="#" onclick="download_table_as_csv('%s');">
               Download
-              <span data-feather="download"></span>
+              <img src="icons/download.svg">
             </a>
           </div> 
      """ tableId

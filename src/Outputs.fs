@@ -59,6 +59,27 @@ type ElectrolyzersOutput = {
     ConsumptionOverYears: ElectrolizersTablesOutput list
 }
 
+let emptyElecOutput year = {
+    ElectrolyzersOutput.PowerDcConsumptionTot = 0.0
+    NominalH2ProductionTot = 0.0
+    WaterConsumption = 0.0
+    WaterDischarged = 0.0
+    OxygenProduction = 0.0
+    HydrogenSpecificVolumeNTP = 0.0
+    MinimumLoadOfOneLine = 0.0
+    EnergyConsumptionOutput = [
+        {
+            EnergyConsumptionOutput.Load = 100.0
+            ConsumptionDC = 0.0
+            ConsumptionAC = 0.0
+            ConsumptionTot = 0.0
+            NominalH2Production = 0.0
+        }
+    ]
+    ConsumptionOverYears = []
+
+}
+
 type CalculationYearRow = {
     Day: System.DateTime
     PvOut: float

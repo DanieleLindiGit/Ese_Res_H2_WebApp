@@ -1,13 +1,5 @@
 /* globals Chart:false, feather:false */
 
-(function () {
-    'use strict'
-  
-    feather.replace({ 'aria-hidden': 'true' })
-    
-
-  })()
-
   function previewFile() {
     const content = document.getElementById('PvWindCsvData');
     const [file] = document.querySelector('input[type=file]').files;

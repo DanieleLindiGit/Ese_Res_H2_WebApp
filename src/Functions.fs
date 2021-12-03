@@ -262,7 +262,7 @@ let ElectrolyzersDataByYear (inputs: SystemInputs) (yearOfOp: int) =
    let delta = year - inputs.Electrolyzers.YearOfConstruction + 1
    match delta with
    | d when d > 0 -> ElectrolyzersWithDegradation inputs.Electrolyzers delta
-   | _ -> ElectrolyzersWithDegradation (emptyElectrolyzers year) 1
+   | _ -> emptyElecOutput year
 
 let CalculateYearRow
     (prevValue: CalculationYearRow)

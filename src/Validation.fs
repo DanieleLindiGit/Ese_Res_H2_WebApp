@@ -13,14 +13,17 @@ open DomHelpers
 // no-validation
 
 let PARSE_ERROR = "You should check in on some of those fields with errors below."
-let DATE_ERROR = """The field <strong>First Year of Operation BP</strong> must be greater or equals 
-than the <strong>Year of Construction</strong> of
+let DATE_ERROR = """The field <strong>First Year of Operation BP</strong> is smaller 
+than the <code>MAX</code> <strong>Year of Construction</strong> of
 <ul>
 <li>Photovoltaic</li>
 <li>Wind</li>
 <li>Battery</li>
 <li>Electrolyzers</li>
 <ul>
+<br>
+<p>If you choose to proceed the production of some plant components will be zero until its year of construction</p>
+
 """
 
 type ValidationElement = {
@@ -42,6 +45,18 @@ let ShowErrorMessage message =
       sprintf """
       <div class="alert alert-danger" role="alert">
          <strong>Some inputs are not valid!</strong> %s
+      </div>
+      """ message
+   document.getElementById("InputsDiv").scrollIntoView()
+
+let ShowWarningMessage message =
+   document.getElementById("alertDiv").innerHTML <- 
+      sprintf """
+      <div class="alert alert-warning" role="alert">
+        %s
+        <button type="button" class="btn btn-warning me-2" id="forceStart">
+          Proced anyway
+        </button>
       </div> 
       """ message
    document.getElementById("InputsDiv").scrollIntoView()
@@ -77,7 +92,9 @@ let ValidateYearsOfConstruction () =
         i.PV.YearOfConstruction
         i.Wind.YearOfConstruction
       ] |> List.max
-   i.FirstYearOfOperationBP >= maxYearOfConstruction
+   let res = i.FirstYearOfOperationBP >= maxYearOfConstruction
+   if not res then ShowWarningMessage DATE_ERROR
+   res
 
 let ValidateAllInputs () =
   document.getElementById("alertDiv").innerHTML <- ""

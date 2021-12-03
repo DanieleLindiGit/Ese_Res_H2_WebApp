@@ -25,7 +25,12 @@ let GlobalCalculation () =
 
 let StartProcess () =
   let isValid = ValidateAllInputs ()
-  if isValid then GlobalCalculation ()
+  if isValid then
+     let checkWarning = ValidateYearsOfConstruction ()
+     if checkWarning then
+        GlobalCalculation ()
+     else 
+        document.getElementById("forceStart").onclick <- fun _ -> GlobalCalculation ()
 
 let YearlyCalculation () =
   let allInputs = getSystemInput ()

@@ -75,8 +75,41 @@ let emptyElecOutput year = {
             ConsumptionTot = 0.0
             NominalH2Production = 0.0
         }
+        {
+            EnergyConsumptionOutput.Load = 80.0
+            ConsumptionDC = 0.0
+            ConsumptionAC = 0.0
+            ConsumptionTot = 0.0
+            NominalH2Production = 0.0
+        }
+        {
+            EnergyConsumptionOutput.Load = 60.0
+            ConsumptionDC = 0.0
+            ConsumptionAC = 0.0
+            ConsumptionTot = 0.0
+            NominalH2Production = 0.0
+        }
+        {
+            EnergyConsumptionOutput.Load = 40.0
+            ConsumptionDC = 0.0
+            ConsumptionAC = 0.0
+            ConsumptionTot = 0.0
+            NominalH2Production = 0.0
+        }
     ]
-    ConsumptionOverYears = []
+    ConsumptionOverYears = [
+        {
+            ElectrolizersTablesOutput.Year = year
+            YearOfOp = 1
+            Loads = [100.0; 80.0; 60.0; 40.0 ]
+            DcConsum1LineWithDegradationAtPartialLoad = [0.0; 0.0; 0.0; 0.0]
+            TotConsum1LineWithDegradationAtPartialLoad = [0.0; 0.0; 0.0; 0.0]
+            SpecificConsumption = [0.0; 0.0; 0.0; 0.0]
+            MinimumLoadOfOneLine = 0.0
+            Slope = 0.0
+            Intercect = 0.0
+        }
+    ]
 
 }
 

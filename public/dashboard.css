@@ -8,6 +8,15 @@ body {
     vertical-align: text-bottom;
   }
 
+  h2 img {
+    width: 36px;
+    padding-bottom: 6px;
+  }
+
+  h3 img {
+    width: 32px;
+    padding-bottom: 8px;
+  }
 
 
   .tableFixHead          { overflow: auto; height: 600px; }

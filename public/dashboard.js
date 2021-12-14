@@ -24,13 +24,18 @@
         for (var j = 0; j < cols.length; j++) {
             // Clean innertext to remove multiple spaces and jumpline (break csv)
             var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+            
+            // check abbr in th
+            if (cols[j].tagName === "TH"  && cols[j].childNodes[0].tagName === "ABBR") {
+              data = cols[j].childNodes[0].getAttribute("title");
+            }
+            
             // Push escaped string
             row.push(data);
 
             // Check colspan in header
             if (cols[j].tagName === "TH" && cols[j].hasAttribute("colspan")) {
               var cs = parseInt(cols[j].getAttribute("colspan"));
-              console.log("CS = ", cs)
               for(var r = 1; r < cs; r++) {
                 row.push('#');
               }

@@ -39,7 +39,7 @@ let getTableDownloadButton tableId =
    sprintf 
      """
      <div class="text-end">
-            <a class="btn btn-secondary" href="#" onclick="download_table_as_csv('%s');">
+            <a class="btn btn-secondary mb-2" href="#" onclick="download_table_as_csv('%s');">
               Download
               <img src="icons/download.svg">
             </a>
@@ -68,7 +68,11 @@ let formatEnergyDegradationOverYears (ed: EnergyDegradationOverYears) =
    let el = document.getElementById(ed.SerieName + "Div")
    let sb = System.Text.StringBuilder(10000)
    let tableId = ed.SerieName + "Data"
-   sb.AppendLine (sprintf "<h3>%s with Degradation</h3><hr>" ed.SerieName) |> ignore
+   let image =
+      match ed.SerieName with
+      | "PV" -> """ <img title="img" src="icons/sun.svg"> """
+      | _ -> """ <img title="wind" src="icons/wind.svg"> """
+   sb.AppendLine (sprintf "<h3>%s %s with Degradation</h3><hr>" image ed.SerieName) |> ignore
    sb.AppendLine (getTableDownloadButton tableId) |> ignore
    sb.AppendLine 
       ("<table id=\"" 
@@ -104,7 +108,7 @@ let formatEnergyDegradationOverYears (ed: EnergyDegradationOverYears) =
 let createElectrolyzers (output: ElectrolyzersOutput) =
    let el = document.getElementById("ElectrolyzersDiv")
    let sb = System.Text.StringBuilder(10000)
-   sb.AppendLine("<h3>Electrolyzers Data Output</h3><hr>")
+   sb.AppendLine(""" <h3> <img title="img" src="icons/droplet.svg"> Electrolyzers Data Output</h3><hr> """)
      .AppendLine("""<dl class="row">""")
      .AppendLine(sprintloc """<dt class="col-sm-3">Power DC Consumption Total</dt> <dd class="col-sm-9">%.1f MW</dd>""" output.PowerDcConsumptionTot)
      .AppendLine(sprintloc """<dt class="col-sm-3">Nominal H2 Production Total</dt> <dd class="col-sm-9">%.0f kgH2/h</dd>""" output.NominalH2ProductionTot)
@@ -159,9 +163,15 @@ let createElectrolyzers (output: ElectrolyzersOutput) =
    el.innerHTML <- sb.ToString()
 
 let createCalculationYearOutput (co: CalculationYearOutput) =
+   let maxRows = 50
    let el = document.getElementById("yearBody")
    let sb = System.Text.StringBuilder(100000)
-   sb.AppendLine(sprintf "<h3>Calculation Year %i - %i</h3>" co.YearOfOperation co.Year)
+   sb.AppendLine(sprintf """ <h3> <img title="img" src="icons/briefcase.svg"> Calculation Year %i - %i</h3> """ co.YearOfOperation co.Year)
+     .AppendLine( sprintf """
+      <div class="alert alert-info" role="alert">
+         This is a preview of first %i rows. Please download the file to get all data.
+      </div>
+      """ maxRows)
      .AppendLine(getTableDownloadButton "CalculationYearData")
      .AppendLine("""<table id="CalculationYearData" class="table table-striped tableFixHead"><thead class="table-dark"><tr>""") |> ignore
    [
@@ -198,8 +208,14 @@ let createCalculationYearOutput (co: CalculationYearOutput) =
      "kg<sub>O2</sub>"
    ] |> List.iter (fun item -> sb.AppendLine(sprintf """<th>%s</th>""" item) |> ignore)
    sb.AppendLine("</tr></thead><tbody>") |> ignore
-   for cyr in co.Rows do
-      sb.AppendLine(sprintf "<tr><td>%02i/%02i/%i %02i:00</td>" cyr.Day.Day cyr.Day.Month cyr.Day.Year cyr.Day.Hour)
+   let indexData = co.Rows |> List.indexed
+   for dr in indexData do
+      let idx, cyr = dr
+      let cn =
+         match idx with
+         | i when i > maxRows -> """ class="d-none" """
+         | _ -> ""
+      sb.AppendLine(sprintf "<tr%s><td>%02i/%02i/%i %02i:00</td>" cn cyr.Day.Day cyr.Day.Month cyr.Day.Year cyr.Day.Hour)
       |> write0decCol cyr.PvOut
       |> write0decCol cyr.WindOut
       |> write0decCol cyr.NpResNonProgrammable

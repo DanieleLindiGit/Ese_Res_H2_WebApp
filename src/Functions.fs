@@ -391,11 +391,14 @@ let CalculateYearRow
                 .TotConsum1LineWithDegradationAtPartialLoad
                 .Head
 
-        match EEToElectrolyser with
-        | v when v = 0.0 -> 0
-        | v when v < elec100 -> 1
-        | v when v >= elec100 && v <= (elec100 * 2.0) -> 2
-        | _ -> 3
+        let linesWorkingByEnergy =
+           match EEToElectrolyser with
+           | v when v = 0.0 -> 0
+           | v when v < elec100 -> 1
+           | v when v >= elec100 && v <= (elec100 * 2.0) -> 2
+           | _ -> 3
+
+        min linesWorkingByEnergy lines
 
     let EEToEachLine =
         if EEToElectrolyser = 0.0 then
@@ -434,7 +437,10 @@ let CalculateYearRow
         else
             0.0
 
-    let TotalH2Production = Module1 + Module2 + Module3
+    // la produzione di idrogeno non può essere superiore al valore nominale
+    // necessario per evitare errori di calcolo in vorgola mobile
+    let TotalH2Production = min (Module1 + Module2 + Module3) el_output.NominalH2ProductionTot
+
     let HourWithoutH2Production = if TotalH2Production > 0.0 then 0 else 1
 
     let WaterConsumption =

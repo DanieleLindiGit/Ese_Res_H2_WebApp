@@ -129,6 +129,7 @@ type CalculationYearRow = {
     PotentiallyFromStorage: float
     BatterySoC: float
     ChargingDischarging: float
+    Charging: float
     ActualFromStorage: float
     EEToElectrolyser: float
     PotentialEEFromGrid: float
@@ -166,6 +167,7 @@ let defaultCalculationYearRow = {
     PotentiallyFromStorage = 0.0
     BatterySoC = 0.0
     ChargingDischarging = 0.0
+    Charging = 0.0
     ActualFromStorage = 0.0
     EEToElectrolyser = 0.0
     PotentialEEFromGrid = 0.0

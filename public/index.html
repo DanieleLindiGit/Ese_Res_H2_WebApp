@@ -622,7 +622,7 @@
 
             </div>
             
-            <textarea title="ForPvWindCsvData" class="form-control no-validation" id="PvWindCsvData" rows="10">
+            <textarea title="ForPvWindCsvData" class="form-control no-validation" id="PvWindCsvData" rows="3">
   Date and Time;PV Output;Wind Output
   01/01/1990 00:00;0,000000;184,403087
   01/01/1990 01:00;0,000000;51,532986
@@ -9385,10 +9385,166 @@
   31/12/1990 22:00;0,000000;440,441595
   31/12/1990 23:00;0,000000;429,201036
 </textarea>
+            <hr>
 
+            <!--Economic Inputs-->
+            <h4>Economic Inputs</h4>
+            <div class="row mb-3">
+              <label for="OEM_Costs" class="col-sm-3 col-form-label">O&M Costs</label>
+              <div class="col-sm-3">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="OEM_Costs" value="1,25" required>
+                  <span class="input-group-text">% CAPEX/y</span>
+                </div>
+              </div>
+            </div>
 
+            <h5>Variable Costs</h5>
+            <div class="row mb-3">
+              <label for="VCElectricityFromPvAndWind" class="col-sm-2 offset-md-1 col-form-label">Electricity from PV+Wind</label>
+              <div class="col-sm-2">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="VCElectricityFromPvAndWind" value="50" required>
+                  <span class="input-group-text">€/MWh</span>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="VCStrawConsumption" class="col-sm-2 offset-md-1 col-form-label">Straw consumption</label>
+              <div class="col-sm-2">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="VCStrawConsumption" value="45" required>
+                  <span class="input-group-text">€/ton</span>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="VCWater" class="col-sm-2 offset-md-1 col-form-label">Water</label>
+              <div class="col-sm-2">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="VCWater" value="1" required>
+                  <span class="input-group-text">€/ton</span>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="VCVariableForMotor" class="col-sm-2 offset-md-1 col-form-label">Variable for motor</label>
+              <div class="col-sm-2">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="VCVariableForMotor" value="0"
+                    required>
+                  <span class="input-group-text">€/MWh</span>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="VCElectricityToGrid" class="col-sm-2 offset-md-1 col-form-label">Electricity to grid</label>
+              <div class="col-sm-2">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="VCElectricityToGrid" value="0"
+                    required>
+                  <span class="input-group-text">€/MWh</span>
+                </div>
+              </div>
+            </div>
 
+            <h5>Financing</h5>
+            <div class="row mb-3">
+              <label for="FinancingEquity" class="col-sm-2 offset-md-1 col-form-label">Equity</label>
+              <div class="col-sm-2">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="FinancingEquity" value="80"
+                    required>
+                  <span class="input-group-text">%</span>
+                </div>
+              </div>
+            </div>
 
+            <h5>Financial Parameters</h5>
+            <div class="row mb-3">
+              <label for="FPLoanInterestRate" class="col-sm-2 offset-md-1 col-form-label">Loan Interest Rate</label>
+              <div class="col-sm-2">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="FPLoanInterestRate" value="3"
+                    required>
+                  <span class="input-group-text">%</span>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="FPCapitalDiscountRate" class="col-sm-2 offset-md-1 col-form-label">Capital Discount Rate</label>
+              <div class="col-sm-2">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="FPCapitalDiscountRate" value="6"
+                    required>
+                  <span class="input-group-text">%</span>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="FPInflationRate" class="col-sm-2 offset-md-1 col-form-label">Inflation Rate</label>
+              <div class="col-sm-2">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="FPInflationRate" value="0"
+                    required>
+                  <span class="input-group-text">%/y</span>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="FPRepaimentPeriod" class="col-sm-2 offset-md-1 col-form-label">Repaiment Period</label>
+              <div class="col-sm-2">
+                <div class="input-group">
+                  <input type="text" class="form-control integer" id="FPRepaimentPeriod" value="20"
+                    required>
+                  <span class="input-group-text">y</span>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="FPEarningTax" class="col-sm-2 offset-md-1 col-form-label">Earning Tax</label>
+              <div class="col-sm-2">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="FPEarningTax" value="24"
+                    required>
+                  <span class="input-group-text">%</span>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="FPH2PriceEscalation" class="col-sm-2 offset-md-1 col-form-label">H2 Price Escalation</label>
+              <div class="col-sm-2">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="FPH2PriceEscalation" value="0"
+                    required>
+                  <span class="input-group-text">%/y</span>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="FPAmortizationPeriod" class="col-sm-2 offset-md-1 col-form-label">Amortization Period</label>
+              <div class="col-sm-2">
+                <div class="input-group">
+                  <input type="text" class="form-control integer" id="FPAmortizationPeriod" value="10"
+                    required>
+                  <span class="input-group-text">y</span>
+                </div>
+              </div>
+            </div>
+
+            <h5>Initial Investment Breakdown</h5>
+            <div class="row mb-3">
+              <label for="InitialInvestmentBreakdown" class="col-sm-3 col-form-label">Breakdown by each year of construction (%)</label>
+              <div class="col-sm-9">
+                <textarea class="form-control float list" id="InitialInvestmentBreakdown"
+                  rows="1">30; 30; 40</textarea>
+              </div>
+              <div class="col">
+                <div class="form-text text-start">Set breakdown by each year. <i>The sum of all values must be equal to 100</i>. You must specify at least one value</div>
+              </div>
+            </div>
+
+            
 
 
           </form>

@@ -362,6 +362,7 @@ let CalculateYearRow
                      - tempExp))
 
     let ChargingDischarging = BatterySoC - prevValue.BatterySoC
+    let Charging = if ChargingDischarging > 0.0 then ChargingDischarging else 0.0
 
     let ActualFromStorage =
         if ChargingDischarging <= 0.0 then
@@ -484,6 +485,7 @@ let CalculateYearRow
       PotentiallyFromStorage = PotentiallyFromStorage
       BatterySoC = BatterySoC
       ChargingDischarging = ChargingDischarging
+      Charging = Charging
       ActualFromStorage = ActualFromStorage
       EEToElectrolyser = EEToElectrolyser
       PotentialEEFromGrid = PotentialEEFromGrid

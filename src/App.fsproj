@@ -5,10 +5,12 @@
   <ItemGroup>
     <Compile Include="Inputs.fs" />
     <Compile Include="Outputs.fs" />
-    <Compile Include="FinancialFunctions.fs" />
+    <Compile Include="EconomicInputs.fs" />
+    <Compile Include="EconomicOutputs.fs" />
     <Compile Include="LinearRegression.fs" />
     <Compile Include="CsvParser.fs" />
     <Compile Include="Functions.fs" />
+    <Compile Include="FinancialFunctions.fs" />
     <Compile Include="DomHelpers.fs" />
     <Compile Include="HtmlFormatters.fs" />
     <Compile Include="Validation.fs" />

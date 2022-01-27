@@ -22,33 +22,3 @@ let IRR (cashFlow: float list) =
       |> List.minBy snd
       |> fst
    candidates.[indexCloseToZero]
-
-let IRR2 (cashFlow: float list) =
-   let rec IrrIterator (limits: float * float) =
-      let v1, v2 = limits
-      let lowerLimit = min v1 v2
-      let upperLimit = max v1 v2
-      let step = (upperLimit - lowerLimit) / 10.0
-      // controllo dello step a 0
-      match step with
-      | 0.0 -> lowerLimit
-      | _ ->
-
-         let candidates = [lowerLimit .. step .. upperLimit] 
-         let indexCloseToZero =
-            candidates
-            |> List.map (fun e -> (e, abs(NPV e cashFlow) ))
-            |> List.sortBy snd
-            |> List.take 2
-
-         let value1 = snd indexCloseToZero.[0]
-         let value2 = snd indexCloseToZero.[1]
-         let limit1 = fst indexCloseToZero.[0]
-         let limit2 = fst indexCloseToZero.[1] 
- 
-         match (value1, value2) with
-         | (a, _) when a < 0.01 -> limit1
-         | (_, b) when b < 0.01 -> limit2
-         | _ -> IrrIterator (limit1, limit2)
-
-   IrrIterator (0.0, 100.0)

@@ -4,9 +4,10 @@ open Browser.Dom
 open System
 open CsvParser
 open Inputs
+open EconomicInputs
 open Fable.Core
 
-
+// HELPERS METHODS START
 let parseFloat (v:string) = float (v.Replace(".", String.Empty).Replace(",","."))
 
 let parseFloatById elementId =
@@ -29,6 +30,9 @@ let parseFloatArrayById elementId =
    |> Array.map (fun e-> parseFloat e)
    |> List.ofArray
 
+// HELPERS METHODS END
+
+// SYSTEM INPUTS START
 let getPvWindNominalPower elementId =
    let text = document.getElementById(elementId) :?> Browser.Types.HTMLTextAreaElement
    ParseText text.value
@@ -116,6 +120,43 @@ let getSystemInput () = {
     }
     PvWindHourlyData = getPvWindNominalPower "PvWindCsvData"
 }
+// SYSTEM INPUTS END
+
+// ECONOMIC INPUTS REGION START
+let getVariableCosts () = {
+    VariableCosts.ElectricityFromPvAndWind = parseFloatById "VCElectricityFromPvAndWind"
+    StrawConsumption = parseFloatById "VCStrawConsumption"
+    Water = parseFloatById "VCWater"
+    VariableForMotor = parseFloatById "VCVariableForMotor"
+    ElectricityToGrid = parseFloatById "VCElectricityToGrid"
+}
+
+let getFinancing () =
+    let equity = parseFloatById "FinancingEquity"
+    {
+        Financing.Equity = equity
+        Debt = 100.0 - equity
+    }  
+
+let getFinancialParameters () = {
+    LoanInterestRate = parseFloatById "FPLoanInterestRate"
+    CapitalDiscountRate = parseFloatById "FPCapitalDiscountRate"
+    InflationRate = parseFloatById "FPInflationRate"
+    RepaimentPeriod = parseIntById "FPRepaimentPeriod"
+    EarningTax = parseFloatById "FPEarningTax"
+    H2PriceEscalation = parseFloatById "FPH2PriceEscalation"
+    AmortizationPeriod = parseIntById "FPAmortizationPeriod"
+} 
+
+let getFinancialInputs () = {
+    FinancialInputs.OEM_Costs = parseFloatById "OEM_Costs"
+    VariableCosts = getVariableCosts ()
+    Financing = getFinancing()
+    FinancialParameters = getFinancialParameters ()
+    InitialInvestmentBreakdown = parseFloatArrayById "InitialInvestmentBreakdown"
+}
+
+// ECONOMIC INPUTS REGION END
 
 let showDiv elementId = 
    let divs = document.getElementsByClassName("section")

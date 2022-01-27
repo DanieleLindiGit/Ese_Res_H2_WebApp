@@ -9,6 +9,8 @@ open Validation
 
 let GlobalCalculation () =
   let allInputs = getSystemInput ()
+  let allEconomicInputs = getFinancialInputs ()
+  printfn "%A" allEconomicInputs
   createBattery (BatteryWithDegradation allInputs.Battery)
   createBiomass (BiomassCalculator allInputs.BiomassGasifier)
   formatEnergyDegradationOverYears 

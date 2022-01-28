@@ -10,7 +10,7 @@ type CapexCost = {
     Batteries: float // €
     StrawGasifier: float // €
     HydrogenStorage: float // €
-    OverhaulBatteries: float // €
+    OverhaulBatteriesCost: float // €
     OverhaulElectrolizer: float // €
     HydrogenCompressor: float // €
     OxigenCompressor: float // €

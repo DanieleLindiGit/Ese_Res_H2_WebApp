@@ -3,6 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="FinancialFunctions.fs" />
     <Compile Include="Inputs.fs" />
     <Compile Include="Outputs.fs" />
     <Compile Include="EconomicInputs.fs" />
@@ -10,7 +11,6 @@
     <Compile Include="LinearRegression.fs" />
     <Compile Include="CsvParser.fs" />
     <Compile Include="Functions.fs" />
-    <Compile Include="FinancialFunctions.fs" />
     <Compile Include="EconomicFunctions.fs" />
     <Compile Include="DomHelpers.fs" />
     <Compile Include="HtmlFormatters.fs" />

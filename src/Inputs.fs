@@ -110,10 +110,12 @@ type Electrolyzers = {
     PriceElectrolyzer: float // E/KWh
     PriceBOP: float // E/KWh
     PriceOther: float // E/KWh
+    CapexHydrogenCompressor: float
     CoolingSystemConsumption: float // kW/(kg/h)
     GasManagementConsumption: float // kW/ kg/h)
     OverhaulElectrolyzer: float // €/MW electrolyzer
     H2CompressorSpecificConsumption: float option // kW/(kg/h)
+    OxigenCompressorConsumption: float
 }
 
 let defaultElectrolyzers = {
@@ -121,8 +123,8 @@ let defaultElectrolyzers = {
     Lines = 3
     PowerDcConsumption = 17.1
     NominalH2Production = 330.0
-    PressureProductionH2 = 30.0
-    PressureNeedH2 = 80.0
+    PressureProductionH2 = 1.0
+    PressureNeedH2 = 30.0
     Degradation = 1.4
     WaterConsumption = 14.0
     WaterDischarge = 29.0
@@ -136,10 +138,12 @@ let defaultElectrolyzers = {
     PriceElectrolyzer = 808.0
     PriceBOP = 444.0
     PriceOther = 0.4
+    CapexHydrogenCompressor = 0.0
     CoolingSystemConsumption = 1.0
     GasManagementConsumption = 1.0
     OverhaulElectrolyzer = 200_000.0
     H2CompressorSpecificConsumption = None
+    OxigenCompressorConsumption = 0.3079
 }
 
 
@@ -150,10 +154,15 @@ type Load = {
 
 type Oxigen = {
     Price: float // €/Kg
-    Capex: float // €
+    Capex: float // €/ (kgO2/h)
     StoragePressure: float // bar
-    Purity: float 
-    CompressorConsumption: float
+    Purity: float // %
+    CompressorConsumption: float // kW / (kgO2/h)
+}
+
+type HydrogenStorage = {
+    NumberOfHours: int // h
+    StoragePrice: float // €/Kg
 }
 
 type PvWindNominalPower = {
@@ -175,6 +184,7 @@ type SystemInputs = {
     Electrolyzers: Electrolyzers
     Load: Load
     Oxigen: Oxigen
+    HydrogenStorage: HydrogenStorage
     PvWindHourlyData: PvWindNominalPower list
 }
 
@@ -192,9 +202,13 @@ let defaultSystemInput = {
     Oxigen = {
         Price = 0.04 // €/Kg
         Capex = 0.0 // €
-        StoragePressure = 0.0 // bar
-        Purity = 0.0
-        CompressorConsumption = 0.0
+        StoragePressure = 30.0 // bar
+        Purity = 98.0
+        CompressorConsumption = 0.3079
+    }
+    HydrogenStorage = {
+        NumberOfHours = 24
+        StoragePrice = 500.0
     }
     PvWindHourlyData = []
 }

@@ -94,10 +94,12 @@ let getElectrolyzers () = {
     PriceElectrolyzer = parseFloatById "PriceElectrolyzer"
     PriceBOP = parseFloatById "ElectrolyzerPriceBOP"
     PriceOther = parseFloatById "ElectrolyzerPriceOther"
+    CapexHydrogenCompressor = parseFloatById "CapexHydrogenCompressor"
     CoolingSystemConsumption = parseFloatById "ElectrolyzersCoolingSystemConsumption"
     GasManagementConsumption = parseFloatById "ElectrolyzersGasManagementConsumption"
     OverhaulElectrolyzer = parseFloatById "ElectrolyzerOverhaulElectrolyzer"
     H2CompressorSpecificConsumption = parseOptionFloatById "ElectrolyzersH2CompressorSpecificConsumption"
+    OxigenCompressorConsumption = parseFloatById "OxigenCompressorConsumption"
 }
 
 let getSystemInput () = {
@@ -117,6 +119,10 @@ let getSystemInput () = {
         StoragePressure = parseFloatById "OxigenStoragePressure"
         Purity = parseFloatById "OxigenPurity"
         CompressorConsumption = parseFloatById "OxigenCompressorConsumption"
+    }
+    HydrogenStorage = {
+        NumberOfHours = parseIntById "HsHours"
+        StoragePrice = parseFloatById "HsStoragePrice"
     }
     PvWindHourlyData = getPvWindNominalPower "PvWindCsvData"
 }

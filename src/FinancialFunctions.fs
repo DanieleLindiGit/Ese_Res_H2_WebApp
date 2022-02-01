@@ -22,3 +22,21 @@ let IRR (cashFlow: float list) =
       |> List.minBy snd
       |> fst
    candidates.[indexCloseToZero]
+
+let PMT (interest:float) (nbr_of_periods:int) (amount:float) =
+   let pvif = (1.0 + interest) ** (float nbr_of_periods)
+   interest / (pvif - 1.0) * -(amount * pvif)
+
+let IPMT (amount: float) (pmt:float) (interest: float) (year: int) =
+   let tmp = (1.0 + interest) ** (float year - 1.0)
+   0.0 - (amount * tmp * interest + pmt * (tmp - 1.0))
+
+let Interessi (interest:float) (year:int) (nbr_of_periods: int) (amount: float) =
+   let pmt = PMT interest nbr_of_periods amount
+   IPMT amount pmt interest year
+
+let PrestitoRata (interest:float) (year:int) (nbr_of_periods: int) (amount: float) =
+   let pmt = PMT interest nbr_of_periods amount
+   let impt = IPMT amount pmt interest year
+   pmt - impt
+

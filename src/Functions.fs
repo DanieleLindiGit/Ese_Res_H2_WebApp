@@ -233,7 +233,8 @@ let ElectrolyzersWithDegradationStep2 (el_input: Electrolyzers) (el_output: Elec
        |> List.map (fun item -> 
           let op1 = item.ConsumptionAC * item.NominalH2Production
           let op2 = (el_input.CoolingSystemConsumption + el_input.GasManagementConsumption + h2sc) * item.NominalH2Production
-          let result = (op1 + op2) / item.NominalH2Production
+          let op3 = el_input.OxigenCompressorConsumption * (item.NominalH2Production * el_output.OxygenProduction)
+          let result = (op1 + op2 + op3) / item.NominalH2Production
           { item with ConsumptionTot = result}
        )
 
@@ -418,7 +419,7 @@ let CalculateYearRow
             el_output.ConsumptionOverYears
             |> List.find (fun e -> e.Year = year)
 
-        EEToEachLine * c.Slope + c.Intercect
+        System.Math.Round EEToEachLine * c.Slope + c.Intercect
 
     let Module1 =
         if LinesWorking = 1 then

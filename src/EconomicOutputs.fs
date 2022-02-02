@@ -53,14 +53,6 @@ type ConstructionYear = {
     FCF: float
 }
 
-let defaultConstructionYear = {
-    ConstructionYear.TotalYear = 0
-    Year = 0
-    CyEquity = 0.0
-    CyDebt = 0.0
-    CyIDC = 0.0
-    FCF = 0.0
-}
 
 type YearAnalysis = 
    {
@@ -113,6 +105,7 @@ type BusinessPlanOutput = {
     CashFlow: float list
     TotalDebt: float
     LoanInterestRate: float
+    BusinessPlanInput: BusinessPlanInput
 
     ConstructionYears: ConstructionYear list
     YearsAnalysis: YearAnalysis list

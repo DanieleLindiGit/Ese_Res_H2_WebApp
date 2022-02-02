@@ -278,6 +278,7 @@ let getBusinessPlanOutput
       CashFlow = cf
       TotalDebt = totalDebt
       LoanInterestRate = bi.FinancialInputs.FinancialParameters.LoanInterestRate
+      BusinessPlanInput = bi
       ConstructionYears = cy
       YearsAnalysis = ya
    }
@@ -305,10 +306,10 @@ let optimizeLCOH (bpo: BusinessPlanOutput) (min: float) max step =
 
    let values = List.zip lcohs npv
 
-   values 
+   (*values 
       |> List.iter (fun v ->
       let a, b = v
-      printfn "LCOH = %.2f NPV = %.0f" a b)
+      printfn "LCOH = %.4f NPV = %.0f" a b)*)
    
    let minLcoh =
       values 
@@ -326,4 +327,6 @@ let finalBusinessPlan
    let step1 = optimizeLCOH bpo 1.0 10.0 1.0
    let step2 = optimizeLCOH bpo (step1-0.5) (step1+0.5) 0.1
    let step3 = optimizeLCOH bpo (step2 - 0.05) (step2 + 0.05) 0.01
-   ricalculateBusinessPlan bpo step3
+   let step4 = optimizeLCOH bpo (step3 - 0.005) (step3 + 0.005) 0.001
+   let step5 = optimizeLCOH bpo (step4 - 0.0005) (step4 + 0.0005) 0.0001
+   ricalculateBusinessPlan bpo step5

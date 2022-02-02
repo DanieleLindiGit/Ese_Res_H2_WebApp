@@ -7,33 +7,22 @@ open EconomicFunctions
 open HtmlFormatters
 open Validation
 
-let debugBP () =
-  let allInputs = getSystemInput ()
-  let allEconomicInputs = getFinancialInputs ()
-  let bp = getBusinessPlanOutput allInputs allEconomicInputs
-  let firstYearBP = bp.YearsAnalysis.Head
-  printfn "Total Debt = %.0f" bp.TotalDebt
-  printfn "CashFlow (FCF) = %A" bp.CashFlow
-  printfn "IRR = %.2f NPV = %.2f" bp.BpIRR bp.BpNPV
-  printfn "First Year BP"
-  printfn "%A" firstYearBP
-  let optimezedLcoh = finalBusinessPlan allInputs allEconomicInputs
-  printfn "Best LCOH = %.2f" optimezedLcoh
 
 let GlobalCalculation () =
   let allInputs = getSystemInput ()
-  debugBP ()
+  let finInputs = getFinancialInputs ()
   createBattery (BatteryWithDegradation allInputs.Battery)
   createBiomass (BiomassCalculator allInputs.BiomassGasifier)
   formatEnergyDegradationOverYears 
      (PvWithDegradationStats allInputs.PvWindHourlyData allInputs.PV)
   formatEnergyDegradationOverYears 
      (WindWithDegradationStats allInputs.PvWindHourlyData allInputs.Wind)
-  createElectrolyzers (ElectrolyzersWithDegradation allInputs.Electrolyzers 20)
+  createElectrolyzers (ElectrolyzersWithDegradation allInputs.Electrolyzers finInputs.FinancialParameters.RepaimentPeriod)
   createCalculationYearOutput (CalculationYear allInputs 1)
+  createBusinnesPlanTable (finalBusinessPlan allInputs finInputs)
   ShowSideBar ()
 
-  navOnClick (document.getElementById "BatteryBtn")
+  navOnClick (document.getElementById "BusinessPlanButton")
 
 
 

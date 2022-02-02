@@ -18,6 +18,8 @@ body {
     padding-bottom: 8px;
   }
 
+  .first-bp-col {min-width: 200px;}
+
 
   .tableFixHead          { overflow: auto; height: 600px; }
   .tableFixHead thead th { position: sticky; top: 0; z-index: 1; }

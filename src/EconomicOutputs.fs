@@ -44,7 +44,7 @@ type BusinessPlanInput = {
 }
 
 type ConstructionYear = {
-    OperationalYear: int
+    TotalYear: int
     Year: int
 
     CyEquity: float
@@ -54,7 +54,7 @@ type ConstructionYear = {
 }
 
 let defaultConstructionYear = {
-    ConstructionYear.OperationalYear = 0
+    ConstructionYear.TotalYear = 0
     Year = 0
     CyEquity = 0.0
     CyDebt = 0.0

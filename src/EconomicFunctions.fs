@@ -93,7 +93,7 @@ let getConstructionYears (inp:BusinessPlanInput) (sys: SystemInputs) =
       inp.FinancialInputs.InitialInvestmentBreakdown |> List.mapi (fun idx iibd ->
       let debt = totDebt * iibd / 100.0
       {
-         ConstructionYear.OperationalYear = idx + 1
+         ConstructionYear.TotalYear = idx + 1
          Year = firstYearOfConstruction + idx
          CyEquity = totEquity * iibd / 100.0
          CyDebt = debt
@@ -326,4 +326,4 @@ let finalBusinessPlan
    let step1 = optimizeLCOH bpo 1.0 10.0 1.0
    let step2 = optimizeLCOH bpo (step1-0.5) (step1+0.5) 0.1
    let step3 = optimizeLCOH bpo (step2 - 0.05) (step2 + 0.05) 0.01
-   step3
+   ricalculateBusinessPlan bpo step3

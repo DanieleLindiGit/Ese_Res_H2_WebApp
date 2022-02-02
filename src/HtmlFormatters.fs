@@ -1,9 +1,9 @@
 module HtmlFormatters
 
 open Fable.Core
-open Fable.Core.JsInterop
 open Browser.Dom
 open Outputs
+open EconomicOutputs
 
 [<Emit("new Intl.NumberFormat('it-IT', { style: 'decimal' }).format($0)")>]
 let decimalFormatter (value: float) : string = jsNative
@@ -233,3 +233,175 @@ let createCalculationYearOutput (co: CalculationYearOutput) =
       sb.AppendLine("</tr>") |> ignore
    sb.AppendLine("</tbody></table>") |> ignore
    el.innerHTML <- sb.ToString()
+
+
+type BusinessPlanColumn = {
+   TotalYear: string
+   OperationalYear: string
+   Year: string
+
+   CyEquity: string
+   CyDebt: string
+   CyIDC: string
+
+   Amortization: string
+
+   HydrogenProduction: string // kgH2 SUM OF TotalH2Production
+   HydrogenRevenues: string // €
+   OxigenProduction: string // kg SUM OF O2Production
+   OxigenRevenues: string // €
+   ExtraEEtoGrid: string // MWh SUM OF EnergyToGrid / 1000
+   ExtraEEtoGridRevenues: string // €
+   TotalRevenues: string
+
+   FixedCosts: string // €
+   ToElectrolyzer: string // SUM OF ToElectrolyzer
+   PResProgrammable: string // SUM OF PResProgrammable
+   BatteryCharging: string // SUM OF Charging
+   ElectricityCost: string // € calculated
+   WaterConsumption: string // SUM OF WaterConsumption
+   WaterCost: string // €
+   BiomassForEEProduction: string // SUM OF BiomassForEEProduction
+   BiomassCost: string // €
+   TotalCosts: string
+
+   EBIT: string
+   DebtReimbursement: string
+   DebtInterest: string
+   EBT: string
+   EAT: string
+   FCF: string
+}
+
+let getBpColumnFromConstructionYear (cy: ConstructionYear) = {
+   BusinessPlanColumn.TotalYear = sprintf "%i" cy.TotalYear
+   OperationalYear = ""
+   Year = sprintf "%i" cy.Year
+
+   CyEquity = intFormatter cy.CyEquity
+   CyDebt = intFormatter cy.CyDebt
+   CyIDC = intFormatter cy.CyIDC
+
+   Amortization = ""
+
+   HydrogenProduction = ""
+   HydrogenRevenues = ""
+   OxigenProduction = ""
+   OxigenRevenues = ""
+   ExtraEEtoGrid = ""
+   ExtraEEtoGridRevenues = ""
+   TotalRevenues = ""
+
+   FixedCosts = ""
+   ToElectrolyzer = ""
+   PResProgrammable = ""
+   BatteryCharging = ""
+   ElectricityCost = ""
+   WaterConsumption = ""
+   WaterCost = ""
+   BiomassForEEProduction = ""
+   BiomassCost = ""
+   TotalCosts = ""
+
+   EBIT = ""
+   DebtReimbursement = ""
+   DebtInterest = ""
+   EBT = ""
+   EAT = ""
+   FCF = ""
+}
+
+let getBpColumnFromYearAnalysis (ya: YearAnalysis) = {
+   BusinessPlanColumn.TotalYear = sprintf "%i" ya.TotalYear
+   OperationalYear = sprintf "%i" ya.OperationalYear
+   Year = sprintf "%i" ya.Year
+
+   CyEquity = ""
+   CyDebt = ""
+   CyIDC = ""
+
+   Amortization = intFormatter ya.Amortization
+
+   HydrogenProduction = intFormatter ya.HydrogenProduction
+   HydrogenRevenues = intFormatter ya.HydrogenRevenues
+   OxigenProduction = intFormatter ya.OxigenProduction
+   OxigenRevenues = intFormatter ya.OxigenRevenues
+   ExtraEEtoGrid = intFormatter ya.ExtraEEtoGrid
+   ExtraEEtoGridRevenues = intFormatter ya.ExtraEEtoGridRevenues
+   TotalRevenues = intFormatter ya.TotalRevenues
+
+   FixedCosts = intFormatter ya.FixedCosts
+   ToElectrolyzer = intFormatter ya.ToElectrolyzer
+   PResProgrammable = intFormatter ya.PResProgrammable
+   BatteryCharging = intFormatter ya.BatteryCharging
+   ElectricityCost = intFormatter ya.ElectricityCost
+   WaterConsumption = intFormatter ya.WaterConsumption
+   WaterCost = intFormatter ya.WaterCost
+   BiomassForEEProduction = intFormatter ya.BiomassForEEProduction
+   BiomassCost = intFormatter ya.BiomassCost
+   TotalCosts = intFormatter ya.TotalCosts
+
+   EBIT = intFormatter ya.EBIT
+   DebtReimbursement = intFormatter ya.DebtReimbursement
+   DebtInterest = intFormatter ya.DebtInterest
+   EBT = intFormatter ya.EBT
+   EAT = intFormatter ya.EAT
+   FCF = intFormatter ya.FCF
+}
+
+let createBusinnesPlanTable (bpo: BusinessPlanOutput) =
+   let col1 = bpo.ConstructionYears |> List.map (fun v -> getBpColumnFromConstructionYear v)
+   let col2 = bpo.YearsAnalysis |> List.map (fun v -> getBpColumnFromYearAnalysis v)   
+   let columns = col1 @ col2
+
+   let joinColumn (firstCol: string) (values: string list) =
+      let temp1 = sprintf "<tr><th class=\"first-bp-col\">%s</th><td class=\"text-end\">" firstCol
+      let temp2 = values |> String.concat "</td><td class=\"text-end\">"
+      let temp3 = "</td></tr>"
+      temp1 + temp2 + temp3
+
+   let el = document.getElementById("BusinessPlanTable")
+   let sb = System.Text.StringBuilder()
+   sb.AppendLine(getTableDownloadButton "BusinessPlanData")
+      .AppendLine("""<table id="BusinessPlanData" class="table table-bordered table-sm"><tbody>""")
+      .AppendLine(joinColumn "Total Year" (columns |> List.map (fun v-> v.TotalYear)) )
+      .AppendLine(joinColumn "Operational Year" (columns |> List.map (fun v-> v.OperationalYear)) )
+      .AppendLine(joinColumn "Year" (columns |> List.map (fun v-> v.Year)) )
+      .AppendLine(joinColumn "Equity" (columns |> List.map (fun v-> v.CyEquity)) )
+      .AppendLine(joinColumn "Debt" (columns |> List.map (fun v-> v.CyDebt)) )
+      .AppendLine(joinColumn "IDC" (columns |> List.map (fun v-> v.CyIDC)) )
+      .AppendLine(joinColumn "Amortization" (columns |> List.map (fun v-> v.Amortization)) )
+      .AppendLine(joinColumn "Hydrogen Production" (columns |> List.map (fun v-> v.HydrogenProduction)) )
+      .AppendLine(joinColumn "Hydrogen Revenues" (columns |> List.map (fun v-> v.HydrogenRevenues)) )
+      .AppendLine(joinColumn "Oxigen Production" (columns |> List.map (fun v-> v.OxigenProduction)) )
+      .AppendLine(joinColumn "Oxigen Revenues" (columns |> List.map (fun v-> v.OxigenRevenues)) )
+      .AppendLine(joinColumn "Extra EE to Grid" (columns |> List.map (fun v-> v.ExtraEEtoGrid)) )
+      .AppendLine(joinColumn "Extra EE Revenues" (columns |> List.map (fun v-> v.ExtraEEtoGridRevenues)) )
+      .AppendLine(joinColumn "Total Revenues" (columns |> List.map (fun v-> v.TotalRevenues)) )
+      .AppendLine(joinColumn "Fixed Costs" (columns |> List.map (fun v-> v.FixedCosts)) )
+      .AppendLine(joinColumn "To Electrolyzer" (columns |> List.map (fun v-> v.ToElectrolyzer)) )
+      .AppendLine(joinColumn "PRes Programmable" (columns |> List.map (fun v-> v.PResProgrammable)) )
+      .AppendLine(joinColumn "Battery Charging" (columns |> List.map (fun v-> v.BatteryCharging)) )
+      .AppendLine(joinColumn "Electricity Cost" (columns |> List.map (fun v-> v.ElectricityCost)) )
+      .AppendLine(joinColumn "Water Consumption" (columns |> List.map (fun v-> v.WaterConsumption)) )
+      .AppendLine(joinColumn "Water Cost" (columns |> List.map (fun v-> v.WaterCost)) )
+      .AppendLine(joinColumn "Biomass For EE Production" (columns |> List.map (fun v-> v.BiomassForEEProduction)) )
+      .AppendLine(joinColumn "Biomass Cost" (columns |> List.map (fun v-> v.BiomassCost)) )
+      .AppendLine(joinColumn "Total Costs" (columns |> List.map (fun v-> v.TotalCosts)) )
+      .AppendLine(joinColumn "EBIT" (columns |> List.map (fun v-> v.EBIT)) )
+      .AppendLine(joinColumn "Debt Reimbursement" (columns |> List.map (fun v-> v.DebtReimbursement)) )
+      .AppendLine(joinColumn "Debt Interest" (columns |> List.map (fun v-> v.DebtInterest)) )
+      .AppendLine(joinColumn "EBT" (columns |> List.map (fun v-> v.EBT)) )
+      .AppendLine(joinColumn "EAT" (columns |> List.map (fun v-> v.EAT)) )
+      .AppendLine(joinColumn "FCF" (columns |> List.map (fun v-> v.FCF)) )
+      .AppendLine("</tbody></table>")
+      |> ignore
+   
+   el.innerHTML <- sb.ToString()
+
+   
+
+   
+
+   
+      

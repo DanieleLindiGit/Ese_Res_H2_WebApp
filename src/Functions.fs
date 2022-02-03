@@ -22,32 +22,48 @@ let BatteryWithDegradation (battery: Battery) =
             / 100.0 })
 
 let BatteryOutputByYear (inputs: SystemInputs) (yearOfOp: int) =
-   let year = inputs.FirstYearOfOperationBP + yearOfOp - 1
-   let bo = BatteryWithDegradation inputs.Battery
-   let firstYear = bo.[0].YearOfOperation
-   let lastYear = (bo |> List.last).YearOfOperation
-   match year with
-   | y when y < firstYear -> {BatteryOutput.YearOfOperation = y; MW = 0.0; MWh = 0.0 }
-   | y when y > lastYear -> bo |> List.last
-   | _ -> bo |> List.find (fun e -> e.YearOfOperation = year)
+    let year = inputs.FirstYearOfOperationBP + yearOfOp - 1
+    let bo = BatteryWithDegradation inputs.Battery
+    let firstYear = bo.[0].YearOfOperation
+    let lastYear = (bo |> List.last).YearOfOperation
+
+    match year with
+    | y when y < firstYear ->
+        { BatteryOutput.YearOfOperation = y
+          MW = 0.0
+          MWh = 0.0 }
+    | y when y > lastYear -> bo |> List.last
+    | _ ->
+        bo
+        |> List.find (fun e -> e.YearOfOperation = year)
 
 // PV and Wind Section
-let findDegradationFactorByYear 
-   (firstYearOfOperationBP: int) 
-   (yearOfConstruction: int) 
-   (degradationByYear: float list) =
-   let index = firstYearOfOperationBP - yearOfConstruction;
-   match index with
-     | i when i < 0 -> 0.0
-     | i when i > degradationByYear.Length -> (degradationByYear |> List.last) / 100.0
-     | _ -> degradationByYear.[index] / 100.0
+let findDegradationFactorByYear
+    (firstYearOfOperationBP: int)
+    (yearOfConstruction: int)
+    (degradationByYear: float list)
+    =
+    let index = firstYearOfOperationBP - yearOfConstruction
 
-let PvAndWindWithDegradation (baseData: PvWindNominalPower list) 
-    (pv: PV) (wind: Wind) 
-    (yearOfOp: int) (firstYearOfOperationBP: int) =
+    match index with
+    | i when i < 0 -> 0.0
+    | i when i > degradationByYear.Length -> (degradationByYear |> List.last) / 100.0
+    | _ -> degradationByYear.[index] / 100.0
+
+let PvAndWindWithDegradation
+    (baseData: PvWindNominalPower list)
+    (pv: PV)
+    (wind: Wind)
+    (yearOfOp: int)
+    (firstYearOfOperationBP: int)
+    =
     let selectedYear = firstYearOfOperationBP + yearOfOp - 1
-    let pvDegFactor   = findDegradationFactorByYear selectedYear pv.YearOfConstruction pv.Degradation
-    let windDegFactor = findDegradationFactorByYear selectedYear wind.YearOfConstruction wind.Degradation
+
+    let pvDegFactor =
+        findDegradationFactorByYear selectedYear pv.YearOfConstruction pv.Degradation
+
+    let windDegFactor =
+        findDegradationFactorByYear selectedYear wind.YearOfConstruction wind.Degradation
 
     baseData
     |> List.map (fun data ->
@@ -57,8 +73,7 @@ let PvAndWindWithDegradation (baseData: PvWindNominalPower list)
 
 // Questa funzione e quella successiva sono utili solo in fase di visualizzazione
 let PvWithDegradationStats (baseData: PvWindNominalPower list) (pv: PV) =
-    let allPV =
-        baseData |> List.map (fun d -> d.PvOut1MWh)
+    let allPV = baseData |> List.map (fun d -> d.PvOut1MWh)
 
     let min = allPV |> List.min
     let max = allPV |> List.max
@@ -78,8 +93,7 @@ let PvWithDegradationStats (baseData: PvWindNominalPower list) (pv: PV) =
       Rows = rows }
 
 let WindWithDegradationStats (baseData: PvWindNominalPower list) (wind: Wind) =
-    let allWind =
-        baseData |> List.map (fun d -> d.WindOut1MWh)
+    let allWind = baseData |> List.map (fun d -> d.WindOut1MWh)
 
     let min = allWind |> List.min
     let max = allWind |> List.max
@@ -120,8 +134,7 @@ let BiomassCalculator (biomassa: BiomassGasifier) =
 
 // Sezione Elettrolizzatori
 let CalcElectrolizersTablesOutput (el_input: Electrolyzers) (el_output: ElectrolyzersOutput) (yearOfOp: int) =
-    let year =
-        el_input.YearOfConstruction + yearOfOp - 1
+    let year = el_input.YearOfConstruction + yearOfOp - 1
 
     let loads =
         el_output.EnergyConsumptionOutput
@@ -141,7 +154,7 @@ let CalcElectrolizersTablesOutput (el_input: Electrolyzers) (el_output: Electrol
             yearOfOp % 10
 
     let dcConsum1Line100perc =
-        [ 2 .. counter ]
+        [ 2..counter ]
         |> List.map (fun e -> float e)
         |> List.fold
             (fun accumulator _ -> accumulator * (1.0 + el_input.Degradation / 100.0))
@@ -210,40 +223,58 @@ let ElectrolyzersWithDegradationStep1 (electrolyzers: Electrolyzers) =
               NominalH2Production =
                 match idx with
                 | 0 -> electrolyzers.NominalH2Production
-                | _ -> electrolyzers.PowerDcConsumption * 10.0 * ec.Load / (hsvn * ec.Consumption * 0.976)
-            })
-      ConsumptionOverYears = []
-    }
+                | _ ->
+                    electrolyzers.PowerDcConsumption * 10.0 * ec.Load
+                    / (hsvn * ec.Consumption * 0.976) })
+      ConsumptionOverYears = [] }
 
 let ElectrolyzersWithDegradationStep2 (el_input: Electrolyzers) (el_output: ElectrolyzersOutput) =
     let h2sc =
-       match el_input.H2CompressorSpecificConsumption with
-       | Some v -> v
-       | _ ->
-          let compressionRatioH2 = el_input.PressureNeedH2 / el_input.PressureProductionH2
-          let polinomialCoeff = [ -0.0000003; 0.00006; -0.0043; 0.1852; 0.1499 ]
-          polinomialCoeff.[0] * compressionRatioH2 ** 4.0 +
-          polinomialCoeff.[1] * compressionRatioH2 ** 3.0 +
-          polinomialCoeff.[2] * compressionRatioH2 ** 2.0 +
-          polinomialCoeff.[3] * compressionRatioH2 +
-          polinomialCoeff.[4]
-    
-    let ec = 
-       el_output.EnergyConsumptionOutput
-       |> List.map (fun item -> 
-          let op1 = item.ConsumptionAC * item.NominalH2Production
-          let op2 = (el_input.CoolingSystemConsumption + el_input.GasManagementConsumption + h2sc) * item.NominalH2Production
-          let op3 = el_input.OxigenCompressorConsumption * (item.NominalH2Production * el_output.OxygenProduction)
-          let result = (op1 + op2 + op3) / item.NominalH2Production
-          { item with ConsumptionTot = result}
-       )
+        match el_input.H2CompressorSpecificConsumption with
+        | Some v -> v
+        | _ ->
+            let compressionRatioH2 =
+                el_input.PressureNeedH2
+                / el_input.PressureProductionH2
 
-    { el_output with EnergyConsumptionOutput = ec}
+            let polinomialCoeff =
+                [ -0.0000003
+                  0.00006
+                  -0.0043
+                  0.1852
+                  0.1499 ]
+
+            polinomialCoeff.[0] * compressionRatioH2 ** 4.0
+            + polinomialCoeff.[1] * compressionRatioH2 ** 3.0
+            + polinomialCoeff.[2] * compressionRatioH2 ** 2.0
+            + polinomialCoeff.[3] * compressionRatioH2
+            + polinomialCoeff.[4]
+
+    let ec =
+        el_output.EnergyConsumptionOutput
+        |> List.map (fun item ->
+            let op1 = item.ConsumptionAC * item.NominalH2Production
+
+            let op2 =
+                (el_input.CoolingSystemConsumption
+                 + el_input.GasManagementConsumption
+                 + h2sc)
+                * item.NominalH2Production
+
+            let op3 =
+                el_input.OxigenCompressorConsumption
+                * (item.NominalH2Production
+                   * el_output.OxygenProduction)
+
+            let result = (op1 + op2 + op3) / item.NominalH2Production
+            { item with ConsumptionTot = result })
+
+    { el_output with EnergyConsumptionOutput = ec }
 
 
-let ElectrolyzersWithDegradationStep3 (el_input: Electrolyzers) (howManyYears: int) (el_output: ElectrolyzersOutput)  =
+let ElectrolyzersWithDegradationStep3 (el_input: Electrolyzers) (howManyYears: int) (el_output: ElectrolyzersOutput) =
     let tableOut =
-        [ 1 .. howManyYears ]
+        [ 1..howManyYears ]
         |> List.map (fun year -> CalcElectrolizersTablesOutput el_input el_output year)
 
     { el_output with ConsumptionOverYears = tableOut }
@@ -259,11 +290,12 @@ let ElectrolyzersWithDegradation (electrolyzers: Electrolyzers) (howManyYears: i
 //Restituisce un valore nullo se prima dell'anno di costruzione
 //oppure l'ultimo valore se dopo la curva di degradazione
 let ElectrolyzersDataByYear (inputs: SystemInputs) (yearOfOp: int) =
-   let year = inputs.FirstYearOfOperationBP + yearOfOp - 1
-   let delta = year - inputs.Electrolyzers.YearOfConstruction + 1
-   match delta with
-   | d when d > 0 -> ElectrolyzersWithDegradation inputs.Electrolyzers delta
-   | _ -> emptyElecOutput year
+    let year = inputs.FirstYearOfOperationBP + yearOfOp - 1
+    let delta = year - inputs.Electrolyzers.YearOfConstruction + 1
+
+    match delta with
+    | d when d > 0 -> ElectrolyzersWithDegradation inputs.Electrolyzers delta
+    | _ -> emptyElecOutput year
 
 let CalculateYearRow
     (prevValue: CalculationYearRow)
@@ -280,8 +312,7 @@ let CalculateYearRow
     let year = currentValue.Day.Year
     let month = currentValue.Day.Month
 
-    let NpResNonProgrammable =
-        currentValue.PvOut + currentValue.WindOut
+    let NpResNonProgrammable = currentValue.PvOut + currentValue.WindOut
 
     let MaxLoadCandidate =
         (el_output.ConsumptionOverYears
@@ -304,8 +335,7 @@ let CalculateYearRow
         | v when v > (strawMotorSize * -1000.0) -> v * -1.0
         | _ -> strawMotorSize * 1000.0
 
-    let BiomassForEEProduction =
-        PResProgrammable * biomass.BiomassConsumption
+    let BiomassForEEProduction = PResProgrammable * biomass.BiomassConsumption
 
     let NpResAddPResMinusMaxLoad = NpResMinusMaxLoad + PResProgrammable
 
@@ -335,8 +365,7 @@ let CalculateYearRow
         else
             0.0
 
-    let PotentiallyFromStorage =
-        PotentiallyToStorage * batteryEfficency / 100.0
+    let PotentiallyFromStorage = PotentiallyToStorage * batteryEfficency / 100.0
 
     let BatterySoC =
         let battMWh = batteryOutput.MWh * 1000.0
@@ -363,7 +392,12 @@ let CalculateYearRow
                      - tempExp))
 
     let ChargingDischarging = BatterySoC - prevValue.BatterySoC
-    let Charging = if ChargingDischarging > 0.0 then ChargingDischarging else 0.0
+
+    let Charging =
+        if ChargingDischarging > 0.0 then
+            ChargingDischarging
+        else
+            0.0
 
     let ActualFromStorage =
         if ChargingDischarging <= 0.0 then
@@ -394,11 +428,11 @@ let CalculateYearRow
                 .Head
 
         let linesWorkingByEnergy =
-           match EEToElectrolyser with
-           | v when v = 0.0 -> 0
-           | v when v < elec100 -> 1
-           | v when v >= elec100 && v <= (elec100 * 2.0) -> 2
-           | _ -> 3
+            match EEToElectrolyser with
+            | v when v = 0.0 -> 0
+            | v when v < elec100 -> 1
+            | v when v >= elec100 && v <= (elec100 * 2.0) -> 2
+            | _ -> 3
 
         min linesWorkingByEnergy lines
 
@@ -419,7 +453,8 @@ let CalculateYearRow
             el_output.ConsumptionOverYears
             |> List.find (fun e -> e.Year = year)
 
-        System.Math.Round EEToEachLine * c.Slope + c.Intercect
+        System.Math.Round EEToEachLine * c.Slope
+        + c.Intercect
 
     let Module1 =
         if LinesWorking = 1 then
@@ -441,15 +476,14 @@ let CalculateYearRow
 
     // la produzione di idrogeno non può essere superiore al valore nominale
     // necessario per evitare errori di calcolo in vorgola mobile
-    let TotalH2Production = min (Module1 + Module2 + Module3) el_output.NominalH2ProductionTot
+    let TotalH2Production =
+        min (Module1 + Module2 + Module3) el_output.NominalH2ProductionTot
 
     let HourWithoutH2Production = if TotalH2Production > 0.0 then 0 else 1
 
-    let WaterConsumption =
-        TotalH2Production * el_output.WaterConsumption
+    let WaterConsumption = TotalH2Production * el_output.WaterConsumption
 
-    let WaterDischarge =
-        TotalH2Production * el_output.WaterDischarged
+    let WaterDischarge = TotalH2Production * el_output.WaterDischarged
 
     let EnergyToGrid =
         if ChargingDischarging >= 0.0 then
@@ -458,8 +492,7 @@ let CalculateYearRow
         else
             0.0
 
-    let O2Production =
-        TotalH2Production * el_output.OxygenProduction
+    let O2Production = TotalH2Production * el_output.OxygenProduction
 
     let N2Consumption = 0.0
 
@@ -509,11 +542,7 @@ let CalculateYearRow
 
 let CalculationYear (inputs: SystemInputs) (yearOfOp: int) =
     let initData =
-        PvAndWindWithDegradation 
-          inputs.PvWindHourlyData inputs.PV 
-          inputs.Wind 
-          yearOfOp 
-          inputs.FirstYearOfOperationBP
+        PvAndWindWithDegradation inputs.PvWindHourlyData inputs.PV inputs.Wind yearOfOp inputs.FirstYearOfOperationBP
         |> List.map (fun d ->
             { defaultCalculationYearRow with
                 Day = d.Day

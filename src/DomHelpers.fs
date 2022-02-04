@@ -31,7 +31,7 @@ let parseFloatArrayById elementId =
         document.getElementById (elementId) :?> Browser.Types.HTMLTextAreaElement
 
     input.value.Split([| ";" |], StringSplitOptions.RemoveEmptyEntries)
-    |> Array.map (fun e -> parseFloat e)
+    |> Array.map parseFloat
     |> List.ofArray
 
 // HELPERS METHODS END

@@ -12,6 +12,7 @@
     <Compile Include="CsvParser.fs" />
     <Compile Include="Functions.fs" />
     <Compile Include="EconomicFunctions.fs" />
+    <Compile Include="TestRunner.fs" />
     <Compile Include="DomHelpers.fs" />
     <Compile Include="HtmlFormatters.fs" />
     <Compile Include="Validation.fs" />

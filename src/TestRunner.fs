@@ -89,7 +89,7 @@ let CombinationToString (line: (string * float) list) =
         let (param, value) = item
         sprintf "%s = %.2f" param value
 
-    line |> List.map singleParam |> String.concat "; "
+    line |> List.map singleParam |> String.concat " | "
 
 let testString =
     """
@@ -105,17 +105,89 @@ let GetProjectInputFromParameter (inp: ProjectInput) (parameter: string * float)
 
     match pname with
     | "PV.Size" -> { inp with SystemInputs = { inp.SystemInputs with PV = { inp.SystemInputs.PV with Size = pvalue } } }
-    | "PV.YearOfConstruction" -> { inp with SystemInputs = { inp.SystemInputs with PV = { inp.SystemInputs.PV with YearOfConstruction = int pvalue } } }
-    | "Wind.Size" -> { inp with SystemInputs = { inp.SystemInputs with Wind = { inp.SystemInputs.Wind with Size = pvalue } } }
-    | "Wind.YearOfConstruction" -> { inp with SystemInputs = { inp.SystemInputs with Wind = { inp.SystemInputs.Wind with YearOfConstruction = int pvalue } } }
-    
-    | "BiomassGasifier.StrawMotorSize" -> { inp with SystemInputs = { inp.SystemInputs with BiomassGasifier = { inp.SystemInputs.BiomassGasifier with StrawMotorSize = pvalue } } }
-    | "BiomassGasifier.MinimumMotorLoad" -> { inp with SystemInputs = { inp.SystemInputs with BiomassGasifier = { inp.SystemInputs.BiomassGasifier with MinimumMotorLoad = pvalue } } }
-    | "BiomassGasifier.BiomassLHV" -> { inp with SystemInputs = { inp.SystemInputs with BiomassGasifier = { inp.SystemInputs.BiomassGasifier with BiomassLHV = pvalue } } }
-    | "BiomassGasifier.ElectricEfficiency" -> { inp with SystemInputs = { inp.SystemInputs with BiomassGasifier = { inp.SystemInputs.BiomassGasifier with ElectricEfficiency = pvalue } } }
-    | "BiomassGasifier.AnnualAvailability" -> { inp with SystemInputs = { inp.SystemInputs with BiomassGasifier = { inp.SystemInputs.BiomassGasifier with AnnualAvailability = pvalue } } }
-    | "BiomassGasifier.Price" -> { inp with SystemInputs = { inp.SystemInputs with BiomassGasifier = { inp.SystemInputs.BiomassGasifier with Price = pvalue } } }
-    | "BiomassGasifier.Capex" -> { inp with SystemInputs = { inp.SystemInputs with BiomassGasifier = { inp.SystemInputs.BiomassGasifier with Capex = pvalue } } }
-    | "BiomassGasifier.Bop" -> { inp with SystemInputs = { inp.SystemInputs with BiomassGasifier = { inp.SystemInputs.BiomassGasifier with Bop = pvalue } } }
+    | "PV.YearOfConstruction" ->
+        { inp with
+            SystemInputs = { inp.SystemInputs with PV = { inp.SystemInputs.PV with YearOfConstruction = int pvalue } } }
+    | "Wind.Size" ->
+        { inp with SystemInputs = { inp.SystemInputs with Wind = { inp.SystemInputs.Wind with Size = pvalue } } }
+    | "Wind.YearOfConstruction" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with Wind = { inp.SystemInputs.Wind with YearOfConstruction = int pvalue } } }
+
+    | "BiomassGasifier.StrawMotorSize" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with
+                    BiomassGasifier = { inp.SystemInputs.BiomassGasifier with StrawMotorSize = pvalue } } }
+    | "BiomassGasifier.MinimumMotorLoad" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with
+                    BiomassGasifier = { inp.SystemInputs.BiomassGasifier with MinimumMotorLoad = pvalue } } }
+    | "BiomassGasifier.BiomassLHV" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with BiomassGasifier = { inp.SystemInputs.BiomassGasifier with BiomassLHV = pvalue } } }
+    | "BiomassGasifier.ElectricEfficiency" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with
+                    BiomassGasifier = { inp.SystemInputs.BiomassGasifier with ElectricEfficiency = pvalue } } }
+    | "BiomassGasifier.AnnualAvailability" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with
+                    BiomassGasifier = { inp.SystemInputs.BiomassGasifier with AnnualAvailability = pvalue } } }
+    | "BiomassGasifier.Price" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with BiomassGasifier = { inp.SystemInputs.BiomassGasifier with Price = pvalue } } }
+    | "BiomassGasifier.Capex" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with BiomassGasifier = { inp.SystemInputs.BiomassGasifier with Capex = pvalue } } }
+    | "BiomassGasifier.Bop" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with BiomassGasifier = { inp.SystemInputs.BiomassGasifier with Bop = pvalue } } }
+
+    | "Battery.YearOfConstruction" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with Battery = { inp.SystemInputs.Battery with YearOfConstruction = int pvalue } } }
+    | "Battery.Efficiency" ->
+        { inp with
+            SystemInputs = { inp.SystemInputs with Battery = { inp.SystemInputs.Battery with Efficiency = pvalue } } }
+    | "Battery.PowerOutput" ->
+        { inp with
+            SystemInputs = { inp.SystemInputs with Battery = { inp.SystemInputs.Battery with PowerOutput = pvalue } } }
+    | "Battery.HoursCapacity" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with Battery = { inp.SystemInputs.Battery with HoursCapacity = int pvalue } } }
+    | "Battery.ExtraCapacity" ->
+        { inp with
+            SystemInputs = { inp.SystemInputs with Battery = { inp.SystemInputs.Battery with ExtraCapacity = pvalue } } }
+    | "Battery.SpecificPrice" ->
+        { inp with
+            SystemInputs = { inp.SystemInputs with Battery = { inp.SystemInputs.Battery with SpecificPrice = pvalue } } }
+    | "OverhaulBatteries.AdditionEvery10Years" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with
+                    Battery =
+                        { inp.SystemInputs.Battery with
+                            OverhaulBatteries =
+                                { inp.SystemInputs.Battery.OverhaulBatteries with AdditionEvery10Years = pvalue } } } }
+    | "OverhaulBatteries.AdditionSpecificPrice" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with
+                    Battery =
+                        { inp.SystemInputs.Battery with
+                            OverhaulBatteries =
+                                { inp.SystemInputs.Battery.OverhaulBatteries with AdditionSpecificPrice = pvalue } } } }
+
 
     | _ -> inp

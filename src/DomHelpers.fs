@@ -42,117 +42,117 @@ let getPvWindNominalPower elementId =
     ParseText text.value
 
 let getPV () =
-    { PV.Size = parseFloatById "PVSize"
-      YearOfConstruction = parseIntById "PVYearOfConstruction"
-      Degradation = parseFloatArrayById "PVDegradation" }
+    { PV.Size = parseFloatById "PV.Size"
+      YearOfConstruction = parseIntById "PV.YearOfConstruction"
+      Degradation = parseFloatArrayById "PV.Degradation" }
 
 let getWind () =
-    { Wind.Size = parseFloatById "WindSize"
-      YearOfConstruction = parseIntById "WindYearOfConstruction"
-      Degradation = parseFloatArrayById "WindDegradation" }
+    { Wind.Size = parseFloatById "Wind.Size"
+      YearOfConstruction = parseIntById "Wind.YearOfConstruction"
+      Degradation = parseFloatArrayById "Wind.Degradation" }
 
 let getBiomassGasifier () =
-    { StrawMotorSize = parseFloatById "BiomassStrawMotorSize"
-      MinimumMotorLoad = parseFloatById "BiomassMinimumMotorLoad"
-      BiomassLHV = parseFloatById "BiomassLHV"
-      ElectricEfficiency = parseFloatById "BiomassElectricEfficiency"
-      AnnualAvailability = parseFloatById "BiomassAnnualAvailability"
-      Price = parseFloatById "BiomassPrice"
-      Capex = parseFloatById "BiomassCapex"
-      Bop = parseFloatById "BiomassBop" }
+    { StrawMotorSize = parseFloatById "BiomassGasifier.StrawMotorSize"
+      MinimumMotorLoad = parseFloatById "BiomassGasifier.MinimumMotorLoad"
+      BiomassLHV = parseFloatById "BiomassGasifier.BiomassLHV"
+      ElectricEfficiency = parseFloatById "BiomassGasifier.ElectricEfficiency"
+      AnnualAvailability = parseFloatById "BiomassGasifier.AnnualAvailability"
+      Price = parseFloatById "BiomassGasifier.Price"
+      Capex = parseFloatById "BiomassGasifier.Capex"
+      Bop = parseFloatById "BiomassGasifier.Bop" }
 
 let getBattery () =
-    { Battery.YearOfConstruction = parseIntById "BatteryYearOfConstruction"
-      Efficiency = parseFloatById "BatteryEfficiency"
-      PowerOutput = parseFloatById "BatteryPowerOutput"
-      HoursCapacity = parseIntById "BatteryHoursCapacity"
-      ExtraCapacity = parseFloatById "BatteryExtraCapacity"
-      SpecificPrice = parseFloatById "BatterySpecificPrice"
+    { Battery.YearOfConstruction = parseIntById "Battery.YearOfConstruction"
+      Efficiency = parseFloatById "Battery.Efficiency"
+      PowerOutput = parseFloatById "Battery.PowerOutput"
+      HoursCapacity = parseIntById "Battery.HoursCapacity"
+      ExtraCapacity = parseFloatById "Battery.ExtraCapacity"
+      SpecificPrice = parseFloatById "Battery.SpecificPrice"
       OverhaulBatteries =
-        { AdditionEvery10Years = parseFloatById "OverhaulBatteriesAdditionEvery10Years"
-          AdditionSpecificPrice = parseFloatById "OverhaulBatteriesAdditionSpecificPrice" }
-      Degradation = parseFloatArrayById "BatteryDegradation" }
+        { AdditionEvery10Years = parseFloatById "Battery.OverhaulBatteries.AdditionEvery10Years"
+          AdditionSpecificPrice = parseFloatById "Battery.OverhaulBatteries.AdditionSpecificPrice" }
+      Degradation = parseFloatArrayById "Battery.Degradation" }
 
 let getElectrolyzers () =
-    { Electrolyzers.YearOfConstruction = parseIntById "ElectrolyzersYearOfConstruction"
-      Lines = parseIntById "ElectrolyzersLines"
-      PowerDcConsumption = parseFloatById "ElectrolyzersPowerDcConsumption"
-      NominalH2Production = parseFloatById "ElectrolyzersNominalH2Production"
-      PressureProductionH2 = parseFloatById "ElectrolyzersPressureProductionH2"
-      PressureNeedH2 = parseFloatById "ElectrolyzersPressureNeedH2"
-      Degradation = parseFloatById "ElectrolyzersDegradation"
-      WaterConsumption = parseFloatById "ElectrolyzersWaterConsumption"
-      WaterDischarge = parseFloatById "ElectrolyzersWaterDischarge"
-      MinimumLoadOf1Line = parseFloatById "ElectrolyzersMinimumLoadOf1Line"
+    { Electrolyzers.YearOfConstruction = parseIntById "Electrolyzers.YearOfConstruction"
+      Lines = parseIntById "Electrolyzers.Lines"
+      PowerDcConsumption = parseFloatById "Electrolyzers.PowerDcConsumption"
+      NominalH2Production = parseFloatById "Electrolyzers.NominalH2Production"
+      PressureProductionH2 = parseFloatById "Electrolyzers.PressureProductionH2"
+      PressureNeedH2 = parseFloatById "Electrolyzers.PressureNeedH2"
+      Degradation = parseFloatById "Electrolyzers.Degradation"
+      WaterConsumption = parseFloatById "Electrolyzers.WaterConsumption"
+      WaterDischarge = parseFloatById "Electrolyzers.WaterDischarge"
+      MinimumLoadOf1Line = parseFloatById "Electrolyzers.MinimumLoadOf1Line"
       EnergyConsumption =
         [ { Load = 100.0
-            Consumption = parseFloatById "ElectrolyzersCons100" }
+            Consumption = parseFloatById "Electrolyzers.EnergyConsumption.Load100" }
           { Load = 80.0
-            Consumption = parseFloatById "ElectrolyzersCons80" }
+            Consumption = parseFloatById "Electrolyzers.EnergyConsumption.Load80" }
           { Load = 60.0
-            Consumption = parseFloatById "ElectrolyzersCons60" }
+            Consumption = parseFloatById "Electrolyzers.EnergyConsumption.Load60" }
           { Load = 40.0
-            Consumption = parseFloatById "ElectrolyzersCons40" } ]
-      PriceElectrolyzer = parseFloatById "PriceElectrolyzer"
-      PriceBOP = parseFloatById "ElectrolyzerPriceBOP"
-      PriceOther = parseFloatById "ElectrolyzerPriceOther"
-      CapexHydrogenCompressor = parseFloatById "CapexHydrogenCompressor"
-      CoolingSystemConsumption = parseFloatById "ElectrolyzersCoolingSystemConsumption"
-      GasManagementConsumption = parseFloatById "ElectrolyzersGasManagementConsumption"
-      OverhaulElectrolyzer = parseFloatById "ElectrolyzerOverhaulElectrolyzer"
-      H2CompressorSpecificConsumption = parseOptionFloatById "ElectrolyzersH2CompressorSpecificConsumption"
+            Consumption = parseFloatById "Electrolyzers.EnergyConsumption.Load40" } ]
+      PriceElectrolyzer = parseFloatById "Electrolyzers.PriceElectrolyzer"
+      PriceBOP = parseFloatById "Electrolyzers.PriceBOP"
+      PriceOther = parseFloatById "Electrolyzers.PriceOther"
+      CapexHydrogenCompressor = parseFloatById "Electrolyzers.CapexHydrogenCompressor"
+      CoolingSystemConsumption = parseFloatById "Electrolyzers.CoolingSystemConsumption"
+      GasManagementConsumption = parseFloatById "Electrolyzers.GasManagementConsumption"
+      OverhaulElectrolyzer = parseFloatById "Electrolyzers.OverhaulElectrolyzer"
+      H2CompressorSpecificConsumption = parseOptionFloatById "Electrolyzers.H2CompressorSpecificConsumption"
       OxigenCompressorConsumption = parseFloatById "OxigenCompressorConsumption" }
 
 let getSystemInput () =
-    { FirstYearOfOperationBP = parseIntById "FirstYearOfOperationBP"
-      ManteinanceMonth = parseIntById "ManteinanceMonth"
+    { FirstYearOfOperationBP = parseIntById "General.FirstYearOfOperationBP"
+      ManteinanceMonth = parseIntById "General.ManteinanceMonth"
       PV = getPV ()
       Wind = getWind ()
       BiomassGasifier = getBiomassGasifier ()
       Battery = getBattery ()
       Electrolyzers = getElectrolyzers ()
-      Load = { MinimumH2Production = parseFloatById "LoadMinimumH2Production" }
+      Load = { MinimumH2Production = parseFloatById "Load.MinimumH2Production" }
       Oxigen =
-        { Price = parseFloatById "OxigenPrice"
-          Capex = parseFloatById "OxigenCapex"
-          StoragePressure = parseFloatById "OxigenStoragePressure"
-          Purity = parseFloatById "OxigenPurity"
-          CompressorConsumption = parseFloatById "OxigenCompressorConsumption" }
+        { Price = parseFloatById "Oxigen.Price"
+          Capex = parseFloatById "Oxigen.Capex"
+          StoragePressure = parseFloatById "Oxigen.StoragePressure"
+          Purity = parseFloatById "Oxigen.Purity"
+          CompressorConsumption = parseFloatById "Oxigen.CompressorConsumption" }
       HydrogenStorage =
-        { NumberOfHours = parseIntById "HsHours"
-          StoragePrice = parseFloatById "HsStoragePrice" }
+        { NumberOfHours = parseIntById "HydrogenStorage.NumberOfHours"
+          StoragePrice = parseFloatById "HydrogenStorage.StoragePrice" }
       PvWindHourlyData = getPvWindNominalPower "PvWindCsvData" }
 // SYSTEM INPUTS END
 
 // ECONOMIC INPUTS REGION START
 let getVariableCosts () =
-    { VariableCosts.ElectricityFromPvAndWind = parseFloatById "VCElectricityFromPvAndWind"
-      StrawConsumption = parseFloatById "VCStrawConsumption"
-      Water = parseFloatById "VCWater"
-      VariableForMotor = parseFloatById "VCVariableForMotor"
-      ElectricityToGrid = parseFloatById "VCElectricityToGrid" }
+    { VariableCosts.ElectricityFromPvAndWind = parseFloatById "VariableCosts.ElectricityFromPvAndWind"
+      StrawConsumption = parseFloatById "VariableCosts.StrawConsumption"
+      Water = parseFloatById "VariableCosts.Water"
+      VariableForMotor = parseFloatById "VariableCosts.VariableForMotor"
+      ElectricityToGrid = parseFloatById "VariableCosts.ElectricityToGrid" }
 
 let getFinancing () =
-    let equity = parseFloatById "FinancingEquity"
+    let equity = parseFloatById "Financing.Equity"
 
     { Financing.Equity = equity
       Debt = 100.0 - equity }
 
 let getFinancialParameters () =
-    { LoanInterestRate = parseFloatById "FPLoanInterestRate"
-      CapitalDiscountRate = parseFloatById "FPCapitalDiscountRate"
-      InflationRate = parseFloatById "FPInflationRate"
-      RepaimentPeriod = parseIntById "FPRepaimentPeriod"
-      EarningTax = parseFloatById "FPEarningTax"
-      H2PriceEscalation = parseFloatById "FPH2PriceEscalation"
-      AmortizationPeriod = parseIntById "FPAmortizationPeriod" }
+    { LoanInterestRate = parseFloatById "FinancialParameters.LoanInterestRate"
+      CapitalDiscountRate = parseFloatById "FinancialParameters.CapitalDiscountRate"
+      InflationRate = parseFloatById "FinancialParameters.InflationRate"
+      RepaimentPeriod = parseIntById "FinancialParameters.RepaimentPeriod"
+      EarningTax = parseFloatById "FinancialParameters.EarningTax"
+      H2PriceEscalation = parseFloatById "FinancialParameters.H2PriceEscalation"
+      AmortizationPeriod = parseIntById "FinancialParameters.AmortizationPeriod" }
 
 let getFinancialInputs () =
-    { FinancialInputs.OEM_Costs = parseFloatById "OEM_Costs"
+    { FinancialInputs.OEM_Costs = parseFloatById "General.OEM_Costs"
       VariableCosts = getVariableCosts ()
       Financing = getFinancing ()
       FinancialParameters = getFinancialParameters ()
-      InitialInvestmentBreakdown = parseFloatArrayById "InitialInvestmentBreakdown" }
+      InitialInvestmentBreakdown = parseFloatArrayById "General.InitialInvestmentBreakdown" }
 
 // ECONOMIC INPUTS REGION END
 

@@ -4,6 +4,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="FinancialFunctions.fs" />
+    <Compile Include="Combinators.fs" />
     <Compile Include="Inputs.fs" />
     <Compile Include="Outputs.fs" />
     <Compile Include="EconomicInputs.fs" />

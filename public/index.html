@@ -102,25 +102,25 @@
           <form class="needs-validation" novalidate>
             <h4>General</h4>
             <div class="row mb-3">
-              <label for="FirstYearOfOperationBP" class="col-sm-3 col-form-label">First Year Of Operation</label>
+              <label for="General.FirstYearOfOperationBP" class="col-sm-3 col-form-label">First Year Of Operation</label>
               <div class="col-sm-2">
-                <input type="text" class="form-control integer" id="FirstYearOfOperationBP" value="2024" required>
+                <input type="text" class="form-control integer" id="General.FirstYearOfOperationBP" value="2024" required>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="ManteinanceMonth" class="col-sm-3 col-form-label">Manteinance Month</label>
+              <label for="General.ManteinanceMonth" class="col-sm-3 col-form-label">Manteinance Month</label>
               <div class="col-sm-2">
-                <input type="text" class="form-control integer" id="ManteinanceMonth" value="0" required>
+                <input type="text" class="form-control integer" id="General.ManteinanceMonth" value="0" required>
               </div>
               <div class="col">
                 <div class="form-text text-start">Leave 0 in case there is not manteinance month.</div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="LoadMinimumH2Production" class="col-sm-3 col-form-label">Load Minimum H2 Production</label>
+              <label for="Load.MinimumH2Production" class="col-sm-3 col-form-label">Load Minimum H2 Production</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input class="form-control float" id="LoadMinimumH2Production" value="80" required>
+                  <input class="form-control float" id="Load.MinimumH2Production" value="80" required>
                   <span class="input-group-text">kg/h</span>
                 </div>
               </div>
@@ -128,24 +128,24 @@
             <hr>
             <h4>Photovoltaic</h4>
             <div class="row mb-3">
-              <label for="PVYearOfConstruction" class="col-sm-3 col-form-label">Year Of Construction</label>
+              <label for="PV.YearOfConstruction" class="col-sm-3 col-form-label">Year Of Construction</label>
               <div class="col-sm-2">
-                <input type="text" class="form-control integer" id="PVYearOfConstruction" value="2024" required>
+                <input type="text" class="form-control integer" id="PV.YearOfConstruction" value="2024" required>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="PVSize" class="col-sm-3 col-form-label">Size</label>
+              <label for="PV.Size" class="col-sm-3 col-form-label">Size</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="PVSize" value="80" required>
+                  <input type="text" class="form-control float" id="PV.Size" value="80" required>
                   <span class="input-group-text">MW</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="PVDegradation" class="col-sm-3 col-form-label">Degradation (%)</label>
+              <label for="PV.Degradation" class="col-sm-3 col-form-label">Degradation (%)</label>
               <div class="col-sm-9">
-                <textarea class="form-control float list" id="PVDegradation"
+                <textarea class="form-control float list" id="PV.Degradation"
                   rows="2">100,00; 99,63; 99,26; 98,89; 98,53; 98,16; 97,79; 97,42; 97,05; 96,68; 96,32; 95,95; 95,58; 95,21; 94,84; 94,47; 94,11; 93,74; 93,37; 93,00</textarea>
               </div>
             </div>
@@ -154,24 +154,24 @@
             <!--WIND-->
             <h4>Wind</h4>
             <div class="row mb-3">
-              <label for="WindYearOfConstruction" class="col-sm-3 col-form-label">Year Of Construction</label>
+              <label for="Wind.YearOfConstruction" class="col-sm-3 col-form-label">Year Of Construction</label>
               <div class="col-sm-2">
-                <input type="text" class="form-control integer" id="WindYearOfConstruction" value="2024" required>
+                <input type="text" class="form-control integer" id="Wind.YearOfConstruction" value="2024" required>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="WindSize" class="col-sm-3 col-form-label">Size</label>
+              <label for="Wind.Size" class="col-sm-3 col-form-label">Size</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control integer" id="WindSize" value="119" required>
+                  <input type="text" class="form-control integer" id="Wind.Size" value="119" required>
                   <span class="input-group-text">MW</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="WindDegradation" class="col-sm-3 col-form-label">Degradation (%)</label>
+              <label for="Wind.Degradation" class="col-sm-3 col-form-label">Degradation (%)</label>
               <div class="col-sm-9">
-                <textarea class="form-control float list" id="WindDegradation" rows="2">100,00; 99,83; 99,67; 99,50; 99,33; 99,17; 99,00; 98,33; 97,67; 97,00; 96,33; 95,67; 95,00; 94,00; 93,00; 
+                <textarea class="form-control float list" id="Wind.Degradation" rows="2">100,00; 99,83; 99,67; 99,50; 99,33; 99,17; 99,00; 98,33; 97,67; 97,00; 96,33; 95,67; 95,00; 94,00; 93,00; 
 92,00; 91,00; 90,00; 89,00; 88,00; 87,00; 86,00; 85,00; 84,00; 83,00; 82,00; 81,00; 80,00; 79,00</textarea>
               </div>
             </div>
@@ -179,10 +179,10 @@
             <!--Biomass-->
             <h4>Biomass</h4>
             <div class="row mb-3">
-              <label for="BiomassStrawMotorSize" class="col-sm-3 col-form-label">Straw Motor Size</label>
+              <label for="BiomassGasifier.StrawMotorSize" class="col-sm-3 col-form-label">Straw Motor Size</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="BiomassStrawMotorSize" value="4" required>
+                  <input type="text" class="form-control float" id="BiomassGasifier.StrawMotorSize" value="4" required>
                   <span class="input-group-text">MWel</span>
                 </div>
               </div>
@@ -191,55 +191,55 @@
               </div>
             </div>
             <div class="row mb-3">
-              <label for="BiomassMinimumMotorLoad" class="col-sm-3 col-form-label">Minimum Motor Load</label>
+              <label for="BiomassGasifier.MinimumMotorLoad" class="col-sm-3 col-form-label">Minimum Motor Load</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="BiomassMinimumMotorLoad" value="50" required>
+                  <input type="text" class="form-control float" id="BiomassGasifier.MinimumMotorLoad" value="50" required>
                   <span class="input-group-text">%</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="BiomassLHV" class="col-sm-3 col-form-label">LHV</label>
+              <label for="BiomassGasifier.BiomassLHV" class="col-sm-3 col-form-label">LHV</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="BiomassLHV" value="14000" required>
+                  <input type="text" class="form-control float" id="BiomassGasifier.BiomassLHV" value="14000" required>
                   <span class="input-group-text">kJ/kg</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="BiomassElectricEfficiency" class="col-sm-3 col-form-label">Electric Efficiency</label>
+              <label for="BiomassGasifier.ElectricEfficiency" class="col-sm-3 col-form-label">Electric Efficiency</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="BiomassElectricEfficiency" value="20" required>
+                  <input type="text" class="form-control float" id="BiomassGasifier.ElectricEfficiency" value="20" required>
                   <span class="input-group-text">%</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="BiomassAnnualAvailability" class="col-sm-3 col-form-label">Annual Availability</label>
+              <label for="BiomassGasifier.AnnualAvailability" class="col-sm-3 col-form-label">Annual Availability</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="BiomassAnnualAvailability" value="30000" required>
+                  <input type="text" class="form-control float" id="BiomassGasifier.AnnualAvailability" value="30000" required>
                   <span class="input-group-text">t/y</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="BiomassPrice" class="col-sm-3 col-form-label">Price</label>
+              <label for="BiomassGasifier.Price" class="col-sm-3 col-form-label">Price</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="BiomassPrice" value="45" required>
+                  <input type="text" class="form-control float" id="BiomassGasifier.Price" value="45" required>
                   <span class="input-group-text">€/t</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="BiomassCapex" class="col-sm-3 col-form-label">Capex</label>
+              <label for="BiomassGasifier.Capex" class="col-sm-3 col-form-label">Capex</label>
               <div class="col-sm-3">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="BiomassCapex" value="3000000" required>
+                  <input type="text" class="form-control float" id="BiomassGasifier.Capex" value="3000000" required>
                   <span class="input-group-text">€/MW</span>
                 </div>
               </div>
@@ -248,10 +248,10 @@
               </div>
             </div>
             <div class="row mb-3">
-              <label for="BiomassBop" class="col-sm-3 col-form-label">Bop</label>
+              <label for="BiomassGasifier.Bop" class="col-sm-3 col-form-label">Bop</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="BiomassBop" value="7" required>
+                  <input type="text" class="form-control float" id="BiomassGasifier.Bop" value="7" required>
                   <span class="input-group-text">%</span>
                 </div>
               </div>
@@ -260,80 +260,80 @@
             <!--Battery-->
             <h4>Battery</h4>
             <div class="row mb-3">
-              <label for="BatteryYearOfConstruction" class="col-sm-3 col-form-label">Year Of Construction</label>
+              <label for="Battery.YearOfConstruction" class="col-sm-3 col-form-label">Year Of Construction</label>
               <div class="col-sm-2">
-                <input type="text" class="form-control integer" id="BatteryYearOfConstruction" value="2024" required>
+                <input type="text" class="form-control integer" id="Battery.YearOfConstruction" value="2024" required>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="BatteryEfficiency" class="col-sm-3 col-form-label">Efficiency</label>
+              <label for="Battery.Efficiency" class="col-sm-3 col-form-label">Efficiency</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="BatteryEfficiency" value="85" required>
+                  <input type="text" class="form-control float" id="Battery.Efficiency" value="85" required>
                   <span class="input-group-text">%</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="BatteryPowerOutput" class="col-sm-3 col-form-label">Power Output</label>
+              <label for="Battery.PowerOutput" class="col-sm-3 col-form-label">Power Output</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="BatteryPowerOutput" value="10" required>
+                  <input type="text" class="form-control float" id="Battery.PowerOutput" value="10" required>
                   <span class="input-group-text">MW</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="BatteryHoursCapacity" class="col-sm-3 col-form-label">Hours Capacity</label>
+              <label for="Battery.HoursCapacity" class="col-sm-3 col-form-label">Hours Capacity</label>
               <div class="col-sm-2">
-                <input type="text" class="form-control float" id="BatteryHoursCapacity" value="4" required>
+                <input type="text" class="form-control float" id="Battery.HoursCapacity" value="4" required>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="BatteryExtraCapacity" class="col-sm-3 col-form-label">Extra Capacity</label>
+              <label for="Battery.ExtraCapacity" class="col-sm-3 col-form-label">Extra Capacity</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="BatteryExtraCapacity" value="0" required>
+                  <input type="text" class="form-control float" id="Battery.ExtraCapacity" value="0" required>
                   <span class="input-group-text">%</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="BatterySpecificPrice" class="col-sm-3 col-form-label">Specific Price</label>
+              <label for="Battery.SpecificPrice" class="col-sm-3 col-form-label">Specific Price</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="BatterySpecificPrice" value="220" required>
+                  <input type="text" class="form-control float" id="Battery.SpecificPrice" value="220" required>
                   <span class="input-group-text">€/kWh</span>
                 </div>
               </div>
             </div>
             <h5>Overhaul Batteries</h5>
             <div class="row mb-3">
-              <label for="OverhaulBatteriesAdditionEvery10Years" class="col-sm-2 offset-md-1 col-form-label">Addition
+              <label for="Battery.OverhaulBatteries.AdditionEvery10Years" class="col-sm-2 offset-md-1 col-form-label">Addition
                 Every 10 Years</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="OverhaulBatteriesAdditionEvery10Years" value="0"
+                  <input type="text" class="form-control float" id="Battery.OverhaulBatteries.AdditionEvery10Years" value="0"
                     required>
                   <span class="input-group-text">MWh</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="OverhaulBatteriesAdditionSpecificPrice" class="col-sm-2 offset-md-1 col-form-label">Addition
+              <label for="Battery.OverhaulBatteries.AdditionSpecificPrice" class="col-sm-2 offset-md-1 col-form-label">Addition
                 Specific Price</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="OverhaulBatteriesAdditionSpecificPrice" value="160"
+                  <input type="text" class="form-control float" id="Battery.OverhaulBatteries.AdditionSpecificPrice" value="160"
                     required>
                   <span class="input-group-text">€/KWh</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="BatteryDegradation" class="col-sm-3 col-form-label">Degradation (%)</label>
+              <label for="Battery.Degradation" class="col-sm-3 col-form-label">Degradation (%)</label>
               <div class="col-sm-9">
-                <textarea class="form-control float list" id="BatteryDegradation"
+                <textarea class="form-control float list" id="Battery.Degradation"
                   rows="1">100; 95; 92; 90; 89; 87; 86; 85; 83; 82; 80; 79; 78; 76; 75; 73; 72; 70; 69; 67</textarea>
               </div>
             </div>
@@ -341,88 +341,88 @@
             <!--Electrolyzers-->
             <h4>Electrolyzers</h4>
             <div class="row mb-3">
-              <label for="ElectrolyzersYearOfConstruction" class="col-sm-3 col-form-label">Year Of Construction</label>
+              <label for="Electrolyzers.YearOfConstruction" class="col-sm-3 col-form-label">Year Of Construction</label>
               <div class="col-sm-2">
-                <input type="text" class="form-control integer" id="ElectrolyzersYearOfConstruction" value="2024" required>
+                <input type="text" class="form-control integer" id="Electrolyzers.YearOfConstruction" value="2024" required>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="ElectrolyzersLines" class="col-sm-3 col-form-label">Lines</label>
+              <label for="Electrolyzers.Lines" class="col-sm-3 col-form-label">Lines</label>
               <div class="col-sm-2">
-                <input type="text" class="form-control float" id="ElectrolyzersLines" value="3" required>
+                <input type="text" class="form-control float" id="Electrolyzers.Lines" value="3" required>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="ElectrolyzersPowerDcConsumption" class="col-sm-3 col-form-label">Power DC Consumption</label>
+              <label for="Electrolyzers.PowerDcConsumption" class="col-sm-3 col-form-label">Power DC Consumption</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="ElectrolyzersPowerDcConsumption" value="17,1" required>
+                  <input type="text" class="form-control float" id="Electrolyzers.PowerDcConsumption" value="17,1" required>
                   <span class="input-group-text">MW</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="ElectrolyzersNominalH2Production" class="col-sm-3 col-form-label">Nominal H2
+              <label for="Electrolyzers.NominalH2Production" class="col-sm-3 col-form-label">Nominal H2
                 Production</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="ElectrolyzersNominalH2Production" value="330" required>
+                  <input type="text" class="form-control float" id="Electrolyzers.NominalH2Production" value="330" required>
                   <span class="input-group-text">kgH2/h</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="ElectrolyzersPressureProductionH2" class="col-sm-3 col-form-label">Pressure of Production
+              <label for="Electrolyzers.PressureProductionH2" class="col-sm-3 col-form-label">Pressure of Production
                 of H2</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="ElectrolyzersPressureProductionH2" value="1" required>
+                  <input type="text" class="form-control float" id="Electrolyzers.PressureProductionH2" value="1" required>
                   <span class="input-group-text">bar</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="ElectrolyzersPressureNeedH2" class="col-sm-3 col-form-label">Pressure at which H2 is needed</label>
+              <label for="Electrolyzers.PressureNeedH2" class="col-sm-3 col-form-label">Pressure at which H2 is needed</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="ElectrolyzersPressureNeedH2" value="30" required>
+                  <input type="text" class="form-control float" id="Electrolyzers.PressureNeedH2" value="30" required>
                   <span class="input-group-text">bar</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="ElectrolyzersDegradation" class="col-sm-3 col-form-label">Degradation</label>
+              <label for="Electrolyzers.Degradation" class="col-sm-3 col-form-label">Degradation</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="ElectrolyzersDegradation" value="1,4" required>
+                  <input type="text" class="form-control float" id="Electrolyzers.Degradation" value="1,4" required>
                   <span class="input-group-text">%</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="ElectrolyzersWaterConsumption" class="col-sm-3 col-form-label">Water Consumption</label>
+              <label for="Electrolyzers.WaterConsumption" class="col-sm-3 col-form-label">Water Consumption</label>
               <div class="col-sm-3">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="ElectrolyzersWaterConsumption" value="14" required>
+                  <input type="text" class="form-control float" id="Electrolyzers.WaterConsumption" value="14" required>
                   <span class="input-group-text">L tapwater/kgH2</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="ElectrolyzersWaterDischarge" class="col-sm-3 col-form-label">Water Discharge</label>
+              <label for="Electrolyzers.WaterDischarge" class="col-sm-3 col-form-label">Water Discharge</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="ElectrolyzersWaterDischarge" value="29" required>
+                  <input type="text" class="form-control float" id="Electrolyzers.WaterDischarge" value="29" required>
                   <span class="input-group-text">%</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="ElectrolyzersMinimumLoadOf1Line" class="col-sm-3 col-form-label">Minimum Load Of 1
+              <label for="Electrolyzers.MinimumLoadOf1Line" class="col-sm-3 col-form-label">Minimum Load Of 1
                 Line</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float max50" id="ElectrolyzersMinimumLoadOf1Line" value="20" required>
+                  <input type="text" class="form-control float max50" id="Electrolyzers.MinimumLoadOf1Line" value="20" required>
                   <span class="input-group-text">%</span>
                 </div>
               </div>
@@ -431,32 +431,32 @@
               </div>
             </div>
             <div class="row mb-3">
-              <label for="ElectrolyzersCoolingSystemConsumption" class="col-sm-3 col-form-label">Cooling System
+              <label for="Electrolyzers.CoolingSystemConsumption" class="col-sm-3 col-form-label">Cooling System
                 Consumption</label>
               <div class="col-sm-3">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="ElectrolyzersCoolingSystemConsumption" value="1,010101"
+                  <input type="text" class="form-control float" id="Electrolyzers.CoolingSystemConsumption" value="1,010101"
                     required>
                   <span class="input-group-text">kW/(kg/h)</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="ElectrolyzersGasManagementConsumption" class="col-sm-3 col-form-label">Gas Management
+              <label for="Electrolyzers.GasManagementConsumption" class="col-sm-3 col-form-label">Gas Management
                 Consumption</label>
               <div class="col-sm-3">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="ElectrolyzersGasManagementConsumption" value="1,010101"
+                  <input type="text" class="form-control float" id="Electrolyzers.GasManagementConsumption" value="1,010101"
                     required>
                   <span class="input-group-text">kW/(kg/h)</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="ElectrolyzersH2CompressorSpecificConsumption" class="col-sm-3 col-form-label">H2 compressor specific consumption</label>
+              <label for="Electrolyzers.H2CompressorSpecificConsumption" class="col-sm-3 col-form-label">H2 compressor specific consumption</label>
               <div class="col-sm-3">
                 <div class="input-group">
-                  <input type="text" class="form-control float option" id="ElectrolyzersH2CompressorSpecificConsumption">
+                  <input type="text" class="form-control float option" id="Electrolyzers.H2CompressorSpecificConsumption">
                   <span class="input-group-text">kW/(kg/h)</span>
                 </div>
               </div>
@@ -478,7 +478,7 @@
                     <td>100%</td>
                     <td>
                       <div class="input-group">
-                        <input type="text" title="ec100" class="form-control float" id="ElectrolyzersCons100"
+                        <input type="text" title="ec100" class="form-control float" id="Electrolyzers.EnergyConsumption.Load100"
                           value="4,76229362117533" required>
                         <span class="input-group-text">kWh/Nm3</span>
                       </div>
@@ -488,7 +488,7 @@
                     <td>80%</td>
                     <td>
                       <div class="input-group">
-                        <input type="text" title="ec80" class="form-control float" id="ElectrolyzersCons80"
+                        <input type="text" title="ec80" class="form-control float" id="Electrolyzers.EnergyConsumption.Load80"
                           value="4,55063612690087" required>
                         <span class="input-group-text">kWh/Nm3</span>
                       </div>
@@ -498,7 +498,7 @@
                     <td>60%</td>
                     <td>
                       <div class="input-group">
-                        <input type="text" title="ec60" class="form-control float" id="ElectrolyzersCons60"
+                        <input type="text" title="ec60" class="form-control float" id="Electrolyzers.EnergyConsumption.Load60"
                           value="4,44480737976364" required>
                         <span class="input-group-text">kWh/Nm3</span>
                       </div>
@@ -508,7 +508,7 @@
                     <td>40%</td>
                     <td>
                       <div class="input-group">
-                        <input type="text" title="ec40" class="form-control float" id="ElectrolyzersCons40"
+                        <input type="text" title="ec40" class="form-control float" id="Electrolyzers.EnergyConsumption.Load40"
                           value="4,23314988548918" required>
                         <span class="input-group-text">kWh/Nm3</span>
                       </div>
@@ -519,47 +519,47 @@
             </div>
             <h5>Price</h5>
             <div class="row mb-3">
-              <label for="PriceElectrolyzer" class="col-sm-3 offset-md-1 col-form-label">Price Electrolyzer</label>
+              <label for="Electrolyzers.PriceElectrolyzer" class="col-sm-3 offset-md-1 col-form-label">Price Electrolyzer</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="PriceElectrolyzer" value="807,60" required>
+                  <input type="text" class="form-control float" id="Electrolyzers.PriceElectrolyzer" value="807,60" required>
                   <span class="input-group-text">€/KWh</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="ElectrolyzerPriceBOP" class="col-sm-3 offset-md-1 col-form-label">BOP</label>
+              <label for="Electrolyzers.PriceBOP" class="col-sm-3 offset-md-1 col-form-label">BOP</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="ElectrolyzerPriceBOP" value="444" required>
+                  <input type="text" class="form-control float" id="Electrolyzers.PriceBOP" value="444" required>
                   <span class="input-group-text">€/KWh</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="ElectrolyzerPriceOther" class="col-sm-3 offset-md-1 col-form-label">Other</label>
+              <label for="Electrolyzers.PriceOther" class="col-sm-3 offset-md-1 col-form-label">Other</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="ElectrolyzerPriceOther" value="0,4" required>
+                  <input type="text" class="form-control float" id="Electrolyzers.PriceOther" value="0,4" required>
                   <span class="input-group-text">€/KWh</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="CapexHydrogenCompressor" class="col-sm-3 offset-md-1 col-form-label">Capex Hydrogen Compressor</label>
+              <label for="Electrolyzers.CapexHydrogenCompressor" class="col-sm-3 offset-md-1 col-form-label">Capex Hydrogen Compressor</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="CapexHydrogenCompressor" value="0" required>
+                  <input type="text" class="form-control float" id="Electrolyzers.CapexHydrogenCompressor" value="0" required>
                   <span class="input-group-text">€</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="ElectrolyzerOverhaulElectrolyzer" class="col-sm-3 offset-md-1 col-form-label">Overhaul
+              <label for="Electrolyzers.OverhaulElectrolyzer" class="col-sm-3 offset-md-1 col-form-label">Overhaul
                 Electrolyzer</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="ElectrolyzerOverhaulElectrolyzer" value="200000"
+                  <input type="text" class="form-control float" id="Electrolyzers.OverhaulElectrolyzer" value="200000"
                     required>
                   <span class="input-group-text">€/MW</span>
                 </div>
@@ -569,46 +569,46 @@
             <!--Oxigen-->
             <h4>Oxigen</h4>
             <div class="row mb-3">
-              <label for="OxigenPrice" class="col-sm-3 col-form-label">Price</label>
+              <label for="Oxigen.Price" class="col-sm-3 col-form-label">Price</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="OxigenPrice" value="0,04" required>
+                  <input type="text" class="form-control float" id="Oxigen.Price" value="0,04" required>
                   <span class="input-group-text">€/Kg</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="OxigenCapex" class="col-sm-3 col-form-label">Capex</label>
+              <label for="Oxigen.Capex" class="col-sm-3 col-form-label">Capex</label>
               <div class="col-sm-3">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="OxigenCapex" value="0" required>
+                  <input type="text" class="form-control float" id="Oxigen.Capex" value="0" required>
                   <span class="input-group-text">€/(kgO2/h)</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="OxigenStoragePressure" class="col-sm-3 col-form-label">Storage Pressure</label>
+              <label for="Oxigen.StoragePressure" class="col-sm-3 col-form-label">Storage Pressure</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="OxigenStoragePressure" value="30" required>
+                  <input type="text" class="form-control float" id="Oxigen.StoragePressure" value="30" required>
                   <span class="input-group-text">bar</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="OxigenPurity" class="col-sm-3 col-form-label">Purity</label>
+              <label for="Oxigen.Purity" class="col-sm-3 col-form-label">Purity</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="OxigenPurity" value="98" required>
+                  <input type="text" class="form-control float" id="Oxigen.Purity" value="98" required>
                   <span class="input-group-text">%</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="OxigenCompressorConsumption" class="col-sm-3 col-form-label">Compressor Consumption</label>
+              <label for="Oxigen.CompressorConsumption" class="col-sm-3 col-form-label">Compressor Consumption</label>
               <div class="col-sm-3">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="OxigenCompressorConsumption" value="0,3079" required>
+                  <input type="text" class="form-control float" id="Oxigen.CompressorConsumption" value="0,3079" required>
                   <span class="input-group-text">kW/(kgO2/h)</span>
                 </div>
               </div>
@@ -618,19 +618,19 @@
             <!-- Hydrogen Storage -->
             <h4>Hydrogen storage</h4>
             <div class="row mb-3">
-              <label for="HsHours" class="col-sm-3 col-form-label">Number of hours</label>
+              <label for="HydrogenStorage.NumberOfHours" class="col-sm-3 col-form-label">Number of hours</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control integer" id="HsHours" value="24" required>
+                  <input type="text" class="form-control integer" id="HydrogenStorage.NumberOfHours" value="24" required>
                   <span class="input-group-text">h</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="HsStoragePrice" class="col-sm-3 col-form-label">Storage price</label>
+              <label for="HydrogenStorage.StoragePrice" class="col-sm-3 col-form-label">Storage price</label>
               <div class="col-sm-3">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="HsStoragePrice" value="500" required>
+                  <input type="text" class="form-control float" id="HydrogenStorage.StoragePrice" value="500" required>
                   <span class="input-group-text">€/Kg</span>
                 </div>
               </div>
@@ -640,10 +640,10 @@
             <!--Economic Inputs-->
             <h4>Economic Inputs</h4>
             <div class="row mb-3">
-              <label for="OEM_Costs" class="col-sm-3 col-form-label">O&M Costs</label>
+              <label for="General.OEM_Costs" class="col-sm-3 col-form-label">O&M Costs</label>
               <div class="col-sm-3">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="OEM_Costs" value="1,25" required>
+                  <input type="text" class="form-control float" id="General.OEM_Costs" value="1,25" required>
                   <span class="input-group-text">% CAPEX/y</span>
                 </div>
               </div>
@@ -651,47 +651,47 @@
 
             <h5>Variable Costs</h5>
             <div class="row mb-3">
-              <label for="VCElectricityFromPvAndWind" class="col-sm-2 offset-md-1 col-form-label">Electricity from PV+Wind</label>
+              <label for="VariableCosts.ElectricityFromPvAndWind" class="col-sm-2 offset-md-1 col-form-label">Electricity from PV+Wind</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="VCElectricityFromPvAndWind" value="50" required>
+                  <input type="text" class="form-control float" id="VariableCosts.ElectricityFromPvAndWind" value="50" required>
                   <span class="input-group-text">€/MWh</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="VCStrawConsumption" class="col-sm-2 offset-md-1 col-form-label">Straw consumption</label>
+              <label for="VariableCosts.StrawConsumption" class="col-sm-2 offset-md-1 col-form-label">Straw consumption</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="VCStrawConsumption" value="45" required>
+                  <input type="text" class="form-control float" id="VariableCosts.StrawConsumption" value="45" required>
                   <span class="input-group-text">€/ton</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="VCWater" class="col-sm-2 offset-md-1 col-form-label">Water</label>
+              <label for="VariableCosts.Water" class="col-sm-2 offset-md-1 col-form-label">Water</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="VCWater" value="1" required>
+                  <input type="text" class="form-control float" id="VariableCosts.Water" value="1" required>
                   <span class="input-group-text">€/ton</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="VCVariableForMotor" class="col-sm-2 offset-md-1 col-form-label">Variable for motor</label>
+              <label for="VariableCosts.VariableForMotor" class="col-sm-2 offset-md-1 col-form-label">Variable for motor</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="VCVariableForMotor" value="0"
+                  <input type="text" class="form-control float" id="VariableCosts.VariableForMotor" value="0"
                     required>
                   <span class="input-group-text">€/MWh</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="VCElectricityToGrid" class="col-sm-2 offset-md-1 col-form-label">Electricity to grid</label>
+              <label for="VariableCosts.ElectricityToGrid" class="col-sm-2 offset-md-1 col-form-label">Electricity to grid</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="VCElectricityToGrid" value="0"
+                  <input type="text" class="form-control float" id="VariableCosts.ElectricityToGrid" value="0"
                     required>
                   <span class="input-group-text">€/MWh</span>
                 </div>
@@ -700,10 +700,10 @@
 
             <h5>Financing</h5>
             <div class="row mb-3">
-              <label for="FinancingEquity" class="col-sm-2 offset-md-1 col-form-label">Equity</label>
+              <label for="Financing.Equity" class="col-sm-2 offset-md-1 col-form-label">Equity</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="FinancingEquity" value="80"
+                  <input type="text" class="form-control float" id="Financing.Equity" value="80"
                     required>
                   <span class="input-group-text">%</span>
                 </div>
@@ -712,70 +712,70 @@
 
             <h5>Financial Parameters</h5>
             <div class="row mb-3">
-              <label for="FPLoanInterestRate" class="col-sm-2 offset-md-1 col-form-label">Loan Interest Rate</label>
+              <label for="FinancialParameters.LoanInterestRate" class="col-sm-2 offset-md-1 col-form-label">Loan Interest Rate</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="FPLoanInterestRate" value="3,25"
+                  <input type="text" class="form-control float" id="FinancialParameters.LoanInterestRate" value="3,25"
                     required>
                   <span class="input-group-text">%</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="FPCapitalDiscountRate" class="col-sm-2 offset-md-1 col-form-label">Capital Discount Rate</label>
+              <label for="FinancialParameters.CapitalDiscountRate" class="col-sm-2 offset-md-1 col-form-label">Capital Discount Rate</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="FPCapitalDiscountRate" value="6"
+                  <input type="text" class="form-control float" id="FinancialParameters.CapitalDiscountRate" value="6"
                     required>
                   <span class="input-group-text">%</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="FPInflationRate" class="col-sm-2 offset-md-1 col-form-label">Inflation Rate</label>
+              <label for="FinancialParameters.InflationRate" class="col-sm-2 offset-md-1 col-form-label">Inflation Rate</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="FPInflationRate" value="0"
+                  <input type="text" class="form-control float" id="FinancialParameters.InflationRate" value="0"
                     required>
                   <span class="input-group-text">%/y</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="FPRepaimentPeriod" class="col-sm-2 offset-md-1 col-form-label">Repaiment Period</label>
+              <label for="FinancialParameters.RepaimentPeriod" class="col-sm-2 offset-md-1 col-form-label">Repaiment Period</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control integer" id="FPRepaimentPeriod" value="20"
+                  <input type="text" class="form-control integer" id="FinancialParameters.RepaimentPeriod" value="20"
                     required>
                   <span class="input-group-text">y</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="FPEarningTax" class="col-sm-2 offset-md-1 col-form-label">Earning Tax</label>
+              <label for="FinancialParameters.EarningTax" class="col-sm-2 offset-md-1 col-form-label">Earning Tax</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="FPEarningTax" value="24"
+                  <input type="text" class="form-control float" id="FinancialParameters.EarningTax" value="24"
                     required>
                   <span class="input-group-text">%</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="FPH2PriceEscalation" class="col-sm-2 offset-md-1 col-form-label">H2 Price Escalation</label>
+              <label for="FinancialParameters.H2PriceEscalation" class="col-sm-2 offset-md-1 col-form-label">H2 Price Escalation</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="FPH2PriceEscalation" value="0"
+                  <input type="text" class="form-control float" id="FinancialParameters.H2PriceEscalation" value="0"
                     required>
                   <span class="input-group-text">%/y</span>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
-              <label for="FPAmortizationPeriod" class="col-sm-2 offset-md-1 col-form-label">Amortization Period</label>
+              <label for="FinancialParameters.AmortizationPeriod" class="col-sm-2 offset-md-1 col-form-label">Amortization Period</label>
               <div class="col-sm-2">
                 <div class="input-group">
-                  <input type="text" class="form-control integer" id="FPAmortizationPeriod" value="10"
+                  <input type="text" class="form-control integer" id="FinancialParameters.AmortizationPeriod" value="10"
                     required>
                   <span class="input-group-text">y</span>
                 </div>
@@ -784,9 +784,9 @@
 
             <h5>Initial Investment Breakdown</h5>
             <div class="row mb-3">
-              <label for="InitialInvestmentBreakdown" class="col-sm-3 col-form-label">Breakdown by each year of construction (%)</label>
+              <label for="General.InitialInvestmentBreakdown" class="col-sm-3 col-form-label">Breakdown by each year of construction (%)</label>
               <div class="col-sm-9">
-                <textarea class="form-control float list" id="InitialInvestmentBreakdown"
+                <textarea class="form-control float list" id="General.InitialInvestmentBreakdown"
                   rows="1">60; 40</textarea>
               </div>
               <div class="col">

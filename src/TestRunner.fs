@@ -189,5 +189,81 @@ let GetProjectInputFromParameter (inp: ProjectInput) (parameter: string * float)
                             OverhaulBatteries =
                                 { inp.SystemInputs.Battery.OverhaulBatteries with AdditionSpecificPrice = pvalue } } } }
 
+    | "Electrolyzers.YearOfConstruction" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with Electrolyzers = { inp.SystemInputs.Electrolyzers with YearOfConstruction = int pvalue } } }
+    | "Electrolyzers.Lines" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with Electrolyzers = { inp.SystemInputs.Electrolyzers with Lines = int pvalue } } }
+    | "Electrolyzers.PowerDcConsumption" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with Electrolyzers = { inp.SystemInputs.Electrolyzers with PowerDcConsumption = pvalue } } }
+    | "Electrolyzers.NominalH2Production" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with Electrolyzers = { inp.SystemInputs.Electrolyzers with NominalH2Production = pvalue } } }
+    | "Electrolyzers.PressureProductionH2" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with Electrolyzers = { inp.SystemInputs.Electrolyzers with PressureProductionH2 = pvalue } } }
+    | "Electrolyzers.PressureNeedH2" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with Electrolyzers = { inp.SystemInputs.Electrolyzers with PressureNeedH2 = pvalue } } }
+    | "Electrolyzers.Degradation" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with Electrolyzers = { inp.SystemInputs.Electrolyzers with Degradation = pvalue } } }
+    | "Electrolyzers.WaterConsumption" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with Electrolyzers = { inp.SystemInputs.Electrolyzers with WaterConsumption = pvalue } } }
+    | "Electrolyzers.WaterDischarge" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with Electrolyzers = { inp.SystemInputs.Electrolyzers with WaterDischarge = pvalue } } }
+    | "Electrolyzers.MinimumLoadOf1Line" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with Electrolyzers = { inp.SystemInputs.Electrolyzers with MinimumLoadOf1Line = pvalue } } }
+    | "Electrolyzers.PriceElectrolyzer" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with Electrolyzers = { inp.SystemInputs.Electrolyzers with PriceElectrolyzer = pvalue } } }
+    | "Electrolyzers.PriceBOP" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with Electrolyzers = { inp.SystemInputs.Electrolyzers with PriceBOP = pvalue } } }
+    | "Electrolyzers.PriceOther" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with Electrolyzers = { inp.SystemInputs.Electrolyzers with PriceOther = pvalue } } }
+    | "Electrolyzers.CapexHydrogenCompressor" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with Electrolyzers = { inp.SystemInputs.Electrolyzers with CapexHydrogenCompressor = pvalue } } }
+    | "Electrolyzers.CoolingSystemConsumption" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with Electrolyzers = { inp.SystemInputs.Electrolyzers with CoolingSystemConsumption = pvalue } } }
+    | "Electrolyzers.GasManagementConsumption" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with Electrolyzers = { inp.SystemInputs.Electrolyzers with GasManagementConsumption = pvalue } } }
+    | "Electrolyzers.OverhaulElectrolyzer" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with Electrolyzers = { inp.SystemInputs.Electrolyzers with OverhaulElectrolyzer = pvalue } } }
+    | "Electrolyzers.H2CompressorSpecificConsumption" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with Electrolyzers = { inp.SystemInputs.Electrolyzers with H2CompressorSpecificConsumption = Some pvalue } } }
+    | "Electrolyzers.OxigenCompressorConsumption" ->
+        { inp with
+            SystemInputs =
+                { inp.SystemInputs with Electrolyzers = { inp.SystemInputs.Electrolyzers with OxigenCompressorConsumption = pvalue } } }
 
     | _ -> inp

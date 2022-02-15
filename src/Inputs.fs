@@ -149,7 +149,6 @@ type EnergyConsumptionAC =
 type Electrolyzers =
     { YearOfConstruction: int
       Lines: int
-      PowerDcConsumption: float // MW
       NominalH2Production: float // kgH2/h
       PressureProductionH2: float // bar
       PressureNeedH2: float // bar
@@ -171,7 +170,6 @@ type Electrolyzers =
 let defaultElectrolyzers =
     { Electrolyzers.YearOfConstruction = 2024
       Lines = 3
-      PowerDcConsumption = 17.1
       NominalH2Production = 330.0
       PressureProductionH2 = 1.0
       PressureNeedH2 = 30.0

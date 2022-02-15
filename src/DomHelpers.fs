@@ -76,7 +76,6 @@ let getBattery () =
 let getElectrolyzers () =
     { Electrolyzers.YearOfConstruction = parseIntById "Electrolyzers.YearOfConstruction"
       Lines = parseIntById "Electrolyzers.Lines"
-      PowerDcConsumption = parseFloatById "Electrolyzers.PowerDcConsumption"
       NominalH2Production = parseFloatById "Electrolyzers.NominalH2Production"
       PressureProductionH2 = parseFloatById "Electrolyzers.PressureProductionH2"
       PressureNeedH2 = parseFloatById "Electrolyzers.PressureNeedH2"

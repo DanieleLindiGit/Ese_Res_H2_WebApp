@@ -146,12 +146,6 @@ let GetProjectInputFromParameter (inp: ProjectInput) (parameter: string * float)
             { inp with
                 SystemInputs =
                     { inp.SystemInputs with Electrolyzers = { inp.SystemInputs.Electrolyzers with Lines = int pvalue } } }
-    | "Electrolyzers.PowerDcConsumption" ->
-        Ok
-            { inp with
-                SystemInputs =
-                    { inp.SystemInputs with
-                        Electrolyzers = { inp.SystemInputs.Electrolyzers with PowerDcConsumption = pvalue } } }
     | "Electrolyzers.NominalH2Production" ->
         Ok
             { inp with

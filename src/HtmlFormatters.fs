@@ -139,11 +139,6 @@ let createElectrolyzers (output: ElectrolyzersOutput) =
         .AppendLine("""<dl class="row">""")
         .AppendLine(
             sprintloc
-                """<dt class="col-sm-3">Power DC Consumption Total</dt> <dd class="col-sm-9">%.1f MW</dd>"""
-                output.PowerDcConsumptionTot
-        )
-        .AppendLine(
-            sprintloc
                 """<dt class="col-sm-3">Nominal H2 Production Total</dt> <dd class="col-sm-9">%.0f kgH2/h</dd>"""
                 output.NominalH2ProductionTot
         )

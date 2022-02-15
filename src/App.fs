@@ -6,6 +6,7 @@ open Functions
 open EconomicFunctions
 open HtmlFormatters
 open Validation
+open SaveAndLoad
 
 
 let GlobalCalculation () =
@@ -41,8 +42,12 @@ let YearlyCalculation () =
   let year = select.selectedIndex + 1
   createCalculationYearOutput (CalculationYear allInputs year)
 
+
 document.getElementById("startBtn").onclick <- fun _ -> StartProcess ()
 
 document.getElementById("yearBtn").onclick <- fun _ -> YearlyCalculation ()
+
+document.getElementById("LoadConfigBtn").onchange <- fun evt -> LoadConfiguration evt
+document.getElementById("SaveConfigBtn").onclick <- fun _ -> SaveConfig ()
 
 NavigationHandler ()

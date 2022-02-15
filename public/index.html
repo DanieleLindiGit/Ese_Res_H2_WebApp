@@ -97,6 +97,21 @@
           <p class="lead">Once finished press <code>Start Data Processing</code> to get the results</p>
           <hr>
 
+          <div class="row">
+            <div class="col">
+              <button type="button" id="SaveConfigBtn" class="btn btn-primary">
+                Save Configuration to file
+              </button>
+            </div>
+            <div class="col">
+              <label >Load Configuration from file</label>
+              <input id="LoadConfigBtn" title="Load Previous Data" class="form-control no-validation" type="file">
+            </div>
+          </div>
+          
+
+          <hr>
+
           <div id="alertDiv"></div>
           
           <form class="needs-validation" novalidate>
@@ -808,7 +823,7 @@
             <div class="row mb-4">
               <label class="col-sm-3 col-form-label">Load data from file</label>
               <div class="col-sm-9">
-                <input title="Load data from file" class="form-control no-validation" type="file" onchange="previewFile()">
+                <input title="Load data from file" class="form-control no-validation" type="file" onchange="previewFile(this)">
               </div>
 
             </div>

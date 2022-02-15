@@ -1,8 +1,8 @@
 /* globals Chart:false, feather:false */
 
-  function previewFile() {
+  function previewFile(inputCsv) {
     const content = document.getElementById('PvWindCsvData');
-    const [file] = document.querySelector('input[type=file]').files;
+    const [file] = inputCsv.files;
     const reader = new FileReader();
   
     reader.addEventListener("load", () => {

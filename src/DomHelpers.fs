@@ -101,7 +101,7 @@ let getElectrolyzers () =
       GasManagementConsumption = parseFloatById "Electrolyzers.GasManagementConsumption"
       OverhaulElectrolyzer = parseFloatById "Electrolyzers.OverhaulElectrolyzer"
       H2CompressorSpecificConsumption = parseOptionFloatById "Electrolyzers.H2CompressorSpecificConsumption"
-      OxigenCompressorConsumption = parseFloatById "OxigenCompressorConsumption" }
+      OxigenCompressorConsumption = parseFloatById "Oxigen.CompressorConsumption" }
 
 let getSystemInput () =
     { FirstYearOfOperationBP = parseIntById "General.FirstYearOfOperationBP"

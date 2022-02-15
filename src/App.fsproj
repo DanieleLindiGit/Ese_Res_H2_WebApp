@@ -16,6 +16,7 @@
     <Compile Include="TestRunner.fs" />
     <Compile Include="DomHelpers.fs" />
     <Compile Include="HtmlFormatters.fs" />
+    <Compile Include="SaveAndLoad.fs" />
     <Compile Include="Validation.fs" />
     <Compile Include="App.fs" />
   </ItemGroup>

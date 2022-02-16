@@ -42,7 +42,7 @@ type ElectrolizersTablesOutput =
       Intercect: float }
 
 type ElectrolyzersOutput =
-    { 
+    { DcConsumptionC32: float
       NominalH2ProductionTot: float // kgH2/h
       WaterConsumption: float // tonH20/kgH2
       WaterDischarged: float // tonH20/kgH2
@@ -53,7 +53,8 @@ type ElectrolyzersOutput =
       ConsumptionOverYears: ElectrolizersTablesOutput list }
 
 let emptyElecOutput year =
-    { ElectrolyzersOutput.NominalH2ProductionTot = 0.0
+    { ElectrolyzersOutput.DcConsumptionC32 = 0.0
+      NominalH2ProductionTot = 0.0
       WaterConsumption = 0.0
       WaterDischarged = 0.0
       OxygenProduction = 0.0

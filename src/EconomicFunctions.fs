@@ -11,6 +11,8 @@ let getTechAndEconomicalParameters (inp: SystemInputs) (elec: ElectrolyzersOutpu
     { ElectrolizerNominalStackPower =
         inp.Electrolyzers.EnergyConsumption.Head.Consumption
         * elec.HydrogenSpecificVolumeNTP
+        * elec.NominalH2ProductionTot
+        / 1000.0
 
       BatteriesEnergyCapacity =
           float inp.Battery.HoursCapacity

@@ -4,19 +4,6 @@ open Inputs
 open Outputs
 open LinearRegression
 
-(*
-1.	Per quanto riguarda il problema sulla massima produzione di idrogeno l’errore stava nel fatto che l'input "Electrolyzers: Power DC Consumption" che abbiamo messo deve essere in realtà un valore calcolato. 
- 
-Ti chiederei quindi le seguenti modifiche (faccio riferimento all'Excel in allegato in questa email):
-1.	Calcolare nel foglio "Electrolyzr_with_degradation" la cella C32 come C10*G10
-2.	Fare in modo che qualunque punto del codice richiami l'input "Electrolyzers: Power DC Consumption" (corrispondente nell’Excel alla cella Input!B75) utilizzi invece la cella calcolata nel punto 1 (occhio alle unità di misura! Electrolyzers: Power DC Consumption al momento viene inserita in MW mentre la nuova cella da utilizzare è calcolata in kW. Quando sostituisci il valore che adesso è un input con la cella calcolata nel punto 1 devi dividere per mille).
-3.	Eliminare l'input "Electrolyzers: Power DC Consumption"
- 
-A questo punto la differenza nella produzione totale di idrogeno (che continua ad essere leggermente maggiore di 990 kg/h) è dovuta alle funzioni pendenza e intercetta che calcolano il consumo specifico a seconda del carico (sempre nel foglio "Electrolyzr_with_degradation" mi sto riferendo alle celle U32:V51). 
-Te ne accorgi perché nel foglio "CalculationsYear" alla colonna X il consumo specifico non è mai più alto di 57,65 kWh/kg, mentre il consumo specifico a pieno carico dovrebbe essere 57,77 (lo trovi nella cella Electrolyzr_with_degradation!P32).
-
-*)
-
 //Battery
 let BatteryWithDegradation (battery: Battery) =
     battery.Degradation
@@ -156,7 +143,7 @@ let CalcElectrolizersTablesOutput (el_input: Electrolyzers) (el_output: Electrol
     let productionTemp =
         el_output.EnergyConsumptionOutput
         |> List.map (fun e ->
-            el_input.PowerDcConsumption * 1000.0 * e.Load
+            el_output.DcConsumptionC32 * e.Load
             / 100.0
             / e.ConsumptionDC)
     //Ogni dieci anni i dati si resettano
@@ -171,7 +158,7 @@ let CalcElectrolizersTablesOutput (el_input: Electrolyzers) (el_output: Electrol
         |> List.map (fun e -> float e)
         |> List.fold
             (fun accumulator _ -> accumulator * (1.0 + el_input.Degradation / 100.0))
-            (el_input.PowerDcConsumption * 1000.0)
+            (el_output.DcConsumptionC32)
 
     let dcConsum1Lines =
         el_output.EnergyConsumptionOutput
@@ -207,11 +194,13 @@ let CalcElectrolizersTablesOutput (el_input: Electrolyzers) (el_output: Electrol
 
 let ElectrolyzersWithDegradationStep1 (electrolyzers: Electrolyzers) =
     let hsvn = 11.128223495702 // HydrogenSpecificVolumeNTP
+    let dc32 = electrolyzers.NominalH2Production * electrolyzers.EnergyConsumption.Head.Consumption * 0.976 * hsvn
 
     { //First Entry
       ElectrolyzersOutput.NominalH2ProductionTot =
         electrolyzers.NominalH2Production
         * float electrolyzers.Lines
+      DcConsumptionC32 = dc32
       WaterConsumption = electrolyzers.WaterConsumption / 1000.0
       WaterDischarged =
         electrolyzers.WaterConsumption / 1000.0
@@ -233,9 +222,7 @@ let ElectrolyzersWithDegradationStep1 (electrolyzers: Electrolyzers) =
               NominalH2Production =
                 match idx with
                 | 0 -> electrolyzers.NominalH2Production
-                | _ ->
-                    electrolyzers.PowerDcConsumption * 10.0 * ec.Load
-                    / (hsvn * ec.Consumption * 0.976) })
+                | _ -> dc32 * ec.Load / 100.0 / (hsvn * ec.Consumption * 0.976) })
       ConsumptionOverYears = [] }
 
 let ElectrolyzersWithDegradationStep2 (el_input: Electrolyzers) (el_output: ElectrolyzersOutput) =

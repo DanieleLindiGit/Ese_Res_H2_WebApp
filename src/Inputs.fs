@@ -178,10 +178,10 @@ let defaultElectrolyzers =
       WaterDischarge = 29.0
       MinimumLoadOf1Line = 20.0
       EnergyConsumption =
-        [ { Load = 100.0; Consumption = 4.8 }
-          { Load = 80.0; Consumption = 4.6 }
-          { Load = 60.0; Consumption = 4.4 }
-          { Load = 40.0; Consumption = 4.2 } ]
+        [ { Load = 100.0; Consumption = 4.5 }
+          { Load = 80.0; Consumption = 4.3 }
+          { Load = 60.0; Consumption = 4.2 }
+          { Load = 40.0; Consumption = 4.0 } ]
       PriceElectrolyzer = 808.0
       PriceBOP = 444.0
       PriceOther = 0.4

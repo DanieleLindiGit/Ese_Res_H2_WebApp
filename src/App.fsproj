@@ -9,10 +9,12 @@
     <Compile Include="Outputs.fs" />
     <Compile Include="EconomicInputs.fs" />
     <Compile Include="EconomicOutputs.fs" />
+    <Compile Include="EconomicOutputsPV.fs" />
     <Compile Include="LinearRegression.fs" />
     <Compile Include="CsvParser.fs" />
     <Compile Include="Functions.fs" />
     <Compile Include="EconomicFunctions.fs" />
+    <Compile Include="EconomicFunctionsPV.fs" />
     <Compile Include="TestRunner.fs" />
     <Compile Include="DomHelpers.fs" />
     <Compile Include="HtmlFormatters.fs" />

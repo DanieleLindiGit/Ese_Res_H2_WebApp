@@ -4,6 +4,7 @@ open Fable.Core
 open Browser.Dom
 open Outputs
 open EconomicOutputs
+open EconomicOutputsPV
 
 [<Emit("new Intl.NumberFormat('it-IT', { style: 'decimal' }).format($0)")>]
 let decimalFormatter (value: float) : string = jsNative
@@ -362,6 +363,8 @@ type BusinessPlanColumn =
       OxigenRevenues: string // €
       ExtraEEtoGrid: string // MWh SUM OF EnergyToGrid / 1000
       ExtraEEtoGridRevenues: string // €
+      PVEnergyProduced: string
+      PVRevenues: string
       TotalRevenues: string
 
       FixedCosts: string // €
@@ -373,6 +376,7 @@ type BusinessPlanColumn =
       WaterCost: string // €
       BiomassForEEProduction: string // SUM OF BiomassForEEProduction
       BiomassCost: string // €
+      OpexCost: string
       TotalCosts: string
 
       EBIT: string
@@ -400,6 +404,8 @@ let getBpColumnFromConstructionYear (cy: ConstructionYear) =
       OxigenRevenues = ""
       ExtraEEtoGrid = ""
       ExtraEEtoGridRevenues = ""
+      PVEnergyProduced = ""
+      PVRevenues = ""
       TotalRevenues = ""
 
       FixedCosts = ""
@@ -411,6 +417,7 @@ let getBpColumnFromConstructionYear (cy: ConstructionYear) =
       WaterCost = ""
       BiomassForEEProduction = ""
       BiomassCost = ""
+      OpexCost = ""
       TotalCosts = ""
 
       EBIT = ""
@@ -438,6 +445,8 @@ let getBpColumnFromYearAnalysis (ya: YearAnalysis) =
       OxigenRevenues = intFormatter ya.OxigenRevenues
       ExtraEEtoGrid = intFormatter ya.ExtraEEtoGrid
       ExtraEEtoGridRevenues = intFormatter ya.ExtraEEtoGridRevenues
+      PVEnergyProduced = ""
+      PVRevenues = ""
       TotalRevenues = intFormatter ya.TotalRevenues
 
       FixedCosts = intFormatter ya.FixedCosts
@@ -449,6 +458,7 @@ let getBpColumnFromYearAnalysis (ya: YearAnalysis) =
       WaterCost = intFormatter ya.WaterCost
       BiomassForEEProduction = intFormatter ya.BiomassForEEProduction
       BiomassCost = intFormatter ya.BiomassCost
+      OpexCost = ""
       TotalCosts = intFormatter ya.TotalCosts
 
       EBIT = intFormatter ya.EBIT
@@ -458,6 +468,89 @@ let getBpColumnFromYearAnalysis (ya: YearAnalysis) =
       TAX = intFormatter ya.Tax
       EAT = intFormatter ya.EAT
       FCF = intFormatter ya.FCF }
+
+let getBpColumnFromConstructionYearPV (cy: ConstructionYearPV) =
+    { BusinessPlanColumn.TotalYear = sprintf "%i" cy.TotalYear
+      OperationalYear = ""
+      Year = sprintf "%i" cy.Year
+
+      CyEquity = intFormatter cy.CyEquity
+      CyDebt = intFormatter cy.CyDebt
+      CyIDC = intFormatter cy.CyIDC
+
+      Amortization = ""
+
+      HydrogenProduction = ""
+      HydrogenRevenues = ""
+      OxigenProduction = ""
+      OxigenRevenues = ""
+      ExtraEEtoGrid = ""
+      ExtraEEtoGridRevenues = ""
+      PVEnergyProduced = ""
+      PVRevenues = ""
+      TotalRevenues = ""
+
+      FixedCosts = ""
+      ToElectrolyzer = ""
+      PResProgrammable = ""
+      BatteryCharging = ""
+      ElectricityCost = ""
+      WaterConsumption = ""
+      WaterCost = ""
+      BiomassForEEProduction = ""
+      BiomassCost = ""
+      OpexCost = ""
+      TotalCosts = ""
+
+      EBIT = ""
+      DebtReimbursement = ""
+      DebtInterest = ""
+      EBT = ""
+      TAX = ""
+      EAT = ""
+      FCF = "" }
+
+let getBpColumnFromYearAnalysisPV (ya: YearAnalysisPV) =
+    { BusinessPlanColumn.TotalYear = sprintf "%i" ya.TotalYear
+      OperationalYear = sprintf "%i" ya.OperationalYear
+      Year = sprintf "%i" ya.Year
+
+      CyEquity = ""
+      CyDebt = ""
+      CyIDC = ""
+
+      Amortization = intFormatter ya.Amortization
+
+      HydrogenProduction = ""
+      HydrogenRevenues = ""
+      OxigenProduction = ""
+      OxigenRevenues = ""
+      ExtraEEtoGrid = ""
+      ExtraEEtoGridRevenues = ""
+      PVEnergyProduced = intFormatter ya.PVEnergyProduced
+      PVRevenues = intFormatter ya.PVRevenues
+      TotalRevenues = intFormatter ya.TotalRevenues
+
+      FixedCosts = ""
+      ToElectrolyzer = ""
+      PResProgrammable = ""
+      BatteryCharging = ""
+      ElectricityCost = ""
+      WaterConsumption = ""
+      WaterCost = ""
+      BiomassForEEProduction = ""
+      BiomassCost = ""
+      OpexCost = intFormatter ya.OpexCost
+      TotalCosts = intFormatter ya.TotalCosts
+
+      EBIT = intFormatter ya.EBIT
+      DebtReimbursement = intFormatter ya.DebtReimbursement
+      DebtInterest = intFormatter ya.DebtInterest
+      EBT = intFormatter ya.EBT
+      TAX = intFormatter ya.Tax
+      EAT = intFormatter ya.EAT
+      FCF = intFormatter ya.FCF }
+
 
 type ClassRow =
     | RowNotset
@@ -628,6 +721,101 @@ let createBusinnesPlanTable (bpo: BusinessPlanOutput) =
         )
         .AppendLine(joinColumn "Biomass Cost" (columns |> List.map (fun v -> v.BiomassCost)) RowSecondary)
         .AppendLine(joinColumn "Total Costs" (columns |> List.map (fun v -> v.TotalCosts)) RowWarning)
+        .AppendLine(joinColumn "EBIT" (columns |> List.map (fun v -> v.EBIT)) RowNotset)
+        .AppendLine(joinColumn "Debt Reimbursement" (columns |> List.map (fun v -> v.DebtReimbursement)) RowNotset)
+        .AppendLine(joinColumn "Debt Interest" (columns |> List.map (fun v -> v.DebtInterest)) RowNotset)
+        .AppendLine(joinColumn "EBT" (columns |> List.map (fun v -> v.EBT)) RowNotset)
+        .AppendLine(joinColumn "TAX" (columns |> List.map (fun v -> v.TAX)) RowNotset)
+        .AppendLine(joinColumn "EAT" (columns |> List.map (fun v -> v.EAT)) RowNotset)
+        .AppendLine(joinColumn "FCF" (columns |> List.map (fun v -> v.FCF)) RowInfo)
+        .AppendLine("</tbody></table>")
+    |> ignore
+
+    el.innerHTML <- sb.ToString()
+
+let createBusinnesPlanTablePV (bpo: BusinessPlanOutputPV) =
+    let col1 =
+        bpo.ConstructionYears
+        |> List.map (fun v -> getBpColumnFromConstructionYearPV v)
+
+    let col2 =
+        bpo.YearsAnalysis
+        |> List.map (fun v -> getBpColumnFromYearAnalysisPV v)
+
+    let columns = col1 @ col2
+
+    let joinColumn (firstCol: string) (values: string list) (classRow: ClassRow) =
+        let trCn =
+            match classRow with
+            | RowNotset -> ""
+            | RowActive -> """ class="table-active" """
+            | RowSuccess -> """ class="table-success" """
+            | RowWarning -> """ class="table-warning" """
+            | RowSecondary -> """ class="fw-light fst-italic" """
+            | RowInfo -> """ class="table-info" """
+
+        let temp1 =
+            sprintf "<tr %s><th class=\"first-bp-col\">%s</th><td class=\"text-end\">" trCn firstCol
+
+        let temp2 =
+            values
+            |> String.concat "</td><td class=\"text-end\">"
+
+        let temp3 = "</td></tr>"
+        temp1 + temp2 + temp3
+
+    let el = document.getElementById ("BusinessPlanTablePV")
+    let sb = System.Text.StringBuilder()
+
+    sb
+        .AppendLine(""" <h3> <img title="img" src="icons/briefcase.svg"> <img title="img" src="icons/sun.svg"> Business Plan PV</h3><hr> """)
+        .AppendLine("<h4>Cost Analysis</h4>")
+        .AppendLine("""<dl class="row">""")
+        .AppendLine(sprintloc """<dt class="col-sm-2">LCOE</dt> <dd class="col-sm-2">%.4f €/kg</dd>""" bpo.LCOE)
+        .AppendLine(
+            sprintloc
+                """<dt class="col-sm-2">Net Present Value</dt> <dd class="col-sm-2">%.0f €(Thousands)</dd>"""
+                bpo.BpNPV
+        )
+        .AppendLine(
+            sprintloc
+                """<dt class="col-sm-2">Internal Rate of Return</dt> <dd class="col-sm-2">%.0f %%</dd>"""
+                bpo.BpIRR
+        )
+        .AppendLine(
+            sprintloc
+                """<dt class="col-sm-2">Total Debt</dt> <dd class="col-sm-2">%s €(Thousands)</dd>"""
+                (intFormatter bpo.TotalDebt)
+        )
+        .AppendLine("</dl>")
+        .AppendLine("<h4>Inputs</h4>")
+        .AppendLine("""<dl class="row">""")
+        .AppendLine(
+            sprintloc
+                """<dt class="col-sm-2">Capex Cost</dt> <dd class="col-sm-2 text-end">%s €</dd>"""
+                (intFormatter bpo.BusinessPlanInput.LCOE_PV_Inputs.CapexTotal)
+        )
+        .AppendLine(
+            sprintloc
+                """<dt class="col-sm-2">Opex</dt> <dd class="col-sm-2 text-end">%s €</dd>"""
+                (intFormatter bpo.BusinessPlanInput.LCOE_PV_Inputs.OpexTotal)
+        )
+        .AppendLine("</dl>")
+        .AppendLine("<h4>Cash Flow</h4>")
+        .AppendLine(getTableDownloadButton "BusinessPlanDataPV")
+        .AppendLine("""<table id="BusinessPlanDataPV" class="table table-bordered table-sm"><tbody>""")
+        .AppendLine(joinColumn "Total Year" (columns |> List.map (fun v -> v.TotalYear)) RowNotset)
+        .AppendLine(joinColumn "Operational Year" (columns |> List.map (fun v -> v.OperationalYear)) RowNotset)
+        .AppendLine(joinColumn "Year" (columns |> List.map (fun v -> v.Year)) RowActive)
+        .AppendLine(joinColumn "Equity" (columns |> List.map (fun v -> v.CyEquity)) RowNotset)
+        .AppendLine(joinColumn "Debt" (columns |> List.map (fun v -> v.CyDebt)) RowNotset)
+        .AppendLine(joinColumn "IDC" (columns |> List.map (fun v -> v.CyIDC)) RowNotset)
+        .AppendLine(joinColumn "Amortization" (columns |> List.map (fun v -> v.Amortization)) RowActive)
+
+        .AppendLine(joinColumn "PV Energy Produced" (columns |> List.map (fun v -> v.PVEnergyProduced)) RowSecondary)
+        .AppendLine(joinColumn "PV Revenues" (columns |> List.map (fun v -> v.PVRevenues)) RowSuccess)
+
+        .AppendLine(joinColumn "Opex" (columns |> List.map (fun v -> v.OpexCost)) RowWarning)
         .AppendLine(joinColumn "EBIT" (columns |> List.map (fun v -> v.EBIT)) RowNotset)
         .AppendLine(joinColumn "Debt Reimbursement" (columns |> List.map (fun v -> v.DebtReimbursement)) RowNotset)
         .AppendLine(joinColumn "Debt Interest" (columns |> List.map (fun v -> v.DebtInterest)) RowNotset)

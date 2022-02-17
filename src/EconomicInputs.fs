@@ -7,6 +7,10 @@ type VariableCosts =
       VariableForMotor: float // €/MWh
       ElectricityToGrid: float } // €/MWh
 
+type LCOE_PV_Inputs = 
+    { CapexTotal: float // €/MW
+      OpexTotal: float } // €/MW/y
+
 type Financing =
     { // Equity + Debt deve essere uguale a 100
       Equity: float // %

@@ -155,6 +155,14 @@ let getFinancialInputs () =
 
 // ECONOMIC INPUTS REGION END
 
+// LCOE PV INPUTS REGION START
+let getLCOE_PV_Inputs () =
+    { 
+      LCOE_PV_Inputs.CapexTotal = parseFloatById "LCOE_PV_Inputs.CapexTotal"
+      OpexTotal = parseFloatById "LCOE_PV_Inputs.OpexTotal"
+    }
+// LCOE PV INPUTS REGION END
+
 let showDiv elementId =
     let divs = document.getElementsByClassName ("section")
 

@@ -5,7 +5,7 @@ open System
 open CsvParser
 open Inputs
 open EconomicInputs
-open Fable.Core
+open SampleData
 
 // HELPERS METHODS START
 let parseFloat (v: string) =
@@ -205,6 +205,10 @@ let navOnClick (element: Browser.Types.Element) =
     element.setAttribute ("class", "nav-link active")
     let target = element.getAttribute "data-target"
     showDiv target
+
+let AddCsvSampleData () =
+    let element = document.getElementById ("PvWindCsvData") :?> Browser.Types.HTMLTextAreaElement
+    element.value <- CsvSampleData
 
 let NavigationHandler () =
     let links = document.getElementsByClassName ("nav-link")

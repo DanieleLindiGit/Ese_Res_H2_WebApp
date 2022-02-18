@@ -52,4 +52,5 @@ document.getElementById("yearBtn").onclick <- fun _ -> YearlyCalculation ()
 document.getElementById("LoadConfigBtn").onchange <- fun evt -> LoadConfiguration evt
 document.getElementById("SaveConfigBtn").onclick <- fun _ -> SaveConfig ()
 
+AddCsvSampleData ()
 NavigationHandler ()

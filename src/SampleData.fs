@@ -1,102 +1,6 @@
-[General]
-FirstYearOfOperationBP = 2024
-ManteinanceMonth = 0
-OEM_Costs = 1,25
-InitialInvestmentBreakdown = 60; 40
+module SampleData
 
-[PV]
-Size = 80
-YearOfConstruction = 2024
-Degradation = 100,00; 99,63; 99,26; 98,89; 98,53; 98,16; 97,79; 97,42; 97,05; 96,68; 96,32; 95,95; 95,58; 95,21; 94,84; 94,47; 94,11; 93,74; 93,37; 93,00
-
-[Wind]
-Size = 119
-YearOfConstruction = 2024
-Degradation = 100,00; 99,83; 99,67; 99,50; 99,33; 99,17; 99,00; 98,33; 97,67; 97,00; 96,33; 95,67; 95,00; 94,00; 93,00; 92,00; 91,00; 90,00; 89,00; 88,00; 87,00; 86,00; 85,00; 84,00; 83,00; 82,00; 81,00; 80,00; 79,00
-
-[BiomassGasifier]
-StrawMotorSize = 4
-MinimumMotorLoad = 50
-BiomassLHV = 14.000
-ElectricEfficiency = 20
-AnnualAvailability = 30.000
-Price = 45
-Capex = 3.000.000
-Bop = 7
-
-[Battery]
-YearOfConstruction = 2024
-Efficiency = 85
-PowerOutput = 10
-HoursCapacity = 4
-ExtraCapacity = 0
-SpecificPrice = 220
-Degradation = 100; 95; 92; 90; 89; 87; 86; 85; 83; 82; 80; 79; 78; 76; 75; 73; 72; 70; 69; 67
-[Battery.OverhaulBatteries]
-AdditionEvery10Years = 0
-AdditionSpecificPrice = 160
-
-[Electrolyzers]
-YearOfConstruction = 2024
-Lines = 3
-PowerDcConsumption = 17,1
-NominalH2Production = 330
-PressureProductionH2 = 1
-PressureNeedH2 = 30
-Degradation = 1,4
-WaterConsumption = 14
-WaterDischarge = 29
-MinimumLoadOf1Line = 20
-PriceElectrolyzer = 807,60
-PriceBOP = 444
-PriceOther = 0,4
-CapexHydrogenCompressor = 0
-CoolingSystemConsumption = 1,010101
-GasManagementConsumption = 1,010101
-OverhaulElectrolyzer = 200.000
-H2CompressorSpecificConsumption = SKIP
-[Electrolyzers.EnergyConsumption]
-Load100 = 4,76229362117533
-Load80 = 4,55063612690087
-Load60 = 4,44480737976364
-Load40 = 4,23314988548918
-
-[Load]
-MinimumH2Production = 80
-
-[Oxigen]
-Price = 0,04
-Capex = 0
-StoragePressure = 30
-Purity = 98
-CompressorConsumption = 0,3079
-
-
-[HydrogenStorage]
-NumberOfHours = 24
-StoragePrice = 500
-
-[VariableCosts]
-ElectricityFromPvAndWind = 50
-StrawConsumption = 45
-Water = 1
-VariableForMotor = 0
-ElectricityToGrid = 0
-
-[Financing]
-Equity = 80
-
-[FinancialParameters]
-LoanInterestRate = 3,25
-CapitalDiscountRate = 6
-InflationRate = 0
-RepaimentPeriod = 20
-EarningTax = 24
-H2PriceEscalation = 0
-AmortizationPeriod = 10
-
-#EXTRA DATA
-Date and Time;PV Output;Wind Output
+let CsvSampleData = """Date and Time;PV Output;Wind Output
 01/01/1990 00:00;0,000000;184,403087
 01/01/1990 01:00;0,000000;51,532986
 01/01/1990 02:00;0,000000;68,533559
@@ -8857,3 +8761,4 @@ Date and Time;PV Output;Wind Output
 31/12/1990 21:00;0,000000;238,140956
 31/12/1990 22:00;0,000000;440,441595
 31/12/1990 23:00;0,000000;429,201036
+"""

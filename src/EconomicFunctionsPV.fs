@@ -7,15 +7,12 @@ open EconomicOutputsPV
 open Functions
 open FinancialFunctions
 
-let getBusinessPlanInputPV (fin: FinancialInputs) (sys: SystemInputs) (lc: LCOE_PV_Inputs) =
+let getBusinessPlanInputPV (fin: FinancialInputs) (sys: SystemInputs) =
     // Trasformo gli input in base alla size del PV
-    { BusinessPlanInputPV.LCOE_PV_Inputs = 
-        {
-          LCOE_PV_Inputs.CapexTotal = lc.CapexTotal * sys.PV.Size
-          OpexTotal = lc.OpexTotal * sys.PV.Size
-        }
+    { BusinessPlanInputPV.CapexTotal = fin.LCOE_PV_Inputs.LCOE_PV_Capex.CapexTotal * sys.PV.Size
+      OpexTotal = fin.LCOE_PV_Inputs.LCOE_PV_Opex.OpexTotal * sys.PV.Size
       FinancialInputs = fin
-      FinancingTotal = lc.CapexTotal * sys.PV.Size
+      FinancingTotal = fin.LCOE_PV_Inputs.LCOE_PV_Capex.CapexTotal * sys.PV.Size
       CostructionYears = fin.InitialInvestmentBreakdown.Length }
 
 
@@ -121,7 +118,7 @@ let getYearAnalysisPV (sys: SystemInputs) (inp: BusinessPlanInputPV) (yearOfOp: 
            / 100.0)
         ** (float TotalYear - 1.0)
 
-    let opex = inp.LCOE_PV_Inputs.OpexTotal / ThousandsOrUnits * inflationUpToDate
+    let opex = inp.OpexTotal / ThousandsOrUnits * inflationUpToDate
 
     let pvStats = PvWithDegradationStats sys.PvWindHourlyData sys.PV
     let candidatePV = pvStats.Rows |> List.tryFind (fun (year, _, _, _, _) -> year = Year)
@@ -183,8 +180,8 @@ let getNPV_IRR_CashFlow (cy: ConstructionYearPV list) (ya: YearAnalysisPV list) 
 
     (NPV interestRate cashFlow, IRR cashFlow, cashFlow)
 
-let getBusinessPlanOutputPV (inp: SystemInputs) (fin: FinancialInputs) (lc: LCOE_PV_Inputs) =
-    let bi = getBusinessPlanInputPV fin inp lc
+let getBusinessPlanOutputPV (inp: SystemInputs) (fin: FinancialInputs) =
+    let bi = getBusinessPlanInputPV fin inp
     let cy = getConstructionYearsPV bi inp
     let totalDebt = getTotalDebtPV cy
 
@@ -243,9 +240,9 @@ let optimizeLCOE_PV (bpo: BusinessPlanOutputPV) (min: float) max step =
 
     minLcoe
 
-let finalBusinessPlanPV (inp: SystemInputs) (fin: FinancialInputs) (lc: LCOE_PV_Inputs) =
+let finalBusinessPlanPV (inp: SystemInputs) (fin: FinancialInputs) =
 
-    let bpo = getBusinessPlanOutputPV inp fin lc
+    let bpo = getBusinessPlanOutputPV inp fin
 
     let step0 = optimizeLCOE_PV bpo 10.0 100.0 10.0
     let step1 = optimizeLCOE_PV bpo (step0 - 5.0) (step0 + 5.0) 1.0

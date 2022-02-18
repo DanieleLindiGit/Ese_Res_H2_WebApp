@@ -8,7 +8,8 @@ let ThousandsOrUnits = 1000.0
 let IpotesiInizialeLCOE_PV = 40.0
 
 type BusinessPlanInputPV =
-    { LCOE_PV_Inputs: LCOE_PV_Inputs
+    { CapexTotal: float
+      OpexTotal: float
       FinancialInputs: FinancialInputs
       FinancingTotal: float // €
       CostructionYears: int } // quanti anni prima che sia operativa

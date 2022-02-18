@@ -123,6 +123,7 @@ let getSystemInput () =
       PvWindHourlyData = getPvWindNominalPower "PvWindCsvData" }
 // SYSTEM INPUTS END
 
+
 // ECONOMIC INPUTS REGION START
 let getVariableCosts () =
     { VariableCosts.ElectricityFromPvAndWind = parseFloatById "VariableCosts.ElectricityFromPvAndWind"
@@ -130,6 +131,33 @@ let getVariableCosts () =
       Water = parseFloatById "VariableCosts.Water"
       VariableForMotor = parseFloatById "VariableCosts.VariableForMotor"
       ElectricityToGrid = parseFloatById "VariableCosts.ElectricityToGrid" }
+
+let getLCOE_PV_Inputs () =
+    { 
+      
+      LCOE_PV_Inputs.LCOE_PV_Capex = {
+        Authorizations = parseFloatById "LCOE_PV_Capex.Authorizations"
+        Engineering = parseFloatById "LCOE_PV_Capex.Engineering"
+        PvModules = parseFloatById "LCOE_PV_Capex.PvModules"
+        Inverter = parseFloatById "LCOE_PV_Capex.Inverter"
+        Structures = parseFloatById "LCOE_PV_Capex.Structures"
+        Bop = parseFloatById "LCOE_PV_Capex.Bop"
+        CivilWorks = parseFloatById "LCOE_PV_Capex.CivilWorks"
+        Connections = parseFloatById "LCOE_PV_Capex.Connections"
+        Assemblies = parseFloatById "LCOE_PV_Capex.Assemblies"
+        Epcm = parseFloatById "LCOE_PV_Capex.Epcm"
+        Ground = parseFloatById "LCOE_PV_Capex.Ground"
+        Other = parseFloatById "LCOE_PV_Capex.Other"
+      }
+      LCOE_PV_Opex = {
+        FullOem = parseFloatById "LCOE_PV_Opex.FullOem"
+        AssetManagement = parseFloatById "LCOE_PV_Opex.AssetManagement"
+        Insurance = parseFloatById "LCOE_PV_Opex.Insurance"
+        Trading = parseFloatById "LCOE_PV_Opex.Trading"
+        Ground = parseFloatById "LCOE_PV_Opex.Ground"
+        Other = parseFloatById "LCOE_PV_Opex.Other"
+      }
+    }
 
 let getFinancing () =
     let equity = parseFloatById "Financing.Equity"
@@ -149,19 +177,12 @@ let getFinancialParameters () =
 let getFinancialInputs () =
     { FinancialInputs.OEM_Costs = parseFloatById "General.OEM_Costs"
       VariableCosts = getVariableCosts ()
+      LCOE_PV_Inputs = getLCOE_PV_Inputs ()
       Financing = getFinancing ()
       FinancialParameters = getFinancialParameters ()
       InitialInvestmentBreakdown = parseFloatArrayById "General.InitialInvestmentBreakdown" }
 
 // ECONOMIC INPUTS REGION END
-
-// LCOE PV INPUTS REGION START
-let getLCOE_PV_Inputs () =
-    { 
-      LCOE_PV_Inputs.CapexTotal = parseFloatById "LCOE_PV_Inputs.CapexTotal"
-      OpexTotal = parseFloatById "LCOE_PV_Inputs.OpexTotal"
-    }
-// LCOE PV INPUTS REGION END
 
 let showDiv elementId =
     let divs = document.getElementsByClassName ("section")

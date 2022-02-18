@@ -22,9 +22,7 @@ let GlobalCalculation () =
   createElectrolyzers (ElectrolyzersWithDegradation allInputs.Electrolyzers finInputs.FinancialParameters.RepaimentPeriod)
   createCalculationYearOutput (CalculationYear allInputs 1)
   createBusinnesPlanTable (finalBusinessPlan allInputs finInputs)
-  let lcoe_pv_inputs = getLCOE_PV_Inputs ()
-  let fbp_pv = finalBusinessPlanPV allInputs finInputs lcoe_pv_inputs
-  createBusinnesPlanTablePV fbp_pv
+  createBusinnesPlanTablePV (finalBusinessPlanPV allInputs finInputs)
   ShowSideBar ()
 
   navOnClick (document.getElementById "BusinessPlanButton")

@@ -793,12 +793,12 @@ let createBusinnesPlanTablePV (bpo: BusinessPlanOutputPV) =
         .AppendLine(
             sprintloc
                 """<dt class="col-sm-2">Capex Cost</dt> <dd class="col-sm-2 text-end">%s €</dd>"""
-                (intFormatter bpo.BusinessPlanInput.LCOE_PV_Inputs.CapexTotal)
+                (intFormatter bpo.BusinessPlanInput.CapexTotal)
         )
         .AppendLine(
             sprintloc
                 """<dt class="col-sm-2">Opex</dt> <dd class="col-sm-2 text-end">%s €</dd>"""
-                (intFormatter bpo.BusinessPlanInput.LCOE_PV_Inputs.OpexTotal)
+                (intFormatter bpo.BusinessPlanInput.OpexTotal)
         )
         .AppendLine("</dl>")
         .AppendLine("<h4>Cash Flow</h4>")

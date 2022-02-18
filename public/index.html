@@ -811,23 +811,223 @@
 
             <!--LCOE PV-->
             <h4>LCOE PV Inputs</h4>
+
+            <h5>Capex</h5>
+
             <div class="row mb-3">
-              <label for="LCOE_PV_Inputs.CapexTotal" class="col-sm-2 col-form-label">Capex Total for MW</label>
+              <label for="LCOE_PV_Capex.Authorizations" 
+              class="col-sm-2 offset-md-1 col-form-label">Authorizations</label>
               <div class="col-sm-3">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="LCOE_PV_Inputs.CapexTotal" value="514698,08"
-                    required>
+                  <input type="text" class="form-control float" id="LCOE_PV_Capex.Authorizations" 
+                  value="5306,17" required>
                   <span class="input-group-text">€/MW</span>
                 </div>
               </div>
             </div>
+
             <div class="row mb-3">
-              <label for="LCOE_PV_Inputs.OpexTotal" class="col-sm-2 col-form-label">Opex Total for MW</label>
+              <label for="LCOE_PV_Capex.Engineering" 
+              class="col-sm-2 offset-md-1 col-form-label">Engineering</label>
               <div class="col-sm-3">
                 <div class="input-group">
-                  <input type="text" class="form-control float" id="LCOE_PV_Inputs.OpexTotal" value="12734,80"
-                    required>
+                  <input type="text" class="form-control float" id="LCOE_PV_Capex.Engineering" 
+                  value="5306,17" required>
                   <span class="input-group-text">€/MW</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="LCOE_PV_Capex.PvModules" 
+              class="col-sm-2 offset-md-1 col-form-label">Pv Modules</label>
+              <div class="col-sm-3">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="LCOE_PV_Capex.PvModules" 
+                  value="201634,30" required>
+                  <span class="input-group-text">€/MW</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="LCOE_PV_Capex.Inverter" 
+              class="col-sm-2 offset-md-1 col-form-label">Inverter</label>
+              <div class="col-sm-3">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="LCOE_PV_Capex.Inverter" 
+                  value="27592,06" required>
+                  <span class="input-group-text">€/MW</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="LCOE_PV_Capex.Structures" 
+              class="col-sm-2 offset-md-1 col-form-label">Structures</label>
+              <div class="col-sm-3">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="LCOE_PV_Capex.Structures" 
+                  value="83837,42" required>
+                  <span class="input-group-text">€/MW</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="LCOE_PV_Capex.Bop" 
+              class="col-sm-2 offset-md-1 col-form-label">Bop</label>
+              <div class="col-sm-3">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="LCOE_PV_Capex.Bop" 
+                  value="97633,45" required>
+                  <span class="input-group-text">€/MW</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="LCOE_PV_Capex.CivilWorks" 
+              class="col-sm-2 offset-md-1 col-form-label">Civil Works</label>
+              <div class="col-sm-3">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="LCOE_PV_Capex.CivilWorks" 
+                  value="40326,86" required>
+                  <span class="input-group-text">€/MW</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="LCOE_PV_Capex.Connections" 
+              class="col-sm-2 offset-md-1 col-form-label">Connections</label>
+              <div class="col-sm-3">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="LCOE_PV_Capex.Connections" 
+                  value="21224,66" required>
+                  <span class="input-group-text">€/MW</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="LCOE_PV_Capex.Assemblies" 
+              class="col-sm-2 offset-md-1 col-form-label">Assemblies</label>
+              <div class="col-sm-3">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="LCOE_PV_Capex.Assemblies" 
+                  value="0" required>
+                  <span class="input-group-text">€/MW</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="LCOE_PV_Capex.Epcm" 
+              class="col-sm-2 offset-md-1 col-form-label">Epcm</label>
+              <div class="col-sm-3">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="LCOE_PV_Capex.Epcm" 
+                  value="21224,66" required>
+                  <span class="input-group-text">€/MW</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="LCOE_PV_Capex.Ground" 
+              class="col-sm-2 offset-md-1 col-form-label">Ground</label>
+              <div class="col-sm-3">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="LCOE_PV_Capex.Ground" 
+                  value="0" required>
+                  <span class="input-group-text">€/MW</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="LCOE_PV_Capex.Other" 
+              class="col-sm-2 offset-md-1 col-form-label">Other</label>
+              <div class="col-sm-3">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="LCOE_PV_Capex.Other" 
+                  value="10612,33" required>
+                  <span class="input-group-text">€/MW</span>
+                </div>
+              </div>
+            </div>
+
+            <h5>Opex</h5>
+
+            <div class="row mb-3">
+              <label for="LCOE_PV_Opex.FullOem" 
+              class="col-sm-2 offset-md-1 col-form-label">FullOem</label>
+              <div class="col-sm-3">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="LCOE_PV_Opex.FullOem" 
+                  value="3183,70" required>
+                  <span class="input-group-text">€/MW/y</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="LCOE_PV_Opex.AssetManagement" 
+              class="col-sm-2 offset-md-1 col-form-label">Asset Management</label>
+              <div class="col-sm-3">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="LCOE_PV_Opex.AssetManagement" 
+                  value="530,62" required>
+                  <span class="input-group-text">€/MW/y</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="LCOE_PV_Opex.Insurance" 
+              class="col-sm-2 offset-md-1 col-form-label">Insurance</label>
+              <div class="col-sm-3">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="LCOE_PV_Opex.Insurance" 
+                  value="1591,85" required>
+                  <span class="input-group-text">€/MW/y</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="LCOE_PV_Opex.Trading" 
+              class="col-sm-2 offset-md-1 col-form-label">Trading</label>
+              <div class="col-sm-3">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="LCOE_PV_Opex.Trading" 
+                  value="0" required>
+                  <span class="input-group-text">€/MW/y</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="LCOE_PV_Opex.Ground" 
+              class="col-sm-2 offset-md-1 col-form-label">Ground</label>
+              <div class="col-sm-3">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="LCOE_PV_Opex.Ground" 
+                  value="7428,63" required>
+                  <span class="input-group-text">€/MW/y</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="LCOE_PV_Opex.Other" 
+              class="col-sm-2 offset-md-1 col-form-label">Other</label>
+              <div class="col-sm-3">
+                <div class="input-group">
+                  <input type="text" class="form-control float" id="LCOE_PV_Opex.Other" 
+                  value="0" required>
+                  <span class="input-group-text">€/MW/y</span>
                 </div>
               </div>
             </div>

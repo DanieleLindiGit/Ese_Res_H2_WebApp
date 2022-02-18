@@ -18,25 +18,37 @@ let SaveConfig () =
    [ 0 .. allInpElements.length - 2 ]
    |> List.iter (fun idx ->
       let el = allInpElements.[idx] :?> Browser.Types.HTMLInputElement
-      if el.value.Length > 0 then
-         let v = el.value.Replace("\n", " ")
-         sb.AppendLine(sprintf "%s = %s" el.id v) |> ignore
+      let uom = el.dataset.["uom"]
+      let isTextArea = el.tagName = "TEXTAREA"
+      let take = el.hasAttribute "data-uom"
+
+      if take then
+         let v = el.value.Replace("\n", System.String.Empty)
+         let u =
+            if not isTextArea && uom.Length > 0 then ";"+uom else System.String.Empty
+         sb.AppendLine(sprintf "%s;%s%s" el.id v u) |> ignore
    )
+
    sb.AppendLine()
+      .AppendLine()
       .AppendLine("#CSVDATA#") |> ignore
    
+   printfn "%s" (sb.ToString())
+   (*
    let csv = document.getElementById("PvWindCsvData") :?> Browser.Types.HTMLTextAreaElement
    sb.Append(csv.value) |> ignore
+   *)
 
    //Download
    let link = document.createElement("a")
    link.setAttribute("style", "display: none;")
    link.setAttribute("target", "_blank")
-   link.setAttribute("href", "data:text/plain;charset=utf-8," + Fable.Core.JS.encodeURIComponent(sb.ToString()))
-   link.setAttribute("download", "configuration.txt")
+   link.setAttribute("href", "data:text/csv;charset=utf-8," + Fable.Core.JS.encodeURIComponent(sb.ToString()))
+   link.setAttribute("download", "configuration.csv")
    document.body.appendChild(link) |> ignore
    link.click()
    document.body.removeChild(link) |> ignore
+   
 
 let SetConfiguration (text:string) =
    let lines = text.Split([| System.Environment.NewLine |], System.StringSplitOptions.RemoveEmptyEntries)

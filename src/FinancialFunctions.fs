@@ -11,12 +11,12 @@ let NPV (discountRate: float) (cashFlow: float list) =
 
     cashFlow |> List.mapi getFactor |> List.sum
 
-// restituisce un valore compreso tra -100% e +100% con risoluzione a 0.1%
+// restituisce un valore compreso tra -100% e +100% con risoluzione a 0.01%
 let IRR (cashFlow: float list) =
     let candidates =
         match Gain cashFlow with
-        | v when v > 0.0 -> [ 0.0 .. 0.1 .. 100.0 ]
-        | _ -> [ 0.0 .. -0.1 .. -100.0 ]
+        | v when v > 0.0 -> [ 0.0 .. 0.01 .. 100.0 ]
+        | _ -> [ 0.0 .. -0.01 .. -100.0 ]
 
     let indexCloseToZero =
         candidates

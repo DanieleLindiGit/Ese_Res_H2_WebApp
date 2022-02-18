@@ -337,7 +337,7 @@ let getBusinessPlanOutput (inp: SystemInputs) (fin: FinancialInputs) =
         |> List.map (fun idx -> getYearAnalysis inp bi idx totalDebt)
 
     let npv, irr, cf =
-        getNPV_IRR_CashFlow cy ya bi.FinancialInputs.FinancialParameters.LoanInterestRate
+        getNPV_IRR_CashFlow cy ya bi.FinancialInputs.FinancialParameters.CapitalDiscountRate
 
     { BusinessPlanOutput.LCOH = IpotesiInizialeLCOH
       BpNPV = npv
@@ -345,6 +345,7 @@ let getBusinessPlanOutput (inp: SystemInputs) (fin: FinancialInputs) =
       CashFlow = cf
       TotalDebt = totalDebt
       LoanInterestRate = bi.FinancialInputs.FinancialParameters.LoanInterestRate
+      CapitalDiscountRate = bi.FinancialInputs.FinancialParameters.CapitalDiscountRate
       BusinessPlanInput = bi
       ConstructionYears = cy
       YearsAnalysis = ya }
@@ -355,7 +356,7 @@ let ricalculateBusinessPlan (bpo: BusinessPlanOutput) (lcoh: float) =
         |> List.map (fun ya -> resetYearAnalisys ya lcoh)
 
     let npv, irr, cf =
-        getNPV_IRR_CashFlow bpo.ConstructionYears newData bpo.LoanInterestRate
+        getNPV_IRR_CashFlow bpo.ConstructionYears newData bpo.CapitalDiscountRate
 
     { bpo with
         LCOH = lcoh

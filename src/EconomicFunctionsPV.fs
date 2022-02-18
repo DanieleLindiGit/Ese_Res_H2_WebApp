@@ -30,6 +30,7 @@ let getConstructionYearsPV (inp: BusinessPlanInputPV) (sys: SystemInputs) =
         / 100.0
         / ThousandsOrUnits
 
+
     let totDebt =
         inp.FinancingTotal
         * inp.FinancialInputs.Financing.Debt
@@ -126,7 +127,7 @@ let getYearAnalysisPV (sys: SystemInputs) (inp: BusinessPlanInputPV) (yearOfOp: 
     let candidatePV = pvStats.Rows |> List.tryFind (fun (year, _, _, _, _) -> year = Year)
     let totalPvProduction =
         match candidatePV with
-        | Some (_, total, _, _, _) -> total
+        | Some (_, total, _, _, _) -> total / 1000.0
         | None -> 0.0
 
     let DebtReimbursement =
@@ -176,6 +177,10 @@ let getNPV_IRR_CashFlow (cy: ConstructionYearPV list) (ya: YearAnalysisPV list) 
         (cy |> List.map (fun v -> v.FCF))
         @ (ya |> List.map (fun v -> v.FCF))
 
+    printfn "Cash Flow = %A" (cashFlow |> List.map (fun v -> System.Math.Round(v, 0)))
+    printfn "Interest = %.2f" interestRate
+    printfn "NPV = %.2f" (NPV interestRate cashFlow)
+
     (NPV interestRate cashFlow, IRR cashFlow, cashFlow)
 
 let getBusinessPlanOutputPV (inp: SystemInputs) (fin: FinancialInputs) (lc: LCOE_PV_Inputs) =
@@ -190,7 +195,7 @@ let getBusinessPlanOutputPV (inp: SystemInputs) (fin: FinancialInputs) (lc: LCOE
         |> List.map (fun idx -> getYearAnalysisPV inp bi idx totalDebt)
 
     let npv, irr, cf =
-        getNPV_IRR_CashFlow cy ya bi.FinancialInputs.FinancialParameters.LoanInterestRate
+        getNPV_IRR_CashFlow cy ya bi.FinancialInputs.FinancialParameters.CapitalDiscountRate
 
     { BusinessPlanOutputPV.LCOE = IpotesiInizialeLCOE_PV
       BpNPV = npv
@@ -198,6 +203,7 @@ let getBusinessPlanOutputPV (inp: SystemInputs) (fin: FinancialInputs) (lc: LCOE
       CashFlow = cf
       TotalDebt = totalDebt
       LoanInterestRate = bi.FinancialInputs.FinancialParameters.LoanInterestRate
+      CapitalDiscountRate = bi.FinancialInputs.FinancialParameters.CapitalDiscountRate
       BusinessPlanInput = bi
       ConstructionYears = cy
       YearsAnalysis = ya }
@@ -208,7 +214,7 @@ let ricalculateBusinessPlanPV (bpo: BusinessPlanOutputPV) (lcoe: float) =
         |> List.map (fun ya -> resetYearAnalisysPV ya lcoe)
 
     let npv, irr, cf =
-        getNPV_IRR_CashFlow bpo.ConstructionYears newData bpo.LoanInterestRate
+        getNPV_IRR_CashFlow bpo.ConstructionYears newData bpo.CapitalDiscountRate
 
     { bpo with
         LCOE = lcoe

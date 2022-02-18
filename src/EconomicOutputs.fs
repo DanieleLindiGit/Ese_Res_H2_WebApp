@@ -98,6 +98,7 @@ type BusinessPlanOutput =
       CashFlow: float list
       TotalDebt: float
       LoanInterestRate: float
+      CapitalDiscountRate: float
       BusinessPlanInput: BusinessPlanInput
 
       ConstructionYears: ConstructionYear list

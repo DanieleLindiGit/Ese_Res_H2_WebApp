@@ -5,7 +5,7 @@ open EconomicInputs
 // Questa costante mostra gli outuput monetari in migliaia
 let ThousandsOrUnits = 1000.0
 
-let IpotesiInizialeLCOE_PV = 50.0
+let IpotesiInizialeLCOE_PV = 40.0
 
 type BusinessPlanInputPV =
     { LCOE_PV_Inputs: LCOE_PV_Inputs
@@ -57,6 +57,7 @@ type BusinessPlanOutputPV =
       CashFlow: float list
       TotalDebt: float
       LoanInterestRate: float
+      CapitalDiscountRate: float
       BusinessPlanInput: BusinessPlanInputPV
 
       ConstructionYears: ConstructionYearPV list

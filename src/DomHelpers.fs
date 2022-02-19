@@ -24,7 +24,7 @@ let parseOptionFloatById elementId =
 
 let parseIntById elementId =
     let input = document.getElementById (elementId) :?> Browser.Types.HTMLInputElement
-    int input.value
+    int (input.value.Replace(".", String.Empty))
 
 let parseFloatArrayById elementId =
     let input =

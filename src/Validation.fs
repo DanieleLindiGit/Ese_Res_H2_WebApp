@@ -64,7 +64,7 @@ let ShowWarningMessage message =
 let ValidateSingleInput (element:Browser.Types.Element) 
   (value: string) 
   (vc: ValidationCase) =
-  let intChars = ['0'; '1'; '2'; '3'; '4'; '5'; '6'; '7'; '8'; '9']
+  let intChars = ['.'; '0'; '1'; '2'; '3'; '4'; '5'; '6'; '7'; '8'; '9']
   let floatChars = ',' :: intChars
   let floatListChars = floatChars @ [';'; ' '; '\u000A'] // 000A Newline in unicode
   let v2 = Seq.toList value

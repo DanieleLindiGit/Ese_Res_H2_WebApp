@@ -30,3 +30,21 @@ let ParseText (text: string) =
     |> Array.filter (fun line -> line.Length > 10)
     |> Array.map ParseCsvLine
     |> List.ofArray
+
+
+let ParseArcGisLine (line:string) (factorOf1MW: float) =
+    (*
+        time,P,G(i),H_sun,T2m,WS10m,Int
+        20150101:0010,0.0,0.0,0.0,-1.24,3.45,0.0
+        yyyymmdd:hh--,POW,--,--,--,--,--
+    *)
+    0
+
+let ParseArcGisFile (text: string) =
+    // 1. Controllo che inizi con Latitude
+    // 2. Cerco la riga -> Nominal power of the PV system (c-Si) (kWp):	1000.0
+    // per vedere la potenza in kW
+    // 3. Cerco la riga -> time,P,G(i),H_sun,T2m,WS10m,Int
+    // per dividere le linee successive
+
+    0

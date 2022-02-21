@@ -1,0 +1,9 @@
+{
+    "files.exclude": {
+        "**/*.fs.js": true,
+        "**/node_modules": true,
+        "src/.fable": true,
+        "src/bin": true,
+        "src/obj": true
+    }
+}

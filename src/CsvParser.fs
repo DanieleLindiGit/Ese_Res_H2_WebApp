@@ -41,13 +41,14 @@ let ParseArcGisLine (line:string) (factorOf1MW: float) =
         01234567890
     *)
     let fields = line.Split([| "," |], StringSplitOptions.RemoveEmptyEntries)
-    let power =  sprintf "%.2f" (float fields.[1] / factorOf1MW)
+    let power =  sprintf "%.2f" (float fields.[1] * factorOf1MW)
     let powerString = power.Replace('.', ',')
     let dateString = 
         fields.[0].Substring(6,2) + "/" + 
         fields.[0].Substring(4, 2) + "/" +
         fields.[0].Substring(0, 4) + " " +
         fields.[0].Substring(9, 2) + ":00"
+
     sprintf "%s;%s;0" dateString powerString
 
 let ParseArcGisFile (text: string) =
@@ -61,9 +62,9 @@ let ParseArcGisFile (text: string) =
     let powerString = 
         np.Split([| ":" |], StringSplitOptions.RemoveEmptyEntries) 
         |> Array.map (fun v -> v.Trim())
-    let powerFactor = float powerString.[1] / 1_000_000.0
+    let powerFactor = float powerString.[1] / 1000.0 / 1_000.0
     let firstIdx = (allLines |> Array.findIndex (fun v -> v.StartsWith "time,P"))+1
-    let lastIdx = firstIdx + 8760
+    let lastIdx = firstIdx + 8759
     let dataLines = allLines.[firstIdx ..  lastIdx]
 
     let sb = System.Text.StringBuilder()
@@ -74,7 +75,7 @@ let ParseArcGisFile (text: string) =
     let el = document.getElementById "PvWindCsvData" :?> Browser.Types.HTMLInputElement
     el.value <- sb.ToString()
 
-let LoadConfiguration (evt: Browser.Types.Event) =
+let LoadArcGis (evt: Browser.Types.Event) =
   let elem = evt.target :?> Browser.Types.HTMLInputElement
   let f1 = elem.files.[0]
   let reader = FileReader.Create()

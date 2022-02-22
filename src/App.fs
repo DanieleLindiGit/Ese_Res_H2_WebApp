@@ -8,6 +8,7 @@ open EconomicFunctionsPV
 open HtmlFormatters
 open Validation
 open SaveAndLoad
+open CsvParser
 
 
 let GlobalCalculation () =
@@ -51,6 +52,8 @@ document.getElementById("yearBtn").onclick <- fun _ -> YearlyCalculation ()
 
 document.getElementById("LoadConfigBtn").onchange <- fun evt -> LoadConfiguration evt
 document.getElementById("SaveConfigBtn").onclick <- fun _ -> SaveConfig ()
+
+document.getElementById("LoadArcGisBtn").onchange <- fun evt -> LoadArcGis evt
 
 AddCsvSampleData ()
 NavigationHandler ()

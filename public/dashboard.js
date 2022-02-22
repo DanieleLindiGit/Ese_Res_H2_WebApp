@@ -1,19 +1,5 @@
 /* globals Chart:false, feather:false */
 
-  function previewFile(inputCsv) {
-    const content = document.getElementById('PvWindCsvData');
-    const [file] = inputCsv.files;
-    const reader = new FileReader();
-  
-    reader.addEventListener("load", () => {
-      content.value = reader.result;
-    }, false);
-  
-    if (file) {
-      reader.readAsText(file);
-    }
-  }
-
   function download_table_as_csv(table_id, separator = ';') {
     // Select rows from table_id
     var rows = document.querySelectorAll('table#' + table_id + ' tr');

@@ -2,6 +2,7 @@ module CsvParser
 
 open System
 open Inputs
+open Browser.Dom
 
 let ParseCsvLine (line: string) =
     let fields =
@@ -37,8 +38,17 @@ let ParseArcGisLine (line:string) (factorOf1MW: float) =
         time,P,G(i),H_sun,T2m,WS10m,Int
         20150101:0010,0.0,0.0,0.0,-1.24,3.45,0.0
         yyyymmdd:hh--,POW,--,--,--,--,--
+        01234567890
     *)
-    0
+    let fields = line.Split([| "," |], StringSplitOptions.RemoveEmptyEntries)
+    let power =  sprintf "%.2f" (float fields.[1] / factorOf1MW)
+    let powerString = power.Replace('.', ',')
+    let dateString = 
+        fields.[0].Substring(6,2) + "/" + 
+        fields.[0].Substring(4, 2) + "/" +
+        fields.[0].Substring(0, 4) + " " +
+        fields.[0].Substring(9, 2) + ":00"
+    sprintf "%s;%s;0" dateString powerString
 
 let ParseArcGisFile (text: string) =
     // 1. Controllo che inizi con Latitude
@@ -46,5 +56,29 @@ let ParseArcGisFile (text: string) =
     // per vedere la potenza in kW
     // 3. Cerco la riga -> time,P,G(i),H_sun,T2m,WS10m,Int
     // per dividere le linee successive
+    let allLines = text.Split([| System.Environment.NewLine |], StringSplitOptions.RemoveEmptyEntries)
+    let np = allLines |> Array.find (fun v -> v.StartsWith "Nominal power")
+    let powerString = 
+        np.Split([| ":" |], StringSplitOptions.RemoveEmptyEntries) 
+        |> Array.map (fun v -> v.Trim())
+    let powerFactor = float powerString.[1] / 1_000_000.0
+    let firstIdx = (allLines |> Array.findIndex (fun v -> v.StartsWith "time,P"))+1
+    let lastIdx = firstIdx + 8760
+    let dataLines = allLines.[firstIdx ..  lastIdx]
 
-    0
+    let sb = System.Text.StringBuilder()
+    sb.AppendLine("Date and Time;PV Output;Wind Output") |> ignore
+    dataLines |> Array.iter (fun v ->
+        let line = ParseArcGisLine v powerFactor
+        sb.AppendLine(line) |> ignore)
+    let el = document.getElementById "PvWindCsvData" :?> Browser.Types.HTMLInputElement
+    el.value <- sb.ToString()
+
+let LoadConfiguration (evt: Browser.Types.Event) =
+  let elem = evt.target :?> Browser.Types.HTMLInputElement
+  let f1 = elem.files.[0]
+  let reader = FileReader.Create()
+  reader.onload <- fun _ -> 
+     let fileBuffer = (reader.result :?> string)
+     ParseArcGisFile fileBuffer
+  reader.readAsText f1  

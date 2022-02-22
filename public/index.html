@@ -1038,7 +1038,7 @@
 
             <!--Photovoltaic and Wind Base Hourly Production-->
             <h4>Photovoltaic and Wind Base Hourly Production</h4>
-            <p>Paste (or load) PV and Wind data in the following <code>CSV</code> format</p>
+            <p>Paste PV and Wind data in the following <code>CSV</code> format</p>
             <p><strong>Date and Time;PV Output;Wind Output</strong></p>
             <p>
               <i>DD-MM-YYYY hh:mm</i> <code><strong>;</strong></code>
@@ -1046,9 +1046,11 @@
               <i>Wind Output (MW)</i>
             </p>
             <div class="row mb-4">
-              <label class="col-sm-3 col-form-label">Load data from file</label>
+              <label class="col-sm-3 col-form-label">
+                Load PV Data from PVGIS online. Get CSV data file from <a href="https://re.jrc.ec.europa.eu/pvg_tools/it/#PVP">PVGIS PV Calculator</a>
+              </label>
               <div class="col-sm-9">
-                <input title="Load data from file" class="form-control no-validation" type="file" onchange="previewFile(this)">
+                  <input id="LoadArcGisBtn" title="Load Arcgis Data" class="form-control no-validation" type="file">
               </div>
 
             </div>

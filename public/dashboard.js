@@ -1,5 +1,3 @@
-/* globals Chart:false, feather:false */
-
   function download_table_as_csv(table_id, separator = ';') {
     // Select rows from table_id
     var rows = document.querySelectorAll('table#' + table_id + ' tr');

@@ -174,10 +174,6 @@ let getNPV_IRR_CashFlow (cy: ConstructionYearPV list) (ya: YearAnalysisPV list) 
         (cy |> List.map (fun v -> v.FCF))
         @ (ya |> List.map (fun v -> v.FCF))
 
-    printfn "Cash Flow = %A" (cashFlow |> List.map (fun v -> System.Math.Round(v, 0)))
-    printfn "Interest = %.2f" interestRate
-    printfn "NPV = %.2f" (NPV interestRate cashFlow)
-
     (NPV interestRate cashFlow, IRR cashFlow, cashFlow)
 
 let getBusinessPlanOutputPV (inp: SystemInputs) (fin: FinancialInputs) =
@@ -230,11 +226,6 @@ let optimizeLCOE_PV (bpo: BusinessPlanOutputPV) (min: float) max step =
         |> List.map abs
 
     let values = List.zip lcoes npv
-
-    (*values
-      |> List.iter (fun v ->
-      let a, b = v
-      printfn "LCOH = %.4f NPV = %.0f" a b)*)
 
     let minLcoe = values |> List.minBy snd |> fst
 

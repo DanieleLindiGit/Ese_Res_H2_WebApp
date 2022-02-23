@@ -376,11 +376,6 @@ let optimizeLCOH (bpo: BusinessPlanOutput) (min: float) max step =
 
     let values = List.zip lcohs npv
 
-    (*values
-      |> List.iter (fun v ->
-      let a, b = v
-      printfn "LCOH = %.4f NPV = %.0f" a b)*)
-
     let minLcoh = values |> List.minBy snd |> fst
 
     minLcoh
